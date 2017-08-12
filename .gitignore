@@ -1,0 +1,11 @@
+src/node_modules
+src/jspm_packages
+src/bower_components
+src/.idea
+src/.DS_STORE
+src/dist
+src/build/reports
+src/coverage
+src/test/e2e/dist
+src/typings
+src/export
