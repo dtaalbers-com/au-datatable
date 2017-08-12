@@ -1,3 +1,14 @@
 <template>
-  <h1>${message}</h1>
+    <require from="bootstrap/css/bootstrap.css"></require>
+    <!-- <require from="font-awesome/css/font-awesome.min.css"></require> -->
+    <require from="./components/aurelia-bs-datatable/aurelia-bs-datatable"></require>
+    <require from="./app.css"></require>
+
+        <div id="wrapper" class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <aurelia-bs-datatable settings.bind="settings"></aurelia-bs-datatable>
+                </div>
+            </div>
+        </div>
 </template>
