@@ -1,5 +1,5 @@
-import { SortDirections } from './models/enums/SortDirections';
 import { IDataTableSettings } from './components/aurelia-bs-datatable/contracts/IDataTableSettings';
+import { SortDirections } from './components/aurelia-bs-datatable/enums/SortDirections';
 import 'bootstrap';
 
 export class App {
