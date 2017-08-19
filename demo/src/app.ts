@@ -41,7 +41,7 @@ export class App {
                 sortable: true
             }
         ],
-        endpoint: `https://api.dtaalbers.com/datatable`,
+        endpoint: `https://api.dtaalbers.com/aurelia-bs-datatable/datatable`,
         language: {
             filtered: 'filtered',
             no_results: 'No records found.',
