@@ -20,35 +20,42 @@ export class App {
     }
 
     public next_page = async (skip: number, page_size: number): Promise<void> => {
-        let response = await this.fetch_data(skip, page_size);
-        return response.data;
+        try {
+            let response = await this.fetch_data(skip, page_size);
+            return response.data;
+        } catch (e) {
+            alert(`[app:next_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
     }
 
     public previous_page = async (skip: number, page_size: number): Promise<void> => {
-        let response = await this.fetch_data(skip, page_size);
-        return response.data;
+        try {
+            let response = await this.fetch_data(skip, page_size);
+            return response.data;
+        } catch (e) {
+            alert(`[app:previous_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
     }
 
     public change_page = async (skip: number, page_size: number): Promise<void> => {
-        let response = await this.fetch_data(skip, page_size);
-        return response.data;
+        try {
+            let response = await this.fetch_data(skip, page_size);
+            return response.data;
+        } catch (e) {
+            alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
     }
 
     private async fetch_data(skip: number, page_size: number): Promise<any> {
-        try {
-            return await this.http.fetch('https://api.dtaalbers.com/aurelia-bs-datatable/datatable', {
-                method: 'POST',
-                body: json({
-                    skip: skip,
-                    page_size: page_size,
-                    search_query: null,
-                    sort_column: 1,
-                    sort_direction: 0
-                })
-            }).then(x => x.json()) as any;
-        } catch (e) {
-            throw e;
-            // alert(`[au-table] Failed to load the data: ${JSON.stringify(e)}`);
-        }
+        return await this.http.fetch('https://api.dtaalbers.com/aurelia-bs-datatable/datatable', {
+            method: 'POST',
+            body: json({
+                skip: skip,
+                page_size: page_size,
+                search_query: null,
+                sort_column: 1,
+                sort_direction: 0
+            })
+        }).then(x => x.json()) as any;
     }
 }
