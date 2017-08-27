@@ -1,66 +1,55 @@
-import { IDataTableSettings } from './components/aurelia-bs-datatable/contracts/IDataTableSettings';
-import { SortDirections } from './components/aurelia-bs-datatable/enums/SortDirections';
 import 'bootstrap';
+import { HttpClient, json } from 'aurelia-fetch-client';
+import { autoinject } from 'aurelia-framework';
 
+@autoinject()
 export class App {
 
-    /**
-     * The datatable settings
-     */
-    public settings: IDataTableSettings = {
-        columns: [
-            {
-                title: '',
-                data: 'thumbnail',
-                image: true,
-                sortable: false
-            },
-            {
-                title: 'Name',
-                data: 'name',
-                sortable: true
-            },
-            {
-                title: 'City',
-                data: 'city',
-                sortable: true
-            },
-            {
-                title: 'Username',
-                data: 'username',
-                sortable: true
-            },
-            {
-                title: 'Email',
-                data: 'email',
-                sortable: true
-            },            
-            {
-                title: 'Nationality',
-                data: 'nat',
-                sortable: true
-            }
-        ],
-        endpoint: `https://api.dtaalbers.com/aurelia-bs-datatable/datatable`,
-        language: {
-            filtered: 'filtered',
-            no_results: 'No records found.',
-            loading: 'Loading...',
-            record_information: 'START_RECORD to END_RECORD of total TOTAL_RECORDS records ',
-            reset_selection: 'Remove selection',
-            search_placeholder: 'Search..'
-        },
-        initial_sort_column: 1,
-        initial_sort_direction: SortDirections.Ascending,
-        page_sizes: [
-            10,
-            25,
-            50,
-            100
-        ],
-        show_search: true,
-        on_row_double_click: (index: number, row_data: any) => alert('double clicked'),
-        select_on_click: true,
-        button_classes: 'btn-create'
-    };
+    public page_size: number = 10;
+    public total_records: number;
+    public data: Array<any>;
+
+    constructor(
+        private http: HttpClient
+    ) { }
+
+    public async attached(): Promise<void> {
+        let response = await this.fetch_data(0, this.page_size);
+        this.data = response.data;
+        this.total_records = response.total_records;
+        console.log(this.total_records);
+    }
+
+    public next_page = async (skip: number, page_size: number): Promise<void> => {
+        let response = await this.fetch_data(skip, page_size);
+        return response.data;
+    }
+
+    public previous_page = async (skip: number, page_size: number): Promise<void> => {
+        let response = await this.fetch_data(skip, page_size);
+        return response.data;
+    }
+
+    public change_page = async (skip: number, page_size: number): Promise<void> => {
+        let response = await this.fetch_data(skip, page_size);
+        return response.data;
+    }
+
+    private async fetch_data(skip: number, page_size: number): Promise<any> {
+        try {
+            return await this.http.fetch('https://api.dtaalbers.com/aurelia-bs-datatable/datatable', {
+                method: 'POST',
+                body: json({
+                    skip: skip,
+                    page_size: page_size,
+                    search_query: null,
+                    sort_column: 1,
+                    sort_direction: 0
+                })
+            }).then(x => x.json()) as any;
+        } catch (e) {
+            throw e;
+            // alert(`[au-table] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
 }

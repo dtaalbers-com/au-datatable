@@ -1,14 +1,47 @@
 <template>
     <require from="bootstrap/css/bootstrap.css"></require>
-    <!-- <require from="font-awesome/css/font-awesome.min.css"></require> -->
-    <require from="./components/aurelia-bs-datatable/aurelia-bs-datatable"></require>
     <require from="./app.css"></require>
 
-        <div id="wrapper" class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <aurelia-bs-datatable settings.bind="settings"></aurelia-bs-datatable>
-                </div>
+    <div id="wrapper" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped" au-table="
+                        starting_data.bind: data; 
+                        total_records.bind: total_records;
+                        current_page.bind: current_page;
+                        table_data.bind: $table_data;
+                        page_size.bind: page_size">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr repeat.for="item of $table_data">
+                            <td><img src="${item.thumbnail}"></td>
+                            <td>${item.name}</td>
+                            <td>${item.city}</td>
+                            <td>${item.username}</td>
+                            <td>${item.email}</td>
+                            <td>${item.nat}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <au-table-pagination 
+                    table_data.bind="$table_data"
+                    page_size.bind="page_size"
+                    current_page.bind="current_page"
+                    total_records.bind="total_records"
+                    on_next_page.bind="next_page"
+                    on_previous_page.bind="previous_page"
+                    on_page_change.bind="change_page">
+                </au-table-pagination>
             </div>
         </div>
+    </div>
 </template>

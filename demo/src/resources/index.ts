@@ -1,5 +1,10 @@
-import {FrameworkConfiguration} from 'aurelia-framework';
+import { FrameworkConfiguration } from 'aurelia-framework';
 
-export function configure(config: FrameworkConfiguration) {
-  //config.globalResources([]);
+export function configure(
+    config: FrameworkConfiguration
+) {
+    config.globalResources([
+        '../components/au-table/au-table',
+        '../components/au-table/au-table-pagination'
+    ]);
 }
