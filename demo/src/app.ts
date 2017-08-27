@@ -17,7 +17,6 @@ export class App {
         let response = await this.fetch_data(0, this.page_size);
         this.data = response.data;
         this.total_records = response.total_records;
-        console.log(this.total_records);
     }
 
     public next_page = async (skip: number, page_size: number): Promise<void> => {
