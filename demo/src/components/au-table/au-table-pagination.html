@@ -1,0 +1,37 @@
+<template>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a click.delegate="previous_page()" aria-label="Vorige">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li if.bind="current_page > amount_of_pages + 1">
+                <a click.delegate="change_page(0)">1</a>
+            </li>
+            <li if.bind="current_page > amount_of_pages + 2" class="dots">
+                <a>...</a>
+            </li>
+            <li if.bind="!refreshing" repeat.for="i of previous_pages">
+                <a click.delegate="change_page((current_page + i) - amount_of_pages - 1)"> ${ calculate_previous_page_number(i) }</a>
+            </li>
+            <li class="active">
+                <a>${ current_page }</a>
+            </li>
+            <li if.bind="!refreshing" repeat.for="i of following_pages">
+                <a click.delegate="change_page(current_page + i)">${ current_page + (i + 1) }</a>
+            </li>
+            <li if.bind="current_page < total_pages - 3" class="dots">
+                <a>...</a>
+            </li>
+            <li if.bind="current_page < total_pages - amount_of_pages">
+                <a click.delegate="change_page(total_pages - 1)">${ total_pages }</a>
+            </li>
+            <li>
+                <a click.delegate="next_page()" aria-label="Volgende">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</template>
