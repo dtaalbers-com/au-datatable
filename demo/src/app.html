@@ -5,12 +5,32 @@
     <div id="wrapper" class="container">
         <div class="row">
             <div class="col-md-12">
+                <au-table-header>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <au-table-search 
+                                placeholder="Search.."
+                                input_classes="form-control" 
+                                skip.bind="skip"
+                                page_size.bind="page_size" 
+                                search_query.bind="search_query"
+                                current_page.bind="current_page" 
+                                table_data.bind="$table_data"
+                                total_records.bind="total_records"
+                                on_search_change.bind="search">
+                            </au-table-search>
+                        </div>
+                    </div>
+                </au-table-header>
                 <table class="table table-bordered table-striped" au-table="
                         starting_data.bind: data; 
-                        total_records.bind: total_records;
+                        skip.bind: skip;
+                        page_size.bind: page_size;
+                        search_query.bind: search_query;
                         current_page.bind: current_page;
-                        table_data.bind: $table_data;
-                        page_size.bind: page_size">
+                        total_records.bind: total_records;
+                        table_data.bind: $table_data">
                     <thead>
                         <tr>
                             <th></th>
@@ -33,12 +53,14 @@
                     </tbody>
                 </table>
                 <au-table-pagination 
-                    table_data.bind="$table_data"
-                    page_size.bind="page_size"
-                    current_page.bind="current_page"
+                    table_data.bind="$table_data" 
+                    skip.bind="skip"
+                    page_size.bind="page_size" 
+                    search_query.bind="search_query"
+                    current_page.bind="current_page" 
                     total_records.bind="total_records"
-                    on_next_page.bind="next_page"
-                    on_previous_page.bind="previous_page"
+                    on_next_page.bind="next_page" 
+                    on_previous_page.bind="previous_page" 
                     on_page_change.bind="change_page">
                 </au-table-pagination>
             </div>

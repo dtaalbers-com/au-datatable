@@ -5,6 +5,8 @@ export function configure(
 ) {
     config.globalResources([
         '../components/au-table/au-table',
-        '../components/au-table/au-table-pagination/au-table-pagination'
+        '../components/au-table/au-table-pagination/au-table-pagination',
+        '../components/au-table/au-table-header/au-table-header',
+        '../components/au-table/au-table-search/au-table-search'
     ]);
 }
