@@ -7,6 +7,7 @@ export function configure(
         '../components/au-table/au-table',
         '../components/au-table/au-table-pagination/au-table-pagination',
         '../components/au-table/au-table-header/au-table-header',
-        '../components/au-table/au-table-search/au-table-search'
+        '../components/au-table/au-table-search/au-table-search',
+        '../components/au-table/au-table-pagesize/au-table-pagesize'
     ]);
 }

@@ -5,7 +5,7 @@ import { autoinject } from 'aurelia-framework';
 @autoinject()
 export class App {
 
-    public page_size: number = 10;
+    public initital_page_size: number = 10;
     public total_records: number;
     public data: Array<any>;
 
@@ -15,7 +15,7 @@ export class App {
 
     public async attached(): Promise<void> {
         let response = await this.fetch_data({
-            page_size: this.page_size,
+            page_size: this.initital_page_size,
             skip: 0
         });
         this.data = response.data;
@@ -53,6 +53,15 @@ export class App {
         try {
             let response = await this.fetch_data(params);
             this.total_records = response.total_records;
+            return response.data;
+        } catch (e) {
+            alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public page_size_changed = async (params: any): Promise<void> => {
+        try {
+            let response = await this.fetch_data(params);
             return response.data;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);

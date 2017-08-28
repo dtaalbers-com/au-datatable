@@ -8,9 +8,9 @@ export class AuTablePagination {
     @bindable public on_previous_page: Function;
     @bindable public on_page_change: Function;
 
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) public page_size: number;
-    @bindable({ changeHandler: 'initial_pagination_load' }) public total_records: number;
-    @bindable({ defaultBindingMode: bindingMode.twoWay, changeHandler: 'initial_pagination_load' }) public current_page: number;
+    @bindable({ defaultBindingMode: bindingMode.twoWay, changeHandler: 'data_change' }) public page_size: number;
+    @bindable({ changeHandler: 'data_change' }) public total_records: number;
+    @bindable({ defaultBindingMode: bindingMode.twoWay, changeHandler: 'data_change' }) public current_page: number;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public search_query: string;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public table_data: any;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public skip: number;
@@ -20,7 +20,7 @@ export class AuTablePagination {
     private previous_pages: number;
     private refreshing: boolean = false;
 
-    private initial_pagination_load(): void {
+    private data_change(): void {
         if (this.current_page == undefined || this.total_records == undefined) return;
         this.refreshing = true;
         this.total_pages = Math.ceil(parseInt(this.total_records.toString()) / this.page_size);

@@ -7,20 +7,33 @@
             <div class="col-md-12">
                 <au-table-header>
                     <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-3">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-4">
                             <au-table-search 
                                 placeholder="Search.."
                                 input_classes="form-control" 
+                                on_search_change.bind="search"
                                 skip.bind="skip"
                                 page_size.bind="page_size" 
                                 search_query.bind="search_query"
                                 current_page.bind="current_page" 
-                                table_data.bind="$table_data"
                                 total_records.bind="total_records"
-                                on_search_change.bind="search">
+                                table_data.bind="$table_data">
                             </au-table-search>
                         </div>
+                        <div class="col-md-2">
+                            <au-table-pagesize 
+                                page_sizes="10,25,50,100"
+                                classes="form-control"
+                                on_page_size_change.bind="page_size_changed"
+                                skip.bind="skip"
+                                page_size.bind="page_size" 
+                                search_query.bind="search_query"
+                                current_page.bind="current_page" 
+                                total_records.bind="total_records"
+                                table_data.bind="$table_data">
+                            </au-table-pagesize>
+                        </div>   
                     </div>
                 </au-table-header>
                 <table class="table table-bordered table-striped" au-table="
@@ -30,7 +43,7 @@
                         search_query.bind: search_query;
                         current_page.bind: current_page;
                         total_records.bind: total_records;
-                        table_data.bind: $table_data">
+                        table_data.bind: $table_data;">
                     <thead>
                         <tr>
                             <th></th>
@@ -53,15 +66,15 @@
                     </tbody>
                 </table>
                 <au-table-pagination 
-                    table_data.bind="$table_data" 
+                    on_next_page.bind="next_page" 
+                    on_previous_page.bind="previous_page" 
+                    on_page_change.bind="change_page"
                     skip.bind="skip"
                     page_size.bind="page_size" 
                     search_query.bind="search_query"
                     current_page.bind="current_page" 
                     total_records.bind="total_records"
-                    on_next_page.bind="next_page" 
-                    on_previous_page.bind="previous_page" 
-                    on_page_change.bind="change_page">
+                    table_data.bind="$table_data" >
                 </au-table-pagination>
             </div>
         </div>
