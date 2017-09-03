@@ -43,33 +43,6 @@
     table {
         margin: 0;
 
-        thead {
-            tr {
-                th {
-
-                    &.sortable {
-                        cursor: pointer;
-                    }
-
-                    .sorting {
-                        float: right;
-                        word-break: break-all;
-
-                        .sort {
-                            color: #ddd;
-                            display: block;
-                            height: 8px;
-                            margin-left: 20px;
-
-                            &.active {
-                                color: #333 !important;   
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         tbody {
             tr {
                 &.selected {

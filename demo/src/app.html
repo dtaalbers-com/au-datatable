@@ -44,7 +44,15 @@
                         current_page.bind: current_page;
                         total_records.bind: total_records;
                         table_data.bind: table_data;">
-                    <thead>
+                    <thead au-table-sort="   
+                            columns: 1,2,3,4,5;
+                            on_sort.bind: sort;
+                            skip.bind: skip;
+                            page_size.bind: page_size;
+                            search_query.bind: search_query;
+                            current_page.bind: current_page;
+                            total_records.bind: total_records;
+                            table_data.bind: table_data;">
                         <tr>
                             <th></th>
                             <th>Name</th>
