@@ -13,7 +13,7 @@ export class AuTableInfo {
 
     @bindable({ changeHandler: 'translate_info' }) public page_size: number;
     @bindable({ changeHandler: 'translate_info' }) public search_query: string;
-    @bindable({ changeHandler: 'translate_info' }) public table_data: any;
+    @bindable({ changeHandler: 'translate_info' }) public table_data: Array<any>;
     @bindable({ changeHandler: 'translate_info' }) public total_records: any;
     @bindable({ changeHandler: 'update_record_info' }) public current_page: any;
 
@@ -37,10 +37,15 @@ export class AuTableInfo {
         }
         this.current_page_copy = this.current_page;
         this.translate_info();
+        console.log('serach')
     }
 
     private translate_info(): void {
-        if (!this.table_data || !this.total_records || !this.page_size || !this.start_record || !this.end_record) return;
+        if (this.total_records == undefined
+            || this.page_size == undefined
+            || this.start_record == undefined
+            || this.end_record == undefined) return;
+        console.log('123', this.total_records)
         this.info = this.message
             .replace('START_RECORD', this.table_data.length == 0
                 ? '0'

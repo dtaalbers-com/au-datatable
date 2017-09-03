@@ -1,7 +1,7 @@
 import { autoinject, bindable, customAttribute, bindingMode, BindingEngine } from 'aurelia-framework';
 
 @customAttribute('au-table')
-export class AuTableCustomAttribute {
+export class AuTable {
 
     @bindable({ changeHandler: 'set_data' }) public starting_data: Array<any>;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public skip: number;

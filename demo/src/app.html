@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr repeat.for="item of table_data">
+                        <tr if.bind="table_data.length > 0" repeat.for="item of table_data">
                             <td><img src="${item.thumbnail}"></td>
                             <td>${item.name}</td>
                             <td>${item.city}</td>
@@ -63,6 +63,14 @@
                             <td>${item.email}</td>
                             <td>${item.nat}</td>
                         </tr>
+                        <tr if.bind="table_data.length == 0">
+                                <td>No records found</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                     </tbody>
                 </table>
                 <div class="footer">

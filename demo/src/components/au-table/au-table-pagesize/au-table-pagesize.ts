@@ -15,7 +15,7 @@ export class AuTablePagesize {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public search_query: string;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public current_page: number;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public total_records: number;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) public table_data: any;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) public table_data: Array<any>;
 
     public bind(): void {
         if (!this.page_sizes || this.page_sizes.length == 0)

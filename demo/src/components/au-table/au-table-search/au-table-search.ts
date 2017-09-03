@@ -11,7 +11,7 @@ export class AuTableSearch {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public page_size: number;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public search_query: string;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public current_page: number;
-    @bindable({ defaultBindingMode: bindingMode.twoWay }) public table_data: any;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) public table_data: Array<any>;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) public total_records: any;
 
     public async search(): Promise<void> {
