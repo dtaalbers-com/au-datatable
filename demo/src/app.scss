@@ -104,10 +104,21 @@
     }
     
     .footer {
-        padding: 15px;
+
+        .col-md-6 {
+            padding: 0;
+        }
+
+        padding: 10px 5px;
+        height: 55px;
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
         border-bottom: 1px solid #ddd; 
+
+        .au-table-info {
+            margin-top: 8px;
+            margin-left: 10px;
+        }
 
         .info {
             margin-top: 0px;
@@ -115,11 +126,6 @@
         }
 
         nav {
-            position: absolute;
-            right: 8px;
-            top: -7px;
-            height: 34px;
-            display: inline-block;
 
             ul {
                 margin: 0;

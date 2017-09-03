@@ -5,7 +5,7 @@
     <div id="wrapper" class="container">
         <div class="row">
             <div class="col-md-12">
-                <au-table-header>
+                <div class="header">
                     <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-4">
@@ -18,7 +18,7 @@
                                 search_query.bind="search_query"
                                 current_page.bind="current_page" 
                                 total_records.bind="total_records"
-                                table_data.bind="$table_data">
+                                table_data.bind="table_data">
                             </au-table-search>
                         </div>
                         <div class="col-md-2">
@@ -31,11 +31,11 @@
                                 search_query.bind="search_query"
                                 current_page.bind="current_page" 
                                 total_records.bind="total_records"
-                                table_data.bind="$table_data">
+                                table_data.bind="table_data">
                             </au-table-pagesize>
                         </div>   
                     </div>
-                </au-table-header>
+                </div>
                 <table class="table table-bordered table-striped" au-table="
                         starting_data.bind: data; 
                         skip.bind: skip;
@@ -43,7 +43,7 @@
                         search_query.bind: search_query;
                         current_page.bind: current_page;
                         total_records.bind: total_records;
-                        table_data.bind: $table_data;">
+                        table_data.bind: table_data;">
                     <thead>
                         <tr>
                             <th></th>
@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr repeat.for="item of $table_data">
+                        <tr repeat.for="item of table_data">
                             <td><img src="${item.thumbnail}"></td>
                             <td>${item.name}</td>
                             <td>${item.city}</td>
@@ -65,17 +65,33 @@
                         </tr>
                     </tbody>
                 </table>
-                <au-table-pagination 
-                    on_next_page.bind="next_page" 
-                    on_previous_page.bind="previous_page" 
-                    on_page_change.bind="change_page"
-                    skip.bind="skip"
-                    page_size.bind="page_size" 
-                    search_query.bind="search_query"
-                    current_page.bind="current_page" 
-                    total_records.bind="total_records"
-                    table_data.bind="$table_data" >
-                </au-table-pagination>
+                <div class="footer">
+                    <div class="col-md-6">
+                        <au-table-info
+                            message="START_RECORD to END_RECORD of total TOTAL_RECORDS records"
+                            page_size.bind="page_size" 
+                            search_query.bind="search_query"
+                            current_page.bind="current_page" 
+                            total_records.bind="total_records"
+                            current_page.bind="current_page" 
+                            table_data.bind="table_data">
+                        </au-table-info>
+                    </div>
+                    <div class="col-md-6">
+                        <au-table-pagination 
+                            class="pull-right"
+                            on_next_page.bind="next_page" 
+                            on_previous_page.bind="previous_page" 
+                            on_page_change.bind="change_page"
+                            skip.bind="skip"
+                            page_size.bind="page_size" 
+                            search_query.bind="search_query"
+                            current_page.bind="current_page" 
+                            total_records.bind="total_records"
+                            table_data.bind="table_data">
+                        </au-table-pagination>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
