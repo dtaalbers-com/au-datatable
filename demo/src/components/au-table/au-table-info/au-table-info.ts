@@ -37,7 +37,6 @@ export class AuTableInfo {
         }
         this.current_page_copy = this.current_page;
         this.translate_info();
-        console.log('serach')
     }
 
     private translate_info(): void {
@@ -45,7 +44,6 @@ export class AuTableInfo {
             || this.page_size == undefined
             || this.start_record == undefined
             || this.end_record == undefined) return;
-        console.log('123', this.total_records)
         this.info = this.message
             .replace('START_RECORD', this.table_data.length == 0
                 ? '0'
