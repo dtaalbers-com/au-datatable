@@ -12,13 +12,8 @@
                             <au-table-search 
                                 placeholder="Search.."
                                 input_classes="form-control" 
-                                on_search_change.bind="search"
-                                skip.bind="skip"
-                                page_size.bind="page_size" 
-                                search_query.bind="search_query"
-                                current_page.bind="current_page" 
-                                total_records.bind="total_records"
-                                table_data.bind="table_data">
+                                on_search_change.bind="search"                                
+                                parameters.bind="parameters">
                             </au-table-search>
                         </div>
                         <div class="col-md-2">
@@ -26,33 +21,17 @@
                                 page_sizes="10,25,50,100"
                                 classes="form-control"
                                 on_page_size_change.bind="page_size_changed"
-                                skip.bind="skip"
-                                page_size.bind="page_size" 
-                                search_query.bind="search_query"
-                                current_page.bind="current_page" 
-                                total_records.bind="total_records"
-                                table_data.bind="table_data">
+                                parameters.bind="parameters">
                             </au-table-pagesize>
                         </div>   
                     </div>
                 </div>
-                <table class="table table-bordered table-striped" au-table="
-                        starting_data.bind: data; 
-                        skip.bind: skip;
-                        page_size.bind: page_size;
-                        search_query.bind: search_query;
-                        current_page.bind: current_page;
-                        total_records.bind: total_records;
-                        table_data.bind: table_data;">
+                <table class="table table-bordered table-striped" 
+                    au-table=" starting_data.bind: data; parameters.bind: parameters;">
                     <thead au-table-sort="   
-                            columns: 1,2,3,4,5;
-                            on_sort.bind: sort;
-                            skip.bind: skip;
-                            page_size.bind: page_size;
-                            search_query.bind: search_query;
-                            current_page.bind: current_page;
-                            total_records.bind: total_records;
-                            table_data.bind: table_data;">
+                    columns: 1,2,3,4,5;
+                    on_sort.bind: sort;
+                    parameters.bind: parameters">
                         <tr>
                             <th></th>
                             <th>Name</th>
@@ -63,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr if.bind="table_data.length > 0" repeat.for="item of table_data">
+                        <tr if.bind="parameters.table_data.length > 0" repeat.for="item of parameters.table_data">
                             <td><img src="${item.thumbnail}"></td>
                             <td>${item.name}</td>
                             <td>${item.city}</td>
@@ -71,7 +50,7 @@
                             <td>${item.email}</td>
                             <td>${item.nat}</td>
                         </tr>
-                        <tr if.bind="table_data.length == 0">
+                        <tr if.bind="parameters.table_data.length == 0">
                                 <td>No records found</td>
                                 <td></td>
                                 <td></td>
@@ -83,15 +62,7 @@
                 </table>
                 <div class="footer">
                     <div class="col-md-6">
-                        <au-table-info
-                            message="START_RECORD to END_RECORD of total TOTAL_RECORDS records"
-                            page_size.bind="page_size" 
-                            search_query.bind="search_query"
-                            current_page.bind="current_page" 
-                            total_records.bind="total_records"
-                            current_page.bind="current_page" 
-                            table_data.bind="table_data">
-                        </au-table-info>
+                        <au-table-info parameters.bind="parameters"></au-table-info>
                     </div>
                     <div class="col-md-6">
                         <au-table-pagination 
@@ -99,12 +70,7 @@
                             on_next_page.bind="next_page" 
                             on_previous_page.bind="previous_page" 
                             on_page_change.bind="change_page"
-                            skip.bind="skip"
-                            page_size.bind="page_size" 
-                            search_query.bind="search_query"
-                            current_page.bind="current_page" 
-                            total_records.bind="total_records"
-                            table_data.bind="table_data">
+                            parameters.bind="parameters">
                         </au-table-pagination>
                     </div>
                 </div>
