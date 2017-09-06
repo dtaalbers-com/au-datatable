@@ -24,12 +24,16 @@ export class AuTableInfo {
         this.subscriptions.push(this.binding_engine
             .propertyObserver(this.parameters, 'table_data')
             .subscribe(() => this.update_record_info()));
+        this.subscriptions.push(this.binding_engine
+            .propertyObserver(this.parameters, 'page_size')
+            .subscribe(() => this.reset()));
+    }
+
+    public detached(): void {
+        this.subscriptions.forEach(x => x.dispose());
     }
 
     private update_record_info(): void {
-        console.log('next', this.current_page_copy);
-        // TODO: reset current_page_copy when pagesize changes SUBSRIPTION???
-        // Steps to reproduce, change to page two, then change page size. Start record is negative
         if (!this.start_record && !this.end_record) {
             this.start_record = 1;
             this.end_record = this.parameters.page_size;
@@ -80,7 +84,8 @@ export class AuTableInfo {
         this.end_record = next > this.parameters.total_records ? this.parameters.total_records : next;
     }
 
-    public detached(): void {
-        this.subscriptions.forEach(x => x.dispose());
+    private reset(): void {
+        this.parameters.current_page = 1;
+        this.current_page_copy = 1;        
     }
 }

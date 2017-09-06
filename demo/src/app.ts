@@ -14,7 +14,7 @@ export class App {
         table_data: undefined,
         page_size: 10,
         skip: 0,
-        sort_column: 5,
+        sort_column: 1,
         sort_direction: 'ascending',
         current_page: 1,
     }
