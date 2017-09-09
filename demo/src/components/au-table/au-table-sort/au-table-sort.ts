@@ -1,11 +1,11 @@
 import { autoinject, bindable, customAttribute, bindingMode } from 'aurelia-framework';
-import { IAuTableParameters } from '../IAuTableParameters';
+import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
 
 @customAttribute('au-table-sort')
 export class AuTableSort {
 
     @bindable public on_sort: Function;
-    @bindable public columns: string;
+    @bindable public columns: Array<number>;
     @bindable public active_color: string = '#f44336';
     @bindable public inactive_color: string = '#000'
 
@@ -29,13 +29,13 @@ export class AuTableSort {
         if (this.element.nodeName != 'THEAD')
             throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
         this.headers = Array.from(this.element.getElementsByTagName('th'));
-        this.columns.split(',').forEach(column => {
-            let header = this.headers[parseInt(column)];
+        this.columns.forEach(column => {
+            let header = this.headers[column];
             header.style.cursor = 'pointer';
-            header.setAttribute('index', column);
+            header.setAttribute('index', column.toString());
             header.addEventListener('click', event => this.sort(event));
             header.innerHTML = header.innerHTML + this.template;
-            if (this.parameters.sort_column == parseInt(column))
+            if (this.parameters.sort_column == column)
                 this.set_active(header, this.parameters.sort_direction)
         });
     }

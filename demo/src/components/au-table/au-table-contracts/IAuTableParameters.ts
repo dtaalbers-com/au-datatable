@@ -1,3 +1,5 @@
+import {IAuTableFilter} from './IAuTableFilter';
+
 export interface IAuTableParameters {
     search_query: string;
     skip: number;
@@ -7,4 +9,5 @@ export interface IAuTableParameters {
     current_page: number;
     sort_direction: string;
     sort_column: number;
+    filters: Array<IAuTableFilter>;
 }

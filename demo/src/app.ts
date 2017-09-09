@@ -1,7 +1,8 @@
 import 'bootstrap';
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
-import { IAuTableParameters } from "./components/au-table/IAuTableParameters";
+import { IAuTableParameters } from './components/au-table/au-table-contracts/IAuTableParameters';
+import { IAuTableFilter } from './components/au-table/au-table-contracts/IAuTableFilter';
 
 @autoinject()
 export class App {
@@ -17,7 +18,22 @@ export class App {
         sort_column: 1,
         sort_direction: 'ascending',
         current_page: 1,
+        filters: []
     }
+
+    public filters: Array<IAuTableFilter> =
+    [
+        {
+            description: 'GreaterThan',
+            value: undefined,
+            apply_to_columns: [1, 2, 3, 4, 5]
+        },
+        {
+            description: 'Equals',
+            value: undefined,
+            apply_to_columns: [1, 2, 4, 5]
+        }
+    ];
 
     constructor(
         private http: HttpClient
@@ -82,6 +98,16 @@ export class App {
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
+    }
+
+    public filter = async (parameters: IAuTableParameters): Promise<void> => {
+        console.log('filter', parameters);
+        // try {
+        //     let response = await this.fetch_data(parameters);
+        //     return response.data;
+        // } catch (e) {
+        //     alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
+        // }
     }
 
     private async fetch_data(parameters: IAuTableParameters): Promise<any> {

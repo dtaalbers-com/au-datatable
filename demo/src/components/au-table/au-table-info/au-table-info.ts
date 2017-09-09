@@ -1,5 +1,5 @@
 import { customElement, bindable, bindingMode, BindingEngine, Disposable } from 'aurelia-framework';
-import { IAuTableParameters } from '../IAuTableParameters';
+import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
 
 @customElement('au-table-info')
 export class AuTableInfo {

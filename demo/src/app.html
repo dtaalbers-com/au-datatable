@@ -9,29 +9,17 @@
                     <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-4">
-                            <au-table-search 
-                                placeholder="Search.."
-                                input_classes="form-control" 
-                                on_search_change.bind="search"                                
-                                parameters.bind="parameters">
+                            <au-table-search placeholder="Search.." input_classes="form-control" on_search_change.bind="search" parameters.bind="parameters">
                             </au-table-search>
                         </div>
                         <div class="col-md-2">
-                            <au-table-pagesize 
-                                page_sizes="10,25,50,100"
-                                classes="form-control"
-                                on_page_size_change.bind="page_size_changed"
-                                parameters.bind="parameters">
+                            <au-table-pagesize page_sizes.bind="[10,25,50,100]" classes="form-control" on_page_size_change.bind="page_size_changed" parameters.bind="parameters">
                             </au-table-pagesize>
-                        </div>   
+                        </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped" 
-                    au-table=" starting_data.bind: data; parameters.bind: parameters;">
-                    <thead au-table-sort="   
-                    columns: 1,2,3,4,5;
-                    on_sort.bind: sort;
-                    parameters.bind: parameters">
+                <table class="table table-bordered table-striped" au-table=" starting_data.bind: data; parameters.bind: parameters;">
+                    <thead au-table-sort="columns.bind: [1,2,3,4,5]; on_sort.bind: sort; parameters.bind: parameters">
                         <tr>
                             <th></th>
                             <th>Name</th>
@@ -39,6 +27,13 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Nationality</th>
+                        </tr>
+                        <tr as-element="au-table-filter" 
+                            on_filter.bind="filter" 
+                            filters.bind="filters" 
+                            columns.bind="[1,2,3,4,5]"
+                            parameters.bind="parameters"
+                            containerless>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,14 +45,6 @@
                             <td>${item.email}</td>
                             <td>${item.nat}</td>
                         </tr>
-                        <tr if.bind="parameters.table_data.length == 0">
-                                <td>No records found</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
                     </tbody>
                 </table>
                 <div class="footer">
@@ -65,12 +52,7 @@
                         <au-table-info parameters.bind="parameters"></au-table-info>
                     </div>
                     <div class="col-md-6">
-                        <au-table-pagination 
-                            class="pull-right"
-                            on_next_page.bind="next_page" 
-                            on_previous_page.bind="previous_page" 
-                            on_page_change.bind="change_page"
-                            parameters.bind="parameters">
+                        <au-table-pagination class="pull-right" on_next_page.bind="next_page" on_previous_page.bind="previous_page" on_page_change.bind="change_page" parameters.bind="parameters">
                         </au-table-pagination>
                     </div>
                 </div>

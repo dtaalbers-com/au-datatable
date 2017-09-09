@@ -1,13 +1,12 @@
 import { customElement, bindable, bindingMode } from 'aurelia-framework';
-import { IAuTableParameters } from '../IAuTableParameters';
+import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
 
 @customElement('au-table-pagesize')
 export class AuTablePagesize {
 
     private selected_page_size: number;
-    private sizes: Array<number>;
 
-    @bindable public page_sizes: string;
+    @bindable public page_sizes: Array<number>;
     @bindable public classes: string;
     @bindable public on_page_size_change: Function;
     @bindable public parameters: IAuTableParameters
@@ -15,8 +14,7 @@ export class AuTablePagesize {
     public bind(): void {
         if (!this.page_sizes || this.page_sizes.length == 0)
             throw new Error('[au-table-pagesize:bind] No page sizes has been bound.');
-        this.sizes = this.page_sizes.split(',').map(x => parseInt(x));
-        this.parameters.page_size = this.sizes[0]
+        this.parameters.page_size = this.page_sizes[0]
     }
 
     public async page_size_change(): Promise<void> {

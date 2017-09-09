@@ -1,5 +1,5 @@
 import { autoinject, bindable, customAttribute, bindingMode, BindingEngine } from 'aurelia-framework';
-import { IAuTableParameters } from './IAuTableParameters';
+import { IAuTableParameters } from './au-table-contracts/IAuTableParameters';
 
 @customAttribute('au-table')
 export class AuTableCustomAttribute {

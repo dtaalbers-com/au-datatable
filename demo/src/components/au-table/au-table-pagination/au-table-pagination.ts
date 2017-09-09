@@ -1,5 +1,5 @@
 import { customElement, bindable, bindingMode, BindingEngine, autoinject, Disposable } from 'aurelia-framework';
-import { IAuTableParameters } from '../IAuTableParameters';
+import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
 
 @autoinject()
 @customElement('au-table-pagination')

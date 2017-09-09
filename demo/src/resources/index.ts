@@ -9,6 +9,7 @@ export function configure(
         '../components/au-table/au-table-search/au-table-search',
         '../components/au-table/au-table-pagesize/au-table-pagesize',
         '../components/au-table/au-table-info/au-table-info',
-        '../components/au-table/au-table-sort/au-table-sort'
+        '../components/au-table/au-table-sort/au-table-sort',
+        '../components/au-table/au-table-filter/au-table-filter'
     ]);
 }
