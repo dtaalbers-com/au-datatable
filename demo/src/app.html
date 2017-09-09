@@ -19,10 +19,11 @@
                     </div>
                 </div>
                 <table class="table table-bordered table-striped" au-table=" starting_data.bind: data; parameters.bind: parameters;">
-                    <thead au-table-sort="columns.bind: [1,2,3,4,5]; on_sort.bind: sort; parameters.bind: parameters">
+                    <thead au-table-sort="columns.bind: [1,2,3,4,5,6]; on_sort.bind: sort; parameters.bind: parameters">
                         <tr>
                             <th></th>
                             <th>Name</th>
+                            <th>Age</th>
                             <th>City</th>
                             <th>Username</th>
                             <th>Email</th>
@@ -30,8 +31,8 @@
                         </tr>
                         <tr as-element="au-table-filter" 
                             on_filter.bind="filter" 
-                            filters.bind="filters" 
-                            columns.bind="[1,2,3,4,5]"
+                            filters.bind="table_filters" 
+                            columns.bind="[1,2,3,4,5,6]"
                             parameters.bind="parameters"
                             containerless>
                         </tr>
@@ -40,6 +41,7 @@
                         <tr if.bind="parameters.table_data.length > 0" repeat.for="item of parameters.table_data">
                             <td><img src="${item.thumbnail}"></td>
                             <td>${item.name}</td>
+                            <td>${item.age}</td>
                             <td>${item.city}</td>
                             <td>${item.username}</td>
                             <td>${item.email}</td>

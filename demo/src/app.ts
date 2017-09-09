@@ -21,17 +21,27 @@ export class App {
         filters: []
     }
 
-    public filters: Array<IAuTableFilter> =
+    public table_filters: Array<IAuTableFilter> =
     [
         {
-            description: 'GreaterThan',
+            description: 'Contains',
             value: undefined,
-            apply_to_columns: [1, 2, 3, 4, 5]
+            apply_to_columns: [1, 3, 4, 5, 6]
+        },
+        {
+            description: 'Greater Than',
+            value: undefined,
+            apply_to_columns: [2]
+        },
+        {
+            description: 'Smaller Than',
+            value: undefined,
+            apply_to_columns: [2]
         },
         {
             description: 'Equals',
             value: undefined,
-            apply_to_columns: [1, 2, 4, 5]
+            apply_to_columns: [1,2,3,4,5,6]
         }
     ];
 
@@ -45,7 +55,7 @@ export class App {
         this.parameters.total_records = response.total_records;
     }
 
-    public next_page = async (parameters: IAuTableParameters): Promise<void> => {
+    public next_page = async (parameters: IAuTableParameters): Promise<any> => {
         try {
             let response = await this.fetch_data(parameters);
             return response.data;
@@ -54,7 +64,7 @@ export class App {
         }
     }
 
-    public sort = async (parameters: IAuTableParameters): Promise<void> => {
+    public sort = async (parameters: IAuTableParameters): Promise<any> => {
         try {
             let response = await this.fetch_data(parameters);
             return response.data;
@@ -63,7 +73,7 @@ export class App {
         }
     }
 
-    public previous_page = async (parameters: IAuTableParameters): Promise<void> => {
+    public previous_page = async (parameters: IAuTableParameters): Promise<any> => {
         try {
             let response = await this.fetch_data(parameters);
             return response.data;
@@ -72,7 +82,7 @@ export class App {
         }
     }
 
-    public change_page = async (parameters: IAuTableParameters): Promise<void> => {
+    public change_page = async (parameters: IAuTableParameters): Promise<any> => {
         try {
             let response = await this.fetch_data(parameters);
             return response.data;
@@ -81,7 +91,7 @@ export class App {
         }
     }
 
-    public search = async (parameters: IAuTableParameters): Promise<void> => {
+    public search = async (parameters: IAuTableParameters): Promise<any> => {
         try {
             let response = await this.fetch_data(parameters);
             this.parameters.total_records = response.total_records;
@@ -91,7 +101,7 @@ export class App {
         }
     }
 
-    public page_size_changed = async (parameters: IAuTableParameters): Promise<void> => {
+    public page_size_changed = async (parameters: IAuTableParameters): Promise<any> => {
         try {
             let response = await this.fetch_data(parameters);
             return response.data;
@@ -100,20 +110,29 @@ export class App {
         }
     }
 
-    public filter = async (parameters: IAuTableParameters): Promise<void> => {
-        console.log('filter', parameters);
-        // try {
-        //     let response = await this.fetch_data(parameters);
-        //     return response.data;
-        // } catch (e) {
-        //     alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
-        // }
+    public filter = async (parameters: IAuTableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters);
+            this.parameters.total_records = response.total_records;
+            return response.data;
+        } catch (e) {
+            alert(`[app:filter] Failed to load the data: ${JSON.stringify(e)}`);
+        }
     }
 
     private async fetch_data(parameters: IAuTableParameters): Promise<any> {
         let direction = parameters.sort_direction == undefined
             ? undefined
             : parameters.sort_direction == 'ascending' ? 0 : 1;
+            
+        let filters = parameters.filters.map(x => {
+            return {
+                value: x.value,
+                column: x.selected_column,
+                description: this.description_to_enum(x.description)
+            };    
+        });
+
         return await this.http.fetch('http://localhost:5000/datatable', {
             method: 'POST',
             body: json({
@@ -122,7 +141,18 @@ export class App {
                 search_query: parameters.search_query,
                 sort_column: parameters.sort_column,
                 sort_direction: direction,
+                filters: filters
             })
         }).then(x => x.json()) as any;
+    }
+
+    private description_to_enum(description: string): number {
+        switch(description) {
+            case 'Greater Than':return 0;
+            case 'Smaller Than':return 1;
+            case 'Equals':return 2;
+            case 'Contains':return 3;
+            default: return undefined;
+        }
     }
 }

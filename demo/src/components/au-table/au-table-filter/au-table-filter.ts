@@ -9,7 +9,7 @@ export class AuTableFilter {
     @bindable public columns: Array<number>;
     @bindable public btn_classes: string;
     @bindable public filters: Array<IAuTableFilter>;
-    @bindable public label_clear_filter: string = 'clear filter';
+    @bindable public label_clear_filter: string = 'Clear filter';
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
@@ -38,7 +38,7 @@ export class AuTableFilter {
         return filter.apply_to_columns.some(x => x == column);
     }
 
-    public select_filter(event: any, filter: IAuTableFilter, column: number): void {
+    public async select_filter(event: any, filter: IAuTableFilter, column: number): Promise<void> {
         if (typeof this.on_filter != 'function')
             throw new Error('[au-table-filter:select_filter] No on_filter() callback has been set');
         let value = this.filter_values[column];
@@ -50,10 +50,11 @@ export class AuTableFilter {
                 selected_column: column
             });
             this.set_active_label_filter(event);
+            this.parameters.table_data = await this.on_filter(this.parameters);
+            this.reset();
         } else {
             this.show_input_warning(event);
         }
-        console.log(this.parameters.filters);
     }
 
     public is_selected_filter(filter: IAuTableFilter, column: number): boolean {
@@ -67,9 +68,29 @@ export class AuTableFilter {
         filter.style.display = filter.style.display == 'block' ? 'none' : 'block';
     }
 
-    public clear_filter(column: number) {
+    public async input_changed(column: number): Promise<void> {
+        if (!this.filter_values[column]) {
+            this.remove_filters_for_column(column);
+            this.parameters.table_data = await this.on_filter(this.parameters);
+            this.reset();
+        } else {
+            if (this.parameters.filters.some(x => x.selected_column == column)) {
+                let filter = this.parameters.filters.find(x => x.selected_column == column);
+                filter.value = this.filter_values[column];
+                this.parameters.table_data = await this.on_filter(this.parameters);
+                this.reset();
+            }
+        }
+    }
+
+    public async clear_filter(event: any, column: number): Promise<void> {
+        let parent = event.target.closest('td');
+        let input = parent.getElementsByClassName('au-filter-input')[0];
         this.remove_filters_for_column(column);
-        this.filter_values = this.filter_values.filter((x, index) => index != column);
+        input.value = '';
+        this.filter_values[column] = undefined;
+        this.parameters.table_data = await this.on_filter(this.parameters);
+        this.reset();
     }
 
     private get_columns_count(): void {
@@ -109,5 +130,10 @@ export class AuTableFilter {
         Array.from(filters).forEach(x => {
             if ((<any>x).getAttribute('data-column') == column) (<any>x).classList.remove('active')
         });
+    }
+
+    private reset(): void {
+        this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+        this.parameters.skip = 0;
     }
 }	

@@ -29,7 +29,7 @@
         tbody {
             tr {
                 &.selected {
-                    background-color: #337ab7 !important;
+                    background-color: #333 !important;
                     color: white !important;
                 }
                      
@@ -39,7 +39,7 @@
 
                 
                 &:hover {
-                    background-color: #337ab7;
+                    background-color: #333;
                     color: white !important;
                     cursor: pointer;
                 }                
@@ -90,58 +90,5 @@
                 }
             }
         }  
-    }
-
-    @media only screen and (max-width: 760px)  {
-
-        .table-responsive {
-            margin-top: 10px !important;   
-        }
-
-        /* Force table to not be like tables anymore */
-        table, thead, tbody, th, td, tr { 
-            display: block; 
-        }
-
-        .page-sizes {
-            margin-bottom: 10px;
-        }
-        
-        .header {
-            border: none;
-        }
-
-        /* Hide table headers (but not display: none;, for accessibility) */
-        thead tr { 
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }
-        
-        tr { border: none !important; }
-        
-        td { 
-            /* Behave  like a "row" */
-            border:none !important;
-            border-top: 1px solid #ddd !important;
-            position: relative;
-            padding-left: 50%; 
-        }
-
-        .footer {
-            border:none !important;
-            border-top: 1px solid #ddd !important;
-        }
-        
-        td:before { 
-            /* Now like a table header */
-            position: absolute;
-            /* Top/left values mimic padding */
-            top: 6px;
-            left: 6px;
-            width: 45%; 
-            padding-right: 10px; 
-            white-space: nowrap;
-        }	        
     }
 }
