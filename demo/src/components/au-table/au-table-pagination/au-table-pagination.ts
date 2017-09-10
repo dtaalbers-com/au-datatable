@@ -1,5 +1,6 @@
 import { customElement, bindable, bindingMode, BindingEngine, autoinject, Disposable } from 'aurelia-framework';
 import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
+import { IAuTableResponse } from '../au-table-contracts/IAuTableResponse';
 
 @autoinject()
 @customElement('au-table-pagination')
@@ -56,7 +57,9 @@ export class AuTablePagination {
         this.refreshing = true;
         this.parameters.skip += this.parameters.page_size;
         this.parameters.current_page++;
-        this.parameters.table_data = await this.on_next_page(this.parameters);
+        let response = await this.on_next_page(this.parameters) as IAuTableResponse;
+        this.parameters.total_records = response.total_records;
+        this.parameters.table_data = response.data;
         this.refreshing = false;
     }
 
@@ -67,7 +70,9 @@ export class AuTablePagination {
         this.refreshing = true;
         this.parameters.skip -= this.parameters.page_size;
         this.parameters.current_page--;
-        this.parameters.table_data = await this.on_previous_page(this.parameters);
+        let response = await this.on_next_page(this.parameters) as IAuTableResponse;
+        this.parameters.total_records = response.total_records;
+        this.parameters.table_data = response.data;
         this.refreshing = false;
     }
 
@@ -80,7 +85,9 @@ export class AuTablePagination {
         this.parameters.skip = page * this.parameters.page_size;
         let next = (page + 1) * this.parameters.page_size;
         this.parameters.current_page = page + 1;
-        this.parameters.table_data = await this.on_previous_page(this.parameters);
+        let response = await this.on_next_page(this.parameters) as IAuTableResponse;
+        this.parameters.total_records = response.total_records;
+        this.parameters.table_data = response.data;
         this.refreshing = false;
     }
 

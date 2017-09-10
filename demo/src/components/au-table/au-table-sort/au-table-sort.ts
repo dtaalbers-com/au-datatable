@@ -1,5 +1,6 @@
 import { autoinject, bindable, customAttribute, bindingMode } from 'aurelia-framework';
 import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
+import { IAuTableResponse } from '../au-table-contracts/IAuTableResponse';
 
 @customAttribute('au-table-sort')
 export class AuTableSort {
@@ -61,7 +62,9 @@ export class AuTableSort {
             this.parameters.sort_direction = 'ascending'
         }
         this.set_active(event.target, this.parameters.sort_direction);
-        this.parameters.table_data = await this.on_sort(this.parameters);
+        let response = await this.on_sort(this.parameters) as IAuTableResponse;
+        this.parameters.table_data = response.data;
+        this.parameters.total_records = response.total_records;
     }
 
     private set_active(target: any, direction: string): void {

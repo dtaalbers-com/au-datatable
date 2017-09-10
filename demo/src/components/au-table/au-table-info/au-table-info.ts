@@ -86,6 +86,6 @@ export class AuTableInfo {
 
     private reset(): void {
         this.parameters.current_page = 1;
-        this.current_page_copy = 1;        
+        this.current_page_copy = 1;
     }
 }

@@ -1,6 +1,7 @@
 import { autoinject, bindable, bindingMode, inlineView, customElement } from 'aurelia-framework';
 import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
 import { IAuTableFilter } from '../au-table-contracts/IAuTableFilter';
+import { IAuTableResponse } from '../au-table-contracts/IAuTableResponse';
 
 @customElement('au-table-filter')
 export class AuTableFilter {
@@ -50,7 +51,9 @@ export class AuTableFilter {
                 selected_column: column
             });
             this.set_active_label_filter(event);
-            this.parameters.table_data = await this.on_filter(this.parameters);
+            let response = await this.on_filter(this.parameters) as IAuTableResponse;
+            this.parameters.total_records = response.total_records;
+            this.parameters.table_data = response.data;
             this.reset();
         } else {
             this.show_input_warning(event);
@@ -71,13 +74,17 @@ export class AuTableFilter {
     public async input_changed(column: number): Promise<void> {
         if (!this.filter_values[column]) {
             this.remove_filters_for_column(column);
-            this.parameters.table_data = await this.on_filter(this.parameters);
+            let response = await this.on_filter(this.parameters) as IAuTableResponse;
+            this.parameters.total_records = response.total_records;
+            this.parameters.table_data = response.data;
             this.reset();
         } else {
             if (this.parameters.filters.some(x => x.selected_column == column)) {
                 let filter = this.parameters.filters.find(x => x.selected_column == column);
                 filter.value = this.filter_values[column];
-                this.parameters.table_data = await this.on_filter(this.parameters);
+                let response = await this.on_filter(this.parameters) as IAuTableResponse;
+                this.parameters.total_records = response.total_records;
+                this.parameters.table_data = response.data;
                 this.reset();
             }
         }
@@ -89,7 +96,9 @@ export class AuTableFilter {
         this.remove_filters_for_column(column);
         input.value = '';
         this.filter_values[column] = undefined;
-        this.parameters.table_data = await this.on_filter(this.parameters);
+        let response = await this.on_filter(this.parameters) as IAuTableResponse;
+        this.parameters.total_records = response.total_records;
+        this.parameters.table_data = response.data;
         this.reset();
     }
 

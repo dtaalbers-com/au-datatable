@@ -1,5 +1,6 @@
 import { customElement, bindable, bindingMode } from 'aurelia-framework';
 import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
+import { IAuTableResponse } from '../au-table-contracts/IAuTableResponse';
 
 @customElement('au-table-pagesize')
 export class AuTablePagesize {
@@ -22,7 +23,9 @@ export class AuTablePagesize {
             throw new Error('[au-table-pagesize:page_size_change] No on_page_size_change() callback has been set');
         this.parameters.page_size = this.selected_page_size;
         this.reset();
-        this.parameters.table_data = await this.on_page_size_change(this.parameters);
+        let response = await this.on_page_size_change(this.parameters) as IAuTableResponse;
+        this.parameters.total_records = response.total_records;
+        this.parameters.table_data = response.data;
     }
 
     private reset(): void {

@@ -3,6 +3,7 @@ import { HttpClient, json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
 import { IAuTableParameters } from './components/au-table/au-table-contracts/IAuTableParameters';
 import { IAuTableFilter } from './components/au-table/au-table-contracts/IAuTableFilter';
+import { IAuTableResponse } from './components/au-table/au-table-contracts/IAuTableResponse';
 
 @autoinject()
 export class App {
@@ -25,23 +26,19 @@ export class App {
     [
         {
             description: 'Contains',
-            value: undefined,
             apply_to_columns: [1, 3, 4, 5, 6]
         },
         {
             description: 'Greater Than',
-            value: undefined,
             apply_to_columns: [2]
         },
         {
             description: 'Smaller Than',
-            value: undefined,
             apply_to_columns: [2]
         },
         {
             description: 'Equals',
-            value: undefined,
-            apply_to_columns: [1,2,3,4,5,6]
+            apply_to_columns: [1, 2, 3, 4, 5, 6]
         }
     ];
 
@@ -57,26 +54,17 @@ export class App {
 
     public next_page = async (parameters: IAuTableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters);
-            return response.data;
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
         } catch (e) {
             alert(`[app:next_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public sort = async (parameters: IAuTableParameters): Promise<any> => {
-        try {
-            let response = await this.fetch_data(parameters);
-            return response.data;
-        } catch (e) {
-            alert(`[app:sort] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
     public previous_page = async (parameters: IAuTableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters);
-            return response.data;
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
         } catch (e) {
             alert(`[app:previous_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
@@ -84,18 +72,26 @@ export class App {
 
     public change_page = async (parameters: IAuTableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters);
-            return response.data;
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
+    public sort = async (parameters: IAuTableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:sort] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
     public search = async (parameters: IAuTableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters);
-            this.parameters.total_records = response.total_records;
-            return response.data;
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
@@ -103,8 +99,8 @@ export class App {
 
     public page_size_changed = async (parameters: IAuTableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters);
-            return response.data;
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
@@ -112,9 +108,8 @@ export class App {
 
     public filter = async (parameters: IAuTableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters);
-            this.parameters.total_records = response.total_records;
-            return response.data;
+            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            return response;
         } catch (e) {
             alert(`[app:filter] Failed to load the data: ${JSON.stringify(e)}`);
         }
@@ -124,16 +119,14 @@ export class App {
         let direction = parameters.sort_direction == undefined
             ? undefined
             : parameters.sort_direction == 'ascending' ? 0 : 1;
-            
         let filters = parameters.filters.map(x => {
             return {
                 value: x.value,
                 column: x.selected_column,
                 description: this.description_to_enum(x.description)
-            };    
+            };
         });
-
-        return await this.http.fetch('http://localhost:5000/datatable', {
+        return await this.http.fetch('https://api.dtaalbers.com/aurelia-bs-datatable/datatable', {
             method: 'POST',
             body: json({
                 skip: parameters.skip,
@@ -147,11 +140,11 @@ export class App {
     }
 
     private description_to_enum(description: string): number {
-        switch(description) {
-            case 'Greater Than':return 0;
-            case 'Smaller Than':return 1;
-            case 'Equals':return 2;
-            case 'Contains':return 3;
+        switch (description) {
+            case 'Greater Than': return 0;
+            case 'Smaller Than': return 1;
+            case 'Equals': return 2;
+            case 'Contains': return 3;
             default: return undefined;
         }
     }

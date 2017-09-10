@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <ul class="pagination">
+        <ul class="au-pagination pagination">
             <li>
                 <a click.delegate="previous_page()">
                     <span aria-hidden="true">&laquo;</span>
@@ -33,5 +33,18 @@
                 </a>
             </li>
         </ul>
+        <style>
+            .au-pagination {
+                list-style: none;
+            }
+
+            .au-pagination li {
+                float: left;
+            }
+
+            .au-pagination li a {
+                padding: 5px 10px;
+            }
+        </style>
     </nav>
 </template>

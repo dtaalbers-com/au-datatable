@@ -1,5 +1,6 @@
 import { customElement, bindable, bindingMode } from 'aurelia-framework';
 import { IAuTableParameters } from '../au-table-contracts/IAuTableParameters';
+import { IAuTableResponse } from '../au-table-contracts/IAuTableResponse';
 
 @customElement('au-table-search')
 export class AuTableSearch {
@@ -16,7 +17,9 @@ export class AuTableSearch {
         if (typeof this.on_search_change != 'function')
             throw new Error('[au-table-search:search] No on_search_change() callback has been set');
         this.reset();
-        this.parameters.table_data = await this.on_search_change(this.parameters);
+        let response = await this.on_search_change(this.parameters) as IAuTableResponse;
+        this.parameters.table_data = response.data;
+        this.parameters.total_records = response.total_records;
         this.reset();
     }
 
