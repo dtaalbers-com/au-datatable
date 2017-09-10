@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "au-datatable": "0.0.1",
     "aurelia-animator-css": "^1.0.1",
     "aurelia-bootstrapper": "^2.1.0",
     "aurelia-fetch-client": "^1.1.1",
