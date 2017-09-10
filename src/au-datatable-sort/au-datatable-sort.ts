@@ -2,9 +2,9 @@ import { bindable, customAttribute, bindingMode, inject } from 'aurelia-framewor
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
-@customAttribute('au-table-sort')
+@customAttribute('au-datatable-sort')
 @inject(Element)
-export class AuTableSortCustomAttribute {
+export class AuDatatableSortCustomAttribute {
 
     @bindable public on_sort: Function;
     @bindable public columns: Array<number>;

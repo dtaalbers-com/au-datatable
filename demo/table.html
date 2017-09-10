@@ -1,0 +1,260 @@
+<html>
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        .btn-primary {
+            background-color: #333;
+            color: white;
+            border-color: #333;
+            border-radius: 0px;
+        }
+    </style>
+    <div class="container" style="padding: 50px;">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/au-datatable/" class="btn btn-primary pull-right">Back to table</a>
+                <br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#html" aria-controls="html" role="tab" data-toggle="tab">Html</a></li>
+                    <li role="presentation"><a href="#js" aria-controls="js" role="tab" data-toggle="tab">.js</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="html">
+                        <textarea disabled style="width: 100%; height: 100vh;">
+<div id="wrapper" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="/table.html" class="btn btn-primary pull-right">View source</a>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="header">
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-4">
+                            <au-datatable-search placeholder="Search.." input_classes="form-control" on_search_change.bind="search" parameters.bind="parameters">
+                            </au-datatable-search>
+                        </div>
+                        <div class="col-md-2">
+                            <au-datatable-pagesize page_sizes.bind="[10,25,50,100]" classes="form-control" on_page_size_change.bind="page_size_changed" parameters.bind="parameters">
+                            </au-datatable-pagesize>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped" au-datatable=" starting_data.bind: data; parameters.bind: parameters;">
+                    <thead au-datatable-sort="columns.bind: [1,2,3,4,5,6]; on_sort.bind: sort; parameters.bind: parameters">
+                        <tr>
+                            <th></th>
+                            <th>Fullname</th>
+                            <th>Age</th>
+                            <th>City</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Nationality</th>
+                        </tr>
+                        <tr as-element="au-datatable-filter" on_filter.bind="filter" filters.bind="table_filters" columns.bind="[1,2,3,4,5,6]" parameters.bind="parameters" containerless>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr if.bind="parameters.table_data.length > 0" repeat.for="item of parameters.table_data">
+                            <td><img src="${item.thumbnail}"></td>
+                            <td>${item.name}</td>
+                            <td>${item.age}</td>
+                            <td>${item.city}</td>
+                            <td>${item.username}</td>
+                            <td>${item.email}</td>
+                            <td>${item.nat}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footer">
+                    <div class="col-md-6">
+                        <au-datatable-info parameters.bind="parameters"></au-datatable-info>
+                    </div>
+                    <div class="col-md-6">
+                        <au-datatable-pagination class="pull-right" on_next_page.bind="next_page" on_previous_page.bind="previous_page" on_page_change.bind="change_page" parameters.bind="parameters">
+                        </au-datatable-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    </textarea>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="js">
+                        <pre class="prettyprint">
+                        <code>
+Main.ts
+aurelia.use
+    .standardConfiguration()
+    .developmentLogging()
+    .feature('resources')
+    .plugin('au-datatable'); <----
+
+
+export class App {
+    
+    public data: Array<any>;
+
+    public parameters: AuDatatableParameters = {
+        search_query: undefined,
+        total_records: undefined,
+        table_data: undefined,
+        page_size: 10,
+        skip: 0,
+        sort_column: 1,
+        sort_direction: 'ascending',
+        current_page: 1,
+        filters: []
+    }
+
+    public table_filters: Array<AuDatatableFilter> =
+    [
+        {
+            description: 'Contains',
+            apply_to_columns: [1, 3, 4, 5, 6]
+        },
+        {
+            description: 'Greater Than',
+            apply_to_columns: [2]
+        },
+        {
+            description: 'Smaller Than',
+            apply_to_columns: [2]
+        },
+        {
+            description: 'Equals',
+            apply_to_columns: [1, 2, 3, 4, 5, 6]
+        }
+    ];
+
+    constructor(
+        private http: HttpClient
+    ) { }
+
+    public async attached(): Promise<void> {
+        let response = await this.fetch_data(this.parameters);
+        this.data = response.data;
+        this.parameters.total_records = response.total_records;
+    }
+
+    public next_page = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:next_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public previous_page = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:previous_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public change_page = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public sort = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:sort] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public search = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public page_size_changed = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    public filter = async (parameters: AuDatatableParameters): Promise<any> => {
+        try {
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
+            return response;
+        } catch (e) {
+            alert(`[app:filter] Failed to load the data: ${JSON.stringify(e)}`);
+        }
+    }
+
+    private async fetch_data(parameters: AuDatatableParameters): Promise<any> {
+        let direction = parameters.sort_direction == undefined
+            ? undefined
+            : parameters.sort_direction == 'ascending' ? 0 : 1;
+        let filters = parameters.filters.map(x => {
+            return {
+                value: x.value,
+                column: x.selected_column,
+                description: this.description_to_enum(x.description)
+            };
+        });
+        return await this.http.fetch('https://api.dtaalbers.com/au-datatable/datatable', {
+            method: 'POST',
+            body: json({
+                skip: parameters.skip,
+                page_size: parameters.page_size,
+                search_query: parameters.search_query,
+                sort_column: parameters.sort_column,
+                sort_direction: direction,
+                filters: filters
+            })
+        }).then(x => x.json()) as any;
+    }
+
+    private description_to_enum(description: string): number {
+        switch (description) {
+            case 'Greater Than': return 0;
+            case 'Smaller Than': return 1;
+            case 'Equals': return 2;
+            case 'Contains': return 3;
+            default: return undefined;
+        }
+    }
+}
+                        </code>
+                    </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+</body>
+
+</html>

@@ -3,8 +3,8 @@ import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatablePara
 import { AuDatatableFilter } from '../au-datatable-contracts/AuDatatableFilter';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
-@customElement('au-table-filter')
-export class AuTableFilterComponent {
+@customElement('au-datatable-filter')
+export class AuDatatableFilterComponent {
 
     @bindable public on_filter: Function;
     @bindable public columns: Array<number>;

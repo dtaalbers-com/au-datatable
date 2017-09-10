@@ -2,8 +2,8 @@ import { customElement, bindable } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
-@customElement('au-table-pagesize')
-export class AuTablePagesizeComponent {
+@customElement('au-datatable-pagesize')
+export class AuDatatablePagesizeComponent {
 
     private selected_page_size: number;
 

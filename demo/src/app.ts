@@ -3,7 +3,7 @@ import { HttpClient, json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
 import { AuDatatableParameters } from 'au-datatable';
 import { AuDatatableFilter } from 'au-datatable';
-import { IAuDatatableResponse } from 'au-datatable';
+import { AuDatatableResponse } from 'au-datatable';
 
 @autoinject()
 export class App {
@@ -54,7 +54,7 @@ export class App {
 
     public next_page = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:next_page] Failed to load the data: ${JSON.stringify(e)}`);
@@ -63,7 +63,7 @@ export class App {
 
     public previous_page = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:previous_page] Failed to load the data: ${JSON.stringify(e)}`);
@@ -72,7 +72,7 @@ export class App {
 
     public change_page = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
@@ -81,7 +81,7 @@ export class App {
 
     public sort = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:sort] Failed to load the data: ${JSON.stringify(e)}`);
@@ -90,7 +90,7 @@ export class App {
 
     public search = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
@@ -99,7 +99,7 @@ export class App {
 
     public page_size_changed = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
@@ -108,7 +108,7 @@ export class App {
 
     public filter = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
+            let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:filter] Failed to load the data: ${JSON.stringify(e)}`);
@@ -126,7 +126,7 @@ export class App {
                 description: this.description_to_enum(x.description)
             };
         });
-        return await this.http.fetch('https://api.dtaalbers.com/aurelia-bs-datatable/datatable', {
+        return await this.http.fetch('https://api.dtaalbers.com/au-datatable/datatable', {
             method: 'POST',
             body: json({
                 skip: parameters.skip,

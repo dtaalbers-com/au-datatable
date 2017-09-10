@@ -4,21 +4,27 @@
     <div id="wrapper" class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="/au-datatable/table.html" class="btn btn-primary pull-right">View source</a>
+                        <br><br>
+                    </div>
+                </div>
                 <div class="header">
                     <div class="row">
                         <div class="col-md-6"></div>
                         <div class="col-md-4">
-                            <au-table-search placeholder="Search.." input_classes="form-control" on_search_change.bind="search" parameters.bind="parameters">
-                            </au-table-search>
+                            <au-datatable-search placeholder="Search.." input_classes="form-control" on_search_change.bind="search" parameters.bind="parameters">
+                            </au-datatable-search>
                         </div>
                         <div class="col-md-2">
-                            <au-table-pagesize page_sizes.bind="[10,25,50,100]" classes="form-control" on_page_size_change.bind="page_size_changed" parameters.bind="parameters">
-                            </au-table-pagesize>
+                            <au-datatable-pagesize page_sizes.bind="[10,25,50,100]" classes="form-control" on_page_size_change.bind="page_size_changed" parameters.bind="parameters">
+                            </au-datatable-pagesize>
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped" au-table=" starting_data.bind: data; parameters.bind: parameters;">
-                    <thead au-table-sort="columns.bind: [1,2,3,4,5,6]; on_sort.bind: sort; parameters.bind: parameters">
+                <table class="table table-bordered table-striped" au-datatable=" starting_data.bind: data; parameters.bind: parameters;">
+                    <thead au-datatable-sort="columns.bind: [1,2,3,4,5,6]; on_sort.bind: sort; parameters.bind: parameters">
                         <tr>
                             <th></th>
                             <th>Fullname</th>
@@ -28,7 +34,7 @@
                             <th>Email</th>
                             <th>Nationality</th>
                         </tr>
-                        <tr as-element="au-table-filter" on_filter.bind="filter" filters.bind="table_filters" columns.bind="[1,2,3,4,5,6]" parameters.bind="parameters" containerless>
+                        <tr as-element="au-datatable-filter" on_filter.bind="filter" filters.bind="table_filters" columns.bind="[1,2,3,4,5,6]" parameters.bind="parameters" containerless>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,11 +51,11 @@
                 </table>
                 <div class="footer">
                     <div class="col-md-6">
-                        <au-table-info parameters.bind="parameters"></au-table-info>
+                        <au-datatable-info parameters.bind="parameters"></au-datatable-info>
                     </div>
                     <div class="col-md-6">
-                        <au-table-pagination class="pull-right" on_next_page.bind="next_page" on_previous_page.bind="previous_page" on_page_change.bind="change_page" parameters.bind="parameters">
-                        </au-table-pagination>
+                        <au-datatable-pagination class="pull-right" on_next_page.bind="next_page" on_previous_page.bind="previous_page" on_page_change.bind="change_page" parameters.bind="parameters">
+                        </au-datatable-pagination>
                     </div>
                 </div>
             </div>

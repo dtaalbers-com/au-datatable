@@ -2,8 +2,8 @@ import { customElement, bindable, bindingMode } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
-@customElement('au-table-search')
-export class AuTableSearchComponent {
+@customElement('au-datatable-search')
+export class AuDatatableSearchComponent {
 
     @bindable public placeholder: string;
     @bindable public input_classes: string;

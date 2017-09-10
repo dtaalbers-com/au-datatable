@@ -1,8 +1,8 @@
 import { bindable, customAttribute, bindingMode } from 'aurelia-framework';
 import { AuDatatableParameters } from './au-datatable-contracts/AuDatatableParameters';
 
-@customAttribute('au-table')
-export class AuTableCustomAttribute {
+@customAttribute('au-datatable')
+export class AuDatatableCustomAttribute {
 
     @bindable({
         changeHandler: 'set_data'

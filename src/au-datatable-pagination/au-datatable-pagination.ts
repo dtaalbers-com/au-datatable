@@ -2,9 +2,9 @@ import { customElement, bindable, bindingMode, BindingEngine, Disposable, inject
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
-@customElement('au-table-pagination')
+@customElement('au-datatable-pagination')
 @inject(BindingEngine)
-export class AuTablePaginationComponent {
+export class AuDatatablePaginationComponent {
 
     @bindable public amount_of_pages: number = 2;
     @bindable public on_next_page: Function;
