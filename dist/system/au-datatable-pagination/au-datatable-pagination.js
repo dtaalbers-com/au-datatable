@@ -42,7 +42,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
         }
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, AuTablePaginationComponent;
+    var aurelia_framework_1, AuDatatablePaginationComponent;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -50,14 +50,14 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            AuTablePaginationComponent = /** @class */ (function () {
-                function AuTablePaginationComponent(binding_engine) {
+            AuDatatablePaginationComponent = /** @class */ (function () {
+                function AuDatatablePaginationComponent(binding_engine) {
                     this.binding_engine = binding_engine;
                     this.amount_of_pages = 2;
                     this.refreshing = false;
                     this.subscriptions = [];
                 }
-                AuTablePaginationComponent.prototype.attached = function () {
+                AuDatatablePaginationComponent.prototype.attached = function () {
                     var _this = this;
                     this.subscriptions.push(this.binding_engine
                         .propertyObserver(this.parameters, 'current_page')
@@ -69,7 +69,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         .propertyObserver(this.parameters, 'page_size')
                         .subscribe(function () { return _this.data_change(); }));
                 };
-                AuTablePaginationComponent.prototype.data_change = function () {
+                AuDatatablePaginationComponent.prototype.data_change = function () {
                     if (this.parameters.current_page == undefined || this.parameters.total_records == undefined)
                         return;
                     this.refreshing = true;
@@ -82,7 +82,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         : this.amount_of_pages;
                     this.refreshing = false;
                 };
-                AuTablePaginationComponent.prototype.next_page = function () {
+                AuDatatablePaginationComponent.prototype.next_page = function () {
                     return __awaiter(this, void 0, void 0, function () {
                         var response;
                         return __generator(this, function (_a) {
@@ -106,7 +106,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         });
                     });
                 };
-                AuTablePaginationComponent.prototype.previous_page = function () {
+                AuDatatablePaginationComponent.prototype.previous_page = function () {
                     return __awaiter(this, void 0, void 0, function () {
                         var response;
                         return __generator(this, function (_a) {
@@ -130,7 +130,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         });
                     });
                 };
-                AuTablePaginationComponent.prototype.change_page = function (page) {
+                AuDatatablePaginationComponent.prototype.change_page = function (page) {
                     return __awaiter(this, void 0, void 0, function () {
                         var response;
                         return __generator(this, function (_a) {
@@ -156,37 +156,37 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         });
                     });
                 };
-                AuTablePaginationComponent.prototype.calculate_previous_page_number = function (index) {
+                AuDatatablePaginationComponent.prototype.calculate_previous_page_number = function (index) {
                     var number = (this.parameters.current_page + index) - this.amount_of_pages;
                     return number == 0 ? 1 : number;
                 };
-                AuTablePaginationComponent.prototype.detached = function () {
+                AuDatatablePaginationComponent.prototype.detached = function () {
                     this.subscriptions.forEach(function (x) { return x.dispose(); });
                 };
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTablePaginationComponent.prototype, "amount_of_pages", void 0);
+                ], AuDatatablePaginationComponent.prototype, "amount_of_pages", void 0);
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTablePaginationComponent.prototype, "on_next_page", void 0);
+                ], AuDatatablePaginationComponent.prototype, "on_next_page", void 0);
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTablePaginationComponent.prototype, "on_previous_page", void 0);
+                ], AuDatatablePaginationComponent.prototype, "on_previous_page", void 0);
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTablePaginationComponent.prototype, "on_page_change", void 0);
+                ], AuDatatablePaginationComponent.prototype, "on_page_change", void 0);
                 __decorate([
                     aurelia_framework_1.bindable({
                         defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
                     })
-                ], AuTablePaginationComponent.prototype, "parameters", void 0);
-                AuTablePaginationComponent = __decorate([
-                    aurelia_framework_1.customElement('au-table-pagination'),
+                ], AuDatatablePaginationComponent.prototype, "parameters", void 0);
+                AuDatatablePaginationComponent = __decorate([
+                    aurelia_framework_1.customElement('au-datatable-pagination'),
                     aurelia_framework_1.inject(aurelia_framework_1.BindingEngine)
-                ], AuTablePaginationComponent);
-                return AuTablePaginationComponent;
+                ], AuDatatablePaginationComponent);
+                return AuDatatablePaginationComponent;
             }());
-            exports_1("AuTablePaginationComponent", AuTablePaginationComponent);
+            exports_1("AuDatatablePaginationComponent", AuDatatablePaginationComponent);
         }
     };
 });

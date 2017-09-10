@@ -1,5 +1,5 @@
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-export declare class AuTableSortCustomAttribute {
+export declare class AuDatatableSortCustomAttribute {
     private element;
     on_sort: Function;
     columns: Array<number>;

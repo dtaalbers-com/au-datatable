@@ -7,7 +7,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, AuTableCustomAttribute;
+    var aurelia_framework_1, AuDatatableCustomAttribute;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -15,36 +15,36 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            AuTableCustomAttribute = /** @class */ (function () {
-                function AuTableCustomAttribute() {
+            AuDatatableCustomAttribute = /** @class */ (function () {
+                function AuDatatableCustomAttribute() {
                 }
-                AuTableCustomAttribute.prototype.set_data = function () {
+                AuDatatableCustomAttribute.prototype.set_data = function () {
                     if (this.starting_data.length > this.parameters.page_size)
                         throw new Error('[au-table:bind] starting data is larger than page size.');
                     this.parameters.table_data = [].concat(this.starting_data);
                     this.parameters.current_page = 1;
                     this.parameters.skip = 0;
                 };
-                AuTableCustomAttribute.prototype.update_current_page = function () {
+                AuDatatableCustomAttribute.prototype.update_current_page = function () {
                     this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
                 };
                 __decorate([
                     aurelia_framework_1.bindable({
                         changeHandler: 'set_data'
                     })
-                ], AuTableCustomAttribute.prototype, "starting_data", void 0);
+                ], AuDatatableCustomAttribute.prototype, "starting_data", void 0);
                 __decorate([
                     aurelia_framework_1.bindable({
                         defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
                         changeHandler: 'update_current_page'
                     })
-                ], AuTableCustomAttribute.prototype, "parameters", void 0);
-                AuTableCustomAttribute = __decorate([
-                    aurelia_framework_1.customAttribute('au-table')
-                ], AuTableCustomAttribute);
-                return AuTableCustomAttribute;
+                ], AuDatatableCustomAttribute.prototype, "parameters", void 0);
+                AuDatatableCustomAttribute = __decorate([
+                    aurelia_framework_1.customAttribute('au-datatable')
+                ], AuDatatableCustomAttribute);
+                return AuDatatableCustomAttribute;
             }());
-            exports_1("AuTableCustomAttribute", AuTableCustomAttribute);
+            exports_1("AuDatatableCustomAttribute", AuDatatableCustomAttribute);
         }
     };
 });

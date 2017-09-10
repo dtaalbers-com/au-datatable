@@ -40,10 +40,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { customElement, bindable, bindingMode } from 'aurelia-framework';
-var AuTableSearchComponent = /** @class */ (function () {
-    function AuTableSearchComponent() {
+var AuDatatableSearchComponent = /** @class */ (function () {
+    function AuDatatableSearchComponent() {
     }
-    AuTableSearchComponent.prototype.search = function () {
+    AuDatatableSearchComponent.prototype.search = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response;
             return __generator(this, function (_a) {
@@ -63,27 +63,27 @@ var AuTableSearchComponent = /** @class */ (function () {
             });
         });
     };
-    AuTableSearchComponent.prototype.reset = function () {
+    AuDatatableSearchComponent.prototype.reset = function () {
         this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
         this.parameters.skip = 0;
     };
     __decorate([
         bindable
-    ], AuTableSearchComponent.prototype, "placeholder", void 0);
+    ], AuDatatableSearchComponent.prototype, "placeholder", void 0);
     __decorate([
         bindable
-    ], AuTableSearchComponent.prototype, "input_classes", void 0);
+    ], AuDatatableSearchComponent.prototype, "input_classes", void 0);
     __decorate([
         bindable
-    ], AuTableSearchComponent.prototype, "on_search_change", void 0);
+    ], AuDatatableSearchComponent.prototype, "on_search_change", void 0);
     __decorate([
         bindable({
             defaultBindingMode: bindingMode.twoWay,
         })
-    ], AuTableSearchComponent.prototype, "parameters", void 0);
-    AuTableSearchComponent = __decorate([
-        customElement('au-table-search')
-    ], AuTableSearchComponent);
-    return AuTableSearchComponent;
+    ], AuDatatableSearchComponent.prototype, "parameters", void 0);
+    AuDatatableSearchComponent = __decorate([
+        customElement('au-datatable-search')
+    ], AuDatatableSearchComponent);
+    return AuDatatableSearchComponent;
 }());
-export { AuTableSearchComponent };
+export { AuDatatableSearchComponent };

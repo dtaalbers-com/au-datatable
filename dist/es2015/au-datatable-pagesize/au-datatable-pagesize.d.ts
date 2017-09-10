@@ -1,5 +1,5 @@
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-export declare class AuTablePagesizeComponent {
+export declare class AuDatatablePagesizeComponent {
     private selected_page_size;
     page_sizes: Array<number>;
     classes: string;

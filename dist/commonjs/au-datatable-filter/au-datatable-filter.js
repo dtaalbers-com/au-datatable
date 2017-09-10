@@ -42,27 +42,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
-var AuTableFilterComponent = /** @class */ (function () {
-    function AuTableFilterComponent() {
+var AuDatatableFilterComponent = /** @class */ (function () {
+    function AuDatatableFilterComponent() {
         this.label_clear_filter = 'Clear filter';
         this.filter_values = [];
     }
-    AuTableFilterComponent.prototype.attached = function () {
+    AuDatatableFilterComponent.prototype.attached = function () {
         var _this = this;
         this.get_columns_count();
         document.getElementsByTagName('html')[0].addEventListener('click', function (e) { return _this.hide_filter_dropdowns(e); });
     };
-    AuTableFilterComponent.prototype.detached = function () {
+    AuDatatableFilterComponent.prototype.detached = function () {
         var _this = this;
         document.getElementsByTagName('html')[0].removeEventListener('click', function (e) { return _this.hide_filter_dropdowns(e); });
     };
-    AuTableFilterComponent.prototype.should_generate_content = function (column) {
+    AuDatatableFilterComponent.prototype.should_generate_content = function (column) {
         return this.columns.some(function (x) { return x == column; });
     };
-    AuTableFilterComponent.prototype.should_add_filter = function (filter, column) {
+    AuDatatableFilterComponent.prototype.should_add_filter = function (filter, column) {
         return filter.apply_to_columns.some(function (x) { return x == column; });
     };
-    AuTableFilterComponent.prototype.select_filter = function (event, filter, column) {
+    AuDatatableFilterComponent.prototype.select_filter = function (event, filter, column) {
         return __awaiter(this, void 0, void 0, function () {
             var value, response;
             return __generator(this, function (_a) {
@@ -94,16 +94,16 @@ var AuTableFilterComponent = /** @class */ (function () {
             });
         });
     };
-    AuTableFilterComponent.prototype.is_selected_filter = function (filter, column) {
+    AuDatatableFilterComponent.prototype.is_selected_filter = function (filter, column) {
         return this.parameters.filters.some(function (x) { return x.description == filter.description && x.selected_column == column; });
     };
-    AuTableFilterComponent.prototype.show_filters = function (event) {
+    AuDatatableFilterComponent.prototype.show_filters = function (event) {
         this.active_filter_btn = event.target;
         var parent = event.target.closest('div');
         var filter = parent.getElementsByClassName('au-filter-container')[0];
         filter.style.display = filter.style.display == 'block' ? 'none' : 'block';
     };
-    AuTableFilterComponent.prototype.input_changed = function (column) {
+    AuDatatableFilterComponent.prototype.input_changed = function (column) {
         return __awaiter(this, void 0, void 0, function () {
             var response, filter, response;
             return __generator(this, function (_a) {
@@ -134,7 +134,7 @@ var AuTableFilterComponent = /** @class */ (function () {
             });
         });
     };
-    AuTableFilterComponent.prototype.clear_filter = function (event, column) {
+    AuDatatableFilterComponent.prototype.clear_filter = function (event, column) {
         return __awaiter(this, void 0, void 0, function () {
             var parent, input, response;
             return __generator(this, function (_a) {
@@ -156,13 +156,13 @@ var AuTableFilterComponent = /** @class */ (function () {
             });
         });
     };
-    AuTableFilterComponent.prototype.get_columns_count = function () {
+    AuDatatableFilterComponent.prototype.get_columns_count = function () {
         this.au_table_filter = document.getElementsByClassName('au-table-filter')[0];
         var thead = this.au_table_filter.closest('thead');
         var headers = thead.getElementsByTagName('tr')[0];
         this.amount_of_columns = headers.getElementsByTagName('th').length;
     };
-    AuTableFilterComponent.prototype.hide_filter_dropdowns = function (event) {
+    AuDatatableFilterComponent.prototype.hide_filter_dropdowns = function (event) {
         if (this.active_filter_btn == event.target)
             return;
         var ignore_elements = ['au-filter', 'au-filter-cell', 'au-filter-input', 'au-clear', 'au-clear-icon'];
@@ -172,54 +172,54 @@ var AuTableFilterComponent = /** @class */ (function () {
             this.filter_elements = this.au_table_filter.getElementsByClassName('au-filter-container');
         Array.from(this.filter_elements).forEach(function (x) { return x.style.display = 'none'; });
     };
-    AuTableFilterComponent.prototype.show_input_warning = function (event) {
+    AuDatatableFilterComponent.prototype.show_input_warning = function (event) {
         var parent = event.target.closest('td');
         var input = parent.getElementsByClassName('au-filter-input')[0];
         input.style.border = '1px red solid';
         setTimeout(function () { return input.style.border = '1px #ddd solid'; }, 500);
     };
-    AuTableFilterComponent.prototype.set_active_label_filter = function (event) {
+    AuDatatableFilterComponent.prototype.set_active_label_filter = function (event) {
         event.target.classList.add('active');
     };
-    AuTableFilterComponent.prototype.remove_filters_for_column = function (column) {
+    AuDatatableFilterComponent.prototype.remove_filters_for_column = function (column) {
         this.remove_active_labels_for_column(column);
         this.parameters.filters = this.parameters.filters
             .filter(function (x) { return x.selected_column != column; });
     };
-    AuTableFilterComponent.prototype.remove_active_labels_for_column = function (column) {
+    AuDatatableFilterComponent.prototype.remove_active_labels_for_column = function (column) {
         var filters = this.au_table_filter.getElementsByClassName('au-filter');
         Array.from(filters).forEach(function (x) {
             if (x.getAttribute('data-column') == column)
                 x.classList.remove('active');
         });
     };
-    AuTableFilterComponent.prototype.reset = function () {
+    AuDatatableFilterComponent.prototype.reset = function () {
         this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
         this.parameters.skip = 0;
     };
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableFilterComponent.prototype, "on_filter", void 0);
+    ], AuDatatableFilterComponent.prototype, "on_filter", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableFilterComponent.prototype, "columns", void 0);
+    ], AuDatatableFilterComponent.prototype, "columns", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableFilterComponent.prototype, "btn_classes", void 0);
+    ], AuDatatableFilterComponent.prototype, "btn_classes", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableFilterComponent.prototype, "filters", void 0);
+    ], AuDatatableFilterComponent.prototype, "filters", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableFilterComponent.prototype, "label_clear_filter", void 0);
+    ], AuDatatableFilterComponent.prototype, "label_clear_filter", void 0);
     __decorate([
         aurelia_framework_1.bindable({
             defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
         })
-    ], AuTableFilterComponent.prototype, "parameters", void 0);
-    AuTableFilterComponent = __decorate([
-        aurelia_framework_1.customElement('au-table-filter')
-    ], AuTableFilterComponent);
-    return AuTableFilterComponent;
+    ], AuDatatableFilterComponent.prototype, "parameters", void 0);
+    AuDatatableFilterComponent = __decorate([
+        aurelia_framework_1.customElement('au-datatable-filter')
+    ], AuDatatableFilterComponent);
+    return AuDatatableFilterComponent;
 }());
-exports.AuTableFilterComponent = AuTableFilterComponent;
+exports.AuDatatableFilterComponent = AuDatatableFilterComponent;

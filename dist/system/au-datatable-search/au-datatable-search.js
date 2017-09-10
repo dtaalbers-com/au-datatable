@@ -42,7 +42,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
         }
     };
     var __moduleName = context_1 && context_1.id;
-    var aurelia_framework_1, AuTableSearchComponent;
+    var aurelia_framework_1, AuDatatableSearchComponent;
     return {
         setters: [
             function (aurelia_framework_1_1) {
@@ -50,10 +50,10 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
-            AuTableSearchComponent = /** @class */ (function () {
-                function AuTableSearchComponent() {
+            AuDatatableSearchComponent = /** @class */ (function () {
+                function AuDatatableSearchComponent() {
                 }
-                AuTableSearchComponent.prototype.search = function () {
+                AuDatatableSearchComponent.prototype.search = function () {
                     return __awaiter(this, void 0, void 0, function () {
                         var response;
                         return __generator(this, function (_a) {
@@ -73,30 +73,30 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                         });
                     });
                 };
-                AuTableSearchComponent.prototype.reset = function () {
+                AuDatatableSearchComponent.prototype.reset = function () {
                     this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
                     this.parameters.skip = 0;
                 };
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTableSearchComponent.prototype, "placeholder", void 0);
+                ], AuDatatableSearchComponent.prototype, "placeholder", void 0);
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTableSearchComponent.prototype, "input_classes", void 0);
+                ], AuDatatableSearchComponent.prototype, "input_classes", void 0);
                 __decorate([
                     aurelia_framework_1.bindable
-                ], AuTableSearchComponent.prototype, "on_search_change", void 0);
+                ], AuDatatableSearchComponent.prototype, "on_search_change", void 0);
                 __decorate([
                     aurelia_framework_1.bindable({
                         defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
                     })
-                ], AuTableSearchComponent.prototype, "parameters", void 0);
-                AuTableSearchComponent = __decorate([
-                    aurelia_framework_1.customElement('au-table-search')
-                ], AuTableSearchComponent);
-                return AuTableSearchComponent;
+                ], AuDatatableSearchComponent.prototype, "parameters", void 0);
+                AuDatatableSearchComponent = __decorate([
+                    aurelia_framework_1.customElement('au-datatable-search')
+                ], AuDatatableSearchComponent);
+                return AuDatatableSearchComponent;
             }());
-            exports_1("AuTableSearchComponent", AuTableSearchComponent);
+            exports_1("AuDatatableSearchComponent", AuDatatableSearchComponent);
         }
     };
 });

@@ -42,14 +42,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
-var AuTableSortCustomAttribute = /** @class */ (function () {
-    function AuTableSortCustomAttribute(element) {
+var AuDatatableSortCustomAttribute = /** @class */ (function () {
+    function AuDatatableSortCustomAttribute(element) {
         this.element = element;
         this.active_color = '#f44336';
         this.inactive_color = '#000';
         this.template = "\n        <span class=\"sorting\" style=\"float: right;\">\n            <span class=\"ascending sort\" style=\"font-weight: bold;\">&#8593;</span>\n            <span class=\"descending sort\" style=\"margin-left: -3px;\">&#8595;</span>\n        </span>\n    ";
     }
-    AuTableSortCustomAttribute.prototype.attached = function () {
+    AuDatatableSortCustomAttribute.prototype.attached = function () {
         var _this = this;
         if (this.element.nodeName != 'THEAD')
             throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
@@ -64,7 +64,7 @@ var AuTableSortCustomAttribute = /** @class */ (function () {
                 _this.set_active(header, _this.parameters.sort_direction);
         });
     };
-    AuTableSortCustomAttribute.prototype.sort = function (event) {
+    AuDatatableSortCustomAttribute.prototype.sort = function (event) {
         return __awaiter(this, void 0, void 0, function () {
             var column_index, response;
             return __generator(this, function (_a) {
@@ -101,7 +101,7 @@ var AuTableSortCustomAttribute = /** @class */ (function () {
             });
         });
     };
-    AuTableSortCustomAttribute.prototype.set_active = function (target, direction) {
+    AuDatatableSortCustomAttribute.prototype.set_active = function (target, direction) {
         this.reset();
         if (target.nodeName == 'SPAN')
             target = target.parentNode.closest('th');
@@ -110,7 +110,7 @@ var AuTableSortCustomAttribute = /** @class */ (function () {
         if (sort)
             sort.style.color = this.active_color;
     };
-    AuTableSortCustomAttribute.prototype.reset = function () {
+    AuDatatableSortCustomAttribute.prototype.reset = function () {
         var _this = this;
         this.headers.forEach(function (x) {
             var sorts = x.getElementsByClassName('sorting');
@@ -119,32 +119,32 @@ var AuTableSortCustomAttribute = /** @class */ (function () {
             Array.from(sorts[0].getElementsByTagName('span')).forEach(function (x) { return x.style.color = _this.inactive_color; });
         });
     };
-    AuTableSortCustomAttribute.prototype.get_index = function (target) {
+    AuDatatableSortCustomAttribute.prototype.get_index = function (target) {
         if (target.nodeName == 'SPAN')
             target = target.parentNode.closest('th');
         return target.getAttribute('index');
     };
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableSortCustomAttribute.prototype, "on_sort", void 0);
+    ], AuDatatableSortCustomAttribute.prototype, "on_sort", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableSortCustomAttribute.prototype, "columns", void 0);
+    ], AuDatatableSortCustomAttribute.prototype, "columns", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableSortCustomAttribute.prototype, "active_color", void 0);
+    ], AuDatatableSortCustomAttribute.prototype, "active_color", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuTableSortCustomAttribute.prototype, "inactive_color", void 0);
+    ], AuDatatableSortCustomAttribute.prototype, "inactive_color", void 0);
     __decorate([
         aurelia_framework_1.bindable({
             defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
         })
-    ], AuTableSortCustomAttribute.prototype, "parameters", void 0);
-    AuTableSortCustomAttribute = __decorate([
-        aurelia_framework_1.customAttribute('au-table-sort'),
+    ], AuDatatableSortCustomAttribute.prototype, "parameters", void 0);
+    AuDatatableSortCustomAttribute = __decorate([
+        aurelia_framework_1.customAttribute('au-datatable-sort'),
         aurelia_framework_1.inject(Element)
-    ], AuTableSortCustomAttribute);
-    return AuTableSortCustomAttribute;
+    ], AuDatatableSortCustomAttribute);
+    return AuDatatableSortCustomAttribute;
 }());
-exports.AuTableSortCustomAttribute = AuTableSortCustomAttribute;
+exports.AuDatatableSortCustomAttribute = AuDatatableSortCustomAttribute;

@@ -1,6 +1,6 @@
 import { BindingEngine } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-export declare class AuTableInfoComponent {
+export declare class AuDatatableInfoComponent {
     private binding_engine;
     message: string;
     label_filtered: string;

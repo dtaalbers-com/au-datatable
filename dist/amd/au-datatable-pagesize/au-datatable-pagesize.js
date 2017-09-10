@@ -42,15 +42,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 define(["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var AuTablePagesizeComponent = /** @class */ (function () {
-        function AuTablePagesizeComponent() {
+    var AuDatatablePagesizeComponent = /** @class */ (function () {
+        function AuDatatablePagesizeComponent() {
         }
-        AuTablePagesizeComponent.prototype.bind = function () {
+        AuDatatablePagesizeComponent.prototype.bind = function () {
             if (!this.page_sizes || this.page_sizes.length == 0)
                 throw new Error('[au-table-pagesize:bind] No page sizes has been bound.');
             this.parameters.page_size = this.page_sizes[0];
         };
-        AuTablePagesizeComponent.prototype.page_size_change = function () {
+        AuDatatablePagesizeComponent.prototype.page_size_change = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var response;
                 return __generator(this, function (_a) {
@@ -70,26 +70,26 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
                 });
             });
         };
-        AuTablePagesizeComponent.prototype.reset = function () {
+        AuDatatablePagesizeComponent.prototype.reset = function () {
             this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
             this.parameters.skip = 0;
         };
         __decorate([
             aurelia_framework_1.bindable
-        ], AuTablePagesizeComponent.prototype, "page_sizes", void 0);
+        ], AuDatatablePagesizeComponent.prototype, "page_sizes", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuTablePagesizeComponent.prototype, "classes", void 0);
+        ], AuDatatablePagesizeComponent.prototype, "classes", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuTablePagesizeComponent.prototype, "on_page_size_change", void 0);
+        ], AuDatatablePagesizeComponent.prototype, "on_page_size_change", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuTablePagesizeComponent.prototype, "parameters", void 0);
-        AuTablePagesizeComponent = __decorate([
-            aurelia_framework_1.customElement('au-table-pagesize')
-        ], AuTablePagesizeComponent);
-        return AuTablePagesizeComponent;
+        ], AuDatatablePagesizeComponent.prototype, "parameters", void 0);
+        AuDatatablePagesizeComponent = __decorate([
+            aurelia_framework_1.customElement('au-datatable-pagesize')
+        ], AuDatatablePagesizeComponent);
+        return AuDatatablePagesizeComponent;
     }());
-    exports.AuTablePagesizeComponent = AuTablePagesizeComponent;
+    exports.AuDatatablePagesizeComponent = AuDatatablePagesizeComponent;
 });

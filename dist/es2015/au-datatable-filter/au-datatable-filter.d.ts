@@ -1,6 +1,6 @@
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableFilter } from '../au-datatable-contracts/AuDatatableFilter';
-export declare class AuTableFilterComponent {
+export declare class AuDatatableFilterComponent {
     on_filter: Function;
     columns: Array<number>;
     btn_classes: string;

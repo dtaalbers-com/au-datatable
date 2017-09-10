@@ -1,6 +1,6 @@
 import { BindingEngine } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-export declare class AuTablePaginationComponent {
+export declare class AuDatatablePaginationComponent {
     private binding_engine;
     amount_of_pages: number;
     on_next_page: Function;
