@@ -1,16 +1,16 @@
 import 'bootstrap';
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
-import { IAuTableParameters } from './components/au-table/au-table-contracts/IAuTableParameters';
-import { IAuTableFilter } from './components/au-table/au-table-contracts/IAuTableFilter';
-import { IAuTableResponse } from './components/au-table/au-table-contracts/IAuTableResponse';
+import { AuDatatableParameters } from 'au-datatable';
+import { AuDatatableFilter } from 'au-datatable';
+import { IAuDatatableResponse } from 'au-datatable';
 
 @autoinject()
 export class App {
 
     public data: Array<any>;
 
-    public parameters: IAuTableParameters = {
+    public parameters: AuDatatableParameters = {
         search_query: undefined,
         total_records: undefined,
         table_data: undefined,
@@ -22,7 +22,7 @@ export class App {
         filters: []
     }
 
-    public table_filters: Array<IAuTableFilter> =
+    public table_filters: Array<AuDatatableFilter> =
     [
         {
             description: 'Contains',
@@ -52,70 +52,70 @@ export class App {
         this.parameters.total_records = response.total_records;
     }
 
-    public next_page = async (parameters: IAuTableParameters): Promise<any> => {
+    public next_page = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:next_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public previous_page = async (parameters: IAuTableParameters): Promise<any> => {
+    public previous_page = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:previous_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public change_page = async (parameters: IAuTableParameters): Promise<any> => {
+    public change_page = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public sort = async (parameters: IAuTableParameters): Promise<any> => {
+    public sort = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:sort] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public search = async (parameters: IAuTableParameters): Promise<any> => {
+    public search = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public page_size_changed = async (parameters: IAuTableParameters): Promise<any> => {
+    public page_size_changed = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:change_page] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    public filter = async (parameters: IAuTableParameters): Promise<any> => {
+    public filter = async (parameters: AuDatatableParameters): Promise<any> => {
         try {
-            let response = await this.fetch_data(parameters) as IAuTableResponse;
+            let response = await this.fetch_data(parameters) as IAuDatatableResponse;
             return response;
         } catch (e) {
             alert(`[app:filter] Failed to load the data: ${JSON.stringify(e)}`);
         }
     }
 
-    private async fetch_data(parameters: IAuTableParameters): Promise<any> {
+    private async fetch_data(parameters: AuDatatableParameters): Promise<any> {
         let direction = parameters.sort_direction == undefined
             ? undefined
             : parameters.sort_direction == 'ascending' ? 0 : 1;

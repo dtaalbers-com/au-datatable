@@ -5,7 +5,8 @@ export function configure(aurelia: Aurelia) {
     aurelia.use
         .standardConfiguration()
         .developmentLogging()
-        .feature('resources');
+        .feature('resources')
+        .plugin('au-datatable');
 
     if (environment.testing) {
         aurelia.use.plugin('aurelia-testing');

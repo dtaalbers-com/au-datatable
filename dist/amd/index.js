@@ -3,13 +3,16 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     function configure(aurelia) {
         aurelia.globalResources([
-            './au-table',
-            './au-table-pagination/au-table-pagination',
-            './au-table-search/au-table-search',
-            './au-table-pagesize/au-table-pagesize',
-            './au-table-info/au-table-info',
-            './au-table-sort/au-table-sort',
-            './au-table-filter/au-table-filter'
+            './au-datatable',
+            './au-datatable-pagination/au-datatable-pagination',
+            './au-datatable-search/au-datatable-search',
+            './au-datatable-pagesize/au-datatable-pagesize',
+            './au-datatable-info/au-datatable-info',
+            './au-datatable-sort/au-datatable-sort',
+            './au-datatable-filter/au-datatable-filter',
+            './au-datatable-contracts/AuDatatableFilter',
+            './au-datatable-contracts/AuDatatableParameters',
+            './au-datatable-contracts/AuDatatableResponse'
         ]);
     }
     exports.configure = configure;

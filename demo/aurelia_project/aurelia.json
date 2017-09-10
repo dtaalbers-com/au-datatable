@@ -138,6 +138,18 @@
                         "main": "aurelia-testing",
                         "env": "dev"
                     },
+                    {
+                        "name": "au-datatable",
+                        "path": "../node_modules/au-datatable/dist/amd",
+                        "main": "index",
+                        "resources": [
+                            "au-datatable-filter/au-datatable-filter.html",
+                            "au-datatable-pagination/au-datatable-pagination.html",
+                            "au-datatable-search/au-datatable-search.html",
+                            "au-datatable-pagesize/au-datatable-pagesize.html",
+                            "au-datatable-info/au-datatable-info.html"
+                        ]
+                    },
                     "jquery",
                     {
                         "name": "bootstrap",
