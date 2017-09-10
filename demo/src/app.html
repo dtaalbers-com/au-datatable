@@ -1,8 +1,13 @@
 <template>
     <require from="bootstrap/css/bootstrap.css"></require>
     <require from="./app.css"></require>
-
     <div id="wrapper" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="src/table.html" class="btn btn-primary pull-right">View source</a>
+                <br><br>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="header">
@@ -22,19 +27,14 @@
                     <thead au-table-sort="columns.bind: [1,2,3,4,5,6]; on_sort.bind: sort; parameters.bind: parameters">
                         <tr>
                             <th></th>
-                            <th>Name</th>
+                            <th>Fullname</th>
                             <th>Age</th>
                             <th>City</th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Nationality</th>
                         </tr>
-                        <tr as-element="au-table-filter" 
-                            on_filter.bind="filter" 
-                            filters.bind="table_filters" 
-                            columns.bind="[1,2,3,4,5,6]"
-                            parameters.bind="parameters"
-                            containerless>
+                        <tr as-element="au-table-filter" on_filter.bind="filter" filters.bind="table_filters" columns.bind="[1,2,3,4,5,6]" parameters.bind="parameters" containerless>
                         </tr>
                     </thead>
                     <tbody>
