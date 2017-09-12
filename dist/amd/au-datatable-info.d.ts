@@ -1,22 +1,22 @@
 import { BindingEngine } from 'aurelia-framework';
 import { AuDatatableParameters } from './AuDatatableParameters';
 export declare class AuDatatableInfoComponent {
-    private binding_engine;
+    private bindingEngine;
     message: string;
-    label_filtered: string;
+    labelFiltered: string;
     parameters: AuDatatableParameters;
     private info;
-    private start_record;
-    private end_record;
-    private current_page_copy;
+    private startRecord;
+    private endRecord;
+    private currentPageCopy;
     private subscriptions;
-    constructor(binding_engine: BindingEngine);
+    constructor(bindingEngine: BindingEngine);
     attached(): void;
     detached(): void;
-    private update_record_info();
-    private translate_info();
-    private next_page();
-    private previous_page();
-    private page_changed();
+    private updateRecordInfo();
+    private translateInfo();
+    private nextPage();
+    private previousPage();
+    private pageChanged();
     private reset();
 }

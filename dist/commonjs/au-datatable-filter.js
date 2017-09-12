@@ -44,89 +44,89 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var aurelia_framework_1 = require("aurelia-framework");
 var AuDatatableFilterComponent = /** @class */ (function () {
     function AuDatatableFilterComponent() {
-        this.label_clear_filter = 'Clear filter';
-        this.filter_values = [];
+        this.labelClearFilter = 'Clear filter';
+        this.filterValues = [];
     }
     AuDatatableFilterComponent.prototype.attached = function () {
         var _this = this;
-        this.get_columns_count();
-        document.getElementsByTagName('html')[0].addEventListener('click', function (e) { return _this.hide_filter_dropdowns(e); });
+        this.getColumnsCount();
+        document.getElementsByTagName('html')[0].addEventListener('click', function (e) { return _this.hideFilterDropdowns(e); });
     };
     AuDatatableFilterComponent.prototype.detached = function () {
         var _this = this;
-        document.getElementsByTagName('html')[0].removeEventListener('click', function (e) { return _this.hide_filter_dropdowns(e); });
+        document.getElementsByTagName('html')[0].removeEventListener('click', function (e) { return _this.hideFilterDropdowns(e); });
     };
-    AuDatatableFilterComponent.prototype.should_generate_content = function (column) {
+    AuDatatableFilterComponent.prototype.shouldGenerateContent = function (column) {
         return this.columns.some(function (x) { return x == column; });
     };
-    AuDatatableFilterComponent.prototype.should_add_filter = function (filter, column) {
-        return filter.apply_to_columns.some(function (x) { return x == column; });
+    AuDatatableFilterComponent.prototype.shouldAddFilter = function (filter, column) {
+        return filter.applyToColumns.some(function (x) { return x == column; });
     };
-    AuDatatableFilterComponent.prototype.select_filter = function (event, filter, column) {
+    AuDatatableFilterComponent.prototype.selectFilter = function (event, filter, column) {
         return __awaiter(this, void 0, void 0, function () {
             var value, response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (typeof this.on_filter != 'function')
-                            throw new Error('[au-table-filter:select_filter] No on_filter() callback has been set');
-                        value = this.filter_values[column];
+                        if (typeof this.onFilter != 'function')
+                            throw new Error('[au-table-filter:select_filter] No onFilter() callback has been set');
+                        value = this.filterValues[column];
                         if (!value) return [3 /*break*/, 2];
-                        this.remove_filters_for_column(column);
+                        this.removeFiltersForColumn(column);
                         this.parameters.filters.push({
                             value: value,
                             description: filter.description,
-                            selected_column: column
+                            selectedColumn: column
                         });
-                        this.set_active_label_filter(event);
-                        return [4 /*yield*/, this.on_filter(this.parameters)];
+                        this.setActiveLabelFilter(event);
+                        return [4 /*yield*/, this.onFilter(this.parameters)];
                     case 1:
                         response = _a.sent();
-                        this.parameters.total_records = response.total_records;
-                        this.parameters.table_data = response.data;
+                        this.parameters.totalRecords = response.totalRecords;
+                        this.parameters.tableData = response.data;
                         this.reset();
                         return [3 /*break*/, 3];
                     case 2:
-                        this.show_input_warning(event);
+                        this.showInputWarning(event);
                         _a.label = 3;
                     case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    AuDatatableFilterComponent.prototype.is_selected_filter = function (filter, column) {
-        return this.parameters.filters.some(function (x) { return x.description == filter.description && x.selected_column == column; });
+    AuDatatableFilterComponent.prototype.isSelectedFilter = function (filter, column) {
+        return this.parameters.filters.some(function (x) { return x.description == filter.description && x.selectedColumn == column; });
     };
-    AuDatatableFilterComponent.prototype.show_filters = function (event) {
-        this.active_filter_btn = event.target;
+    AuDatatableFilterComponent.prototype.showFilters = function (event) {
+        this.activeFilterBtn = event.target;
         var parent = event.target.closest('div');
         var filter = parent.getElementsByClassName('au-filter-container')[0];
         filter.style.display = filter.style.display == 'block' ? 'none' : 'block';
     };
-    AuDatatableFilterComponent.prototype.input_changed = function (column) {
+    AuDatatableFilterComponent.prototype.inputChanged = function (column) {
         return __awaiter(this, void 0, void 0, function () {
             var response, filter, response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!!this.filter_values[column]) return [3 /*break*/, 2];
-                        this.remove_filters_for_column(column);
-                        return [4 /*yield*/, this.on_filter(this.parameters)];
+                        if (!!this.filterValues[column]) return [3 /*break*/, 2];
+                        this.removeFiltersForColumn(column);
+                        return [4 /*yield*/, this.onFilter(this.parameters)];
                     case 1:
                         response = _a.sent();
-                        this.parameters.total_records = response.total_records;
-                        this.parameters.table_data = response.data;
+                        this.parameters.totalRecords = response.totalRecords;
+                        this.parameters.tableData = response.data;
                         this.reset();
                         return [3 /*break*/, 4];
                     case 2:
-                        if (!this.parameters.filters.some(function (x) { return x.selected_column == column; })) return [3 /*break*/, 4];
-                        filter = this.parameters.filters.find(function (x) { return x.selected_column == column; });
-                        filter.value = this.filter_values[column];
-                        return [4 /*yield*/, this.on_filter(this.parameters)];
+                        if (!this.parameters.filters.some(function (x) { return x.selectedColumn == column; })) return [3 /*break*/, 4];
+                        filter = this.parameters.filters.find(function (x) { return x.selectedColumn == column; });
+                        filter.value = this.filterValues[column];
+                        return [4 /*yield*/, this.onFilter(this.parameters)];
                     case 3:
                         response = _a.sent();
-                        this.parameters.total_records = response.total_records;
-                        this.parameters.table_data = response.data;
+                        this.parameters.totalRecords = response.totalRecords;
+                        this.parameters.tableData = response.data;
                         this.reset();
                         _a.label = 4;
                     case 4: return [2 /*return*/];
@@ -134,7 +134,7 @@ var AuDatatableFilterComponent = /** @class */ (function () {
             });
         });
     };
-    AuDatatableFilterComponent.prototype.clear_filter = function (event, column) {
+    AuDatatableFilterComponent.prototype.clearFilter = function (event, column) {
         return __awaiter(this, void 0, void 0, function () {
             var parent, input, response;
             return __generator(this, function (_a) {
@@ -142,76 +142,76 @@ var AuDatatableFilterComponent = /** @class */ (function () {
                     case 0:
                         parent = event.target.closest('td');
                         input = parent.getElementsByClassName('au-filter-input')[0];
-                        this.remove_filters_for_column(column);
+                        this.removeFiltersForColumn(column);
                         input.value = '';
-                        this.filter_values[column] = undefined;
-                        return [4 /*yield*/, this.on_filter(this.parameters)];
+                        this.filterValues[column] = undefined;
+                        return [4 /*yield*/, this.onFilter(this.parameters)];
                     case 1:
                         response = _a.sent();
-                        this.parameters.total_records = response.total_records;
-                        this.parameters.table_data = response.data;
+                        this.parameters.totalRecords = response.totalRecords;
+                        this.parameters.tableData = response.data;
                         this.reset();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    AuDatatableFilterComponent.prototype.get_columns_count = function () {
-        this.au_table_filter = document.getElementsByClassName('au-table-filter')[0];
-        var thead = this.au_table_filter.closest('thead');
+    AuDatatableFilterComponent.prototype.getColumnsCount = function () {
+        this.auTableFilter = document.getElementsByClassName('au-table-filter')[0];
+        var thead = this.auTableFilter.closest('thead');
         var headers = thead.getElementsByTagName('tr')[0];
-        this.amount_of_columns = headers.getElementsByTagName('th').length;
+        this.amountOfColumns = headers.getElementsByTagName('th').length;
     };
-    AuDatatableFilterComponent.prototype.hide_filter_dropdowns = function (event) {
-        if (this.active_filter_btn == event.target)
+    AuDatatableFilterComponent.prototype.hideFilterDropdowns = function (event) {
+        if (this.activeFilterBtn == event.target)
             return;
-        var ignore_elements = ['au-filter', 'au-filter-cell', 'au-filter-input', 'au-clear', 'au-clear-icon'];
-        if (Array.from(event.target.classList).some(function (x) { return ignore_elements.some(function (y) { return y == x; }); }))
+        var ignoreElements = ['au-filter', 'au-filter-cell', 'au-filter-input', 'au-clear', 'au-clear-icon'];
+        if (Array.from(event.target.classList).some(function (x) { return ignoreElements.some(function (y) { return y == x; }); }))
             return;
-        if (!this.filter_elements)
-            this.filter_elements = this.au_table_filter.getElementsByClassName('au-filter-container');
-        Array.from(this.filter_elements).forEach(function (x) { return x.style.display = 'none'; });
+        if (!this.filterElements)
+            this.filterElements = this.auTableFilter.getElementsByClassName('au-filter-container');
+        Array.from(this.filterElements).forEach(function (x) { return x.style.display = 'none'; });
     };
-    AuDatatableFilterComponent.prototype.show_input_warning = function (event) {
+    AuDatatableFilterComponent.prototype.showInputWarning = function (event) {
         var parent = event.target.closest('td');
         var input = parent.getElementsByClassName('au-filter-input')[0];
         input.style.border = '1px red solid';
         setTimeout(function () { return input.style.border = '1px #ddd solid'; }, 500);
     };
-    AuDatatableFilterComponent.prototype.set_active_label_filter = function (event) {
+    AuDatatableFilterComponent.prototype.setActiveLabelFilter = function (event) {
         event.target.classList.add('active');
     };
-    AuDatatableFilterComponent.prototype.remove_filters_for_column = function (column) {
-        this.remove_active_labels_for_column(column);
+    AuDatatableFilterComponent.prototype.removeFiltersForColumn = function (column) {
+        this.removeActiveLabelsForColumn(column);
         this.parameters.filters = this.parameters.filters
-            .filter(function (x) { return x.selected_column != column; });
+            .filter(function (x) { return x.selectedColumn != column; });
     };
-    AuDatatableFilterComponent.prototype.remove_active_labels_for_column = function (column) {
-        var filters = this.au_table_filter.getElementsByClassName('au-filter');
+    AuDatatableFilterComponent.prototype.removeActiveLabelsForColumn = function (column) {
+        var filters = this.auTableFilter.getElementsByClassName('au-filter');
         Array.from(filters).forEach(function (x) {
             if (x.getAttribute('data-column') == column)
                 x.classList.remove('active');
         });
     };
     AuDatatableFilterComponent.prototype.reset = function () {
-        this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+        this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
         this.parameters.skip = 0;
     };
     __decorate([
         aurelia_framework_1.bindable
-    ], AuDatatableFilterComponent.prototype, "on_filter", void 0);
+    ], AuDatatableFilterComponent.prototype, "onFilter", void 0);
     __decorate([
         aurelia_framework_1.bindable
     ], AuDatatableFilterComponent.prototype, "columns", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuDatatableFilterComponent.prototype, "btn_classes", void 0);
+    ], AuDatatableFilterComponent.prototype, "btnClasses", void 0);
     __decorate([
         aurelia_framework_1.bindable
     ], AuDatatableFilterComponent.prototype, "filters", void 0);
     __decorate([
         aurelia_framework_1.bindable
-    ], AuDatatableFilterComponent.prototype, "label_clear_filter", void 0);
+    ], AuDatatableFilterComponent.prototype, "labelClearFilter", void 0);
     __decorate([
         aurelia_framework_1.bindable({
             defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
@@ -219,7 +219,7 @@ var AuDatatableFilterComponent = /** @class */ (function () {
     ], AuDatatableFilterComponent.prototype, "parameters", void 0);
     AuDatatableFilterComponent = __decorate([
         aurelia_framework_1.customElement('au-datatable-filter'),
-        aurelia_framework_1.inlineView("\n    <template>\n        <tr class=\"au-table-filter\">\n            <td class=\"au-filter-cell\" repeat.for=\"i of amount_of_columns\" if.bind=\"parameters\">\n                <div if.bind=\"should_generate_content(i)\">\n                    <input class=\"au-filter-input\" value.two-way=\"filter_values[i]\" type=\"text\" change.delegate=\"input_changed(i)\">\n                    <button class=\"au-filter-btn\" click.delegate=\"show_filters($event)\" class.bind=\"btn_classes\">&#9783;</button>\n                    <div class=\"au-filter-container\">\n                        <ul class=\"au-filters\">\n                            <li class=\"au-filter ${ is_selected_filter(filter, i) ? 'active': ''}\" data-column=\"${i}\" repeat.for=\"filter of filters\" if.bind=\"should_add_filter(filter ,i)\" click.delegate=\"select_filter($event, filter, i)\"> ${ filter.description }</li>\n                            <li class=\"au-clear\" click.delegate=\"clear_filter($event, i)\">${ label_clear_filter } <span class=\"au-clear-icon\">&#10006;</span></li>\n                        </ul>\n                    </div>\n                </div>\n            </td>\n            <style>\n                .au-table-filter .au-filter-input {\n                    width: calc(100% - 35px);\n                    transition: 1s;\n                    outline: none;\n                    height: 25px;\n                    border: 1px #ddd solid;\n                }\n\n                .au-table-filter .au-filter-btn {\n                    width: 30px;\n                    margin-left: 5px;\n                    float: right;\n                    outline: none;\n                }\n\n                .au-table-filter .au-filter-container {\n                    width: 100%;\n                    display: none;\n                }\n\n                .au-table-filter .au-filter-container .au-filters {\n                    list-style: none;\n                    padding: 10px;\n                    border: 1px solid #ddd;\n                    margin-top: 5px;\n                    position: relative;\n                    background-color: white;\n                    top: 0;\n                    bottom: 0;\n                    font-size: 8pt;\n                    right: 0;\n                    margin-bottom: 0;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-filter {\n                    border-bottom: 1px solid #ddd;\n                    padding: 2px 5px;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-clear {\n                    margin-top: 20px;\n                    font-size: 8pt;\n                    padding: 2px 5px;\n                    background: #333;\n                    color: white;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-clear:hover {\n                    cursor: pointer;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-clear .au-clear-icon {\n                    color: white;\n                    float: right;\n                    margin-top: 1px;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-filter.active {\n                    background-color: #b9b8b8;\n                    color: white\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-filter:hover {\n                    cursor: pointer;\n                }\n            </style>\n        </tr>\n    </template>\n")
+        aurelia_framework_1.inlineView("\n    <template>\n        <tr class=\"au-table-filter\">\n            <td class=\"au-filter-cell\" repeat.for=\"i of amountOfColumns\" if.bind=\"parameters\">\n                <div if.bind=\"shouldGenerateContent(i)\">\n                    <input class=\"au-filter-input\" value.two-way=\"filterValues[i]\" type=\"text\" change.delegate=\"inputChanged(i)\">\n                    <button class=\"au-filter-btn\" click.delegate=\"showFilters($event)\" class.bind=\"btnClasses\">&#9783;</button>\n                    <div class=\"au-filter-container\">\n                        <ul class=\"au-filters\">\n                            <li class=\"au-filter ${ isSelectedFilter(filter, i) ? 'active': ''}\" data-column=\"${i}\" repeat.for=\"filter of filters\" if.bind=\"shouldAddFilter(filter ,i)\" click.delegate=\"selectFilter($event, filter, i)\"> ${ filter.description }</li>\n                            <li class=\"au-clear\" click.delegate=\"clearFilter($event, i)\">${ labelClearFilter } <span class=\"au-clear-icon\">&#10006;</span></li>\n                        </ul>\n                    </div>\n                </div>\n            </td>\n            <style>\n                .au-table-filter .au-filter-input {\n                    width: calc(100% - 35px);\n                    transition: 1s;\n                    outline: none;\n                    height: 25px;\n                    border: 1px #ddd solid;\n                }\n\n                .au-table-filter .au-filter-btn {\n                    width: 30px;\n                    margin-left: 5px;\n                    float: right;\n                    outline: none;\n                }\n\n                .au-table-filter .au-filter-container {\n                    width: 100%;\n                    display: none;\n                }\n\n                .au-table-filter .au-filter-container .au-filters {\n                    list-style: none;\n                    padding: 10px;\n                    border: 1px solid #ddd;\n                    margin-top: 5px;\n                    position: relative;\n                    background-color: white;\n                    top: 0;\n                    bottom: 0;\n                    font-size: 8pt;\n                    right: 0;\n                    margin-bottom: 0;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-filter {\n                    border-bottom: 1px solid #ddd;\n                    padding: 2px 5px;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-clear {\n                    margin-top: 20px;\n                    font-size: 8pt;\n                    padding: 2px 5px;\n                    background: #333;\n                    color: white;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-clear:hover {\n                    cursor: pointer;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-clear .au-clear-icon {\n                    color: white;\n                    float: right;\n                    margin-top: 1px;\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-filter.active {\n                    background-color: #b9b8b8;\n                    color: white\n                }\n\n                .au-table-filter .au-filter-container .au-filters .au-filter:hover {\n                    cursor: pointer;\n                }\n            </style>\n        </tr>\n    </template>\n")
     ], AuDatatableFilterComponent);
     return AuDatatableFilterComponent;
 }());

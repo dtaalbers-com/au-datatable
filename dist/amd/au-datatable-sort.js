@@ -45,8 +45,8 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     var AuDatatableSortCustomAttribute = /** @class */ (function () {
         function AuDatatableSortCustomAttribute(element) {
             this.element = element;
-            this.active_color = '#f44336';
-            this.inactive_color = '#000';
+            this.activeColor = '#f44336';
+            this.inactiveColor = '#000';
             this.template = "\n        <span class=\"sorting\" style=\"float: right;\">\n            <span class=\"ascending sort\" style=\"font-weight: bold;\">&#8593;</span>\n            <span class=\"descending sort\" style=\"margin-left: -3px;\">&#8595;</span>\n        </span>\n    ";
         }
         AuDatatableSortCustomAttribute.prototype.attached = function () {
@@ -60,55 +60,55 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
                 header.setAttribute('index', column.toString());
                 header.addEventListener('click', function (event) { return _this.sort(event); });
                 header.innerHTML = header.innerHTML + _this.template;
-                if (_this.parameters.sort_column == column)
-                    _this.set_active(header, _this.parameters.sort_direction);
+                if (_this.parameters.sortColumn == column)
+                    _this.setActive(header, _this.parameters.sortDirection);
             });
         };
         AuDatatableSortCustomAttribute.prototype.sort = function (event) {
             return __awaiter(this, void 0, void 0, function () {
-                var column_index, response;
+                var columnIndex, response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (typeof this.on_sort != 'function')
-                                throw new Error('[au-table-sort:sort] No on_sort() callback has been set');
-                            column_index = this.get_index(event.target);
-                            if (this.parameters.sort_column == column_index) {
-                                switch (this.parameters.sort_direction) {
+                            if (typeof this.onSort != 'function')
+                                throw new Error('[au-table-sort:sort] No onSort() callback has been set');
+                            columnIndex = this.getIndex(event.target);
+                            if (this.parameters.sortColumn == columnIndex) {
+                                switch (this.parameters.sortDirection) {
                                     case 'ascending':
-                                        this.parameters.sort_direction = 'descending';
+                                        this.parameters.sortDirection = 'descending';
                                         break;
                                     case 'descending':
-                                        this.parameters.sort_direction = undefined;
+                                        this.parameters.sortDirection = undefined;
                                         break;
                                     default:
-                                        this.parameters.sort_direction = 'ascending';
+                                        this.parameters.sortDirection = 'ascending';
                                         break;
                                 }
                             }
                             else {
-                                this.parameters.sort_column = column_index;
-                                this.parameters.sort_direction = 'ascending';
+                                this.parameters.sortColumn = columnIndex;
+                                this.parameters.sortDirection = 'ascending';
                             }
-                            this.set_active(event.target, this.parameters.sort_direction);
-                            return [4 /*yield*/, this.on_sort(this.parameters)];
+                            this.setActive(event.target, this.parameters.sortDirection);
+                            return [4 /*yield*/, this.onSort(this.parameters)];
                         case 1:
                             response = _a.sent();
-                            this.parameters.table_data = response.data;
-                            this.parameters.total_records = response.total_records;
+                            this.parameters.tableData = response.data;
+                            this.parameters.totalRecords = response.totalRecords;
                             return [2 /*return*/];
                     }
                 });
             });
         };
-        AuDatatableSortCustomAttribute.prototype.set_active = function (target, direction) {
+        AuDatatableSortCustomAttribute.prototype.setActive = function (target, direction) {
             this.reset();
             if (target.nodeName == 'SPAN')
                 target = target.parentNode.closest('th');
-            var sort_container = target.getElementsByClassName('sorting')[0];
-            var sort = sort_container.getElementsByClassName(direction)[0];
+            var sortContainer = target.getElementsByClassName('sorting')[0];
+            var sort = sortContainer.getElementsByClassName(direction)[0];
             if (sort)
-                sort.style.color = this.active_color;
+                sort.style.color = this.activeColor;
         };
         AuDatatableSortCustomAttribute.prototype.reset = function () {
             var _this = this;
@@ -116,26 +116,26 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
                 var sorts = x.getElementsByClassName('sorting');
                 if (sorts.length == 0)
                     return;
-                Array.from(sorts[0].getElementsByTagName('span')).forEach(function (x) { return x.style.color = _this.inactive_color; });
+                Array.from(sorts[0].getElementsByTagName('span')).forEach(function (x) { return x.style.color = _this.inactiveColor; });
             });
         };
-        AuDatatableSortCustomAttribute.prototype.get_index = function (target) {
+        AuDatatableSortCustomAttribute.prototype.getIndex = function (target) {
             if (target.nodeName == 'SPAN')
                 target = target.parentNode.closest('th');
             return target.getAttribute('index');
         };
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatableSortCustomAttribute.prototype, "on_sort", void 0);
+        ], AuDatatableSortCustomAttribute.prototype, "onSort", void 0);
         __decorate([
             aurelia_framework_1.bindable
         ], AuDatatableSortCustomAttribute.prototype, "columns", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatableSortCustomAttribute.prototype, "active_color", void 0);
+        ], AuDatatableSortCustomAttribute.prototype, "activeColor", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatableSortCustomAttribute.prototype, "inactive_color", void 0);
+        ], AuDatatableSortCustomAttribute.prototype, "inactiveColor", void 0);
         __decorate([
             aurelia_framework_1.bindable({
                 defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,

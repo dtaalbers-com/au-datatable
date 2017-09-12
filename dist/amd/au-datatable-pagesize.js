@@ -46,49 +46,49 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         function AuDatatablePagesizeComponent() {
         }
         AuDatatablePagesizeComponent.prototype.bind = function () {
-            if (!this.page_sizes || this.page_sizes.length == 0)
+            if (!this.pageSizes || this.pageSizes.length == 0)
                 throw new Error('[au-table-pagesize:bind] No page sizes has been bound.');
-            this.parameters.page_size = this.page_sizes[0];
+            this.parameters.pageSize = this.pageSizes[0];
         };
-        AuDatatablePagesizeComponent.prototype.page_size_change = function () {
+        AuDatatablePagesizeComponent.prototype.pageSizeChange = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (typeof this.on_page_size_change != 'function')
-                                throw new Error('[au-table-pagesize:page_size_change] No on_page_size_change() callback has been set');
-                            this.parameters.page_size = this.selected_page_size;
+                            if (typeof this.onPageSizeChange != 'function')
+                                throw new Error('[au-table-pagesize:pageSizeChange] No onPageSizeChange() callback has been set');
+                            this.parameters.pageSize = this.selectedPageSize;
                             this.reset();
-                            return [4 /*yield*/, this.on_page_size_change(this.parameters)];
+                            return [4 /*yield*/, this.onPageSizeChange(this.parameters)];
                         case 1:
                             response = _a.sent();
-                            this.parameters.total_records = response.total_records;
-                            this.parameters.table_data = response.data;
+                            this.parameters.totalRecords = response.totalRecords;
+                            this.parameters.tableData = response.data;
                             return [2 /*return*/];
                     }
                 });
             });
         };
         AuDatatablePagesizeComponent.prototype.reset = function () {
-            this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+            this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
             this.parameters.skip = 0;
         };
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatablePagesizeComponent.prototype, "page_sizes", void 0);
+        ], AuDatatablePagesizeComponent.prototype, "pageSizes", void 0);
         __decorate([
             aurelia_framework_1.bindable
         ], AuDatatablePagesizeComponent.prototype, "classes", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatablePagesizeComponent.prototype, "on_page_size_change", void 0);
+        ], AuDatatablePagesizeComponent.prototype, "onPageSizeChange", void 0);
         __decorate([
             aurelia_framework_1.bindable
         ], AuDatatablePagesizeComponent.prototype, "parameters", void 0);
         AuDatatablePagesizeComponent = __decorate([
             aurelia_framework_1.customElement('au-datatable-pagesize'),
-            aurelia_framework_1.inlineView("\n    <template>\n        <div class=\"au-table-pagesize\">\n            <select class.bind=\"classes\" value.bind=\"selected_page_size\" change.delegate=\"page_size_change()\">\n                <option repeat.for=\"size of page_sizes\" model.bind=\"size\">${ size }</option>\n            </select>\n        </div>\n    </template>\n")
+            aurelia_framework_1.inlineView("\n    <template>\n        <div class=\"au-table-pagesize\">\n            <select class.bind=\"classes\" value.bind=\"selectedPageSize\" change.delegate=\"pageSizeChange()\">\n                <option repeat.for=\"size of pageSizes\" model.bind=\"size\">${ size }</option>\n            </select>\n        </div>\n    </template>\n")
         ], AuDatatablePagesizeComponent);
         return AuDatatablePagesizeComponent;
     }());

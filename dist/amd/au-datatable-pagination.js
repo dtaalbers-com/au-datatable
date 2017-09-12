@@ -43,113 +43,113 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var AuDatatablePaginationComponent = /** @class */ (function () {
-        function AuDatatablePaginationComponent(binding_engine) {
-            this.binding_engine = binding_engine;
-            this.amount_of_pages = 2;
+        function AuDatatablePaginationComponent(bindingEngine) {
+            this.bindingEngine = bindingEngine;
+            this.amountOfPages = 2;
             this.refreshing = false;
             this.subscriptions = [];
         }
         AuDatatablePaginationComponent.prototype.attached = function () {
             var _this = this;
-            this.subscriptions.push(this.binding_engine
-                .propertyObserver(this.parameters, 'current_page')
+            this.subscriptions.push(this.bindingEngine
+                .propertyObserver(this.parameters, 'currentPage')
                 .subscribe(function () { return _this.data_change(); }));
-            this.subscriptions.push(this.binding_engine
-                .propertyObserver(this.parameters, 'total_records')
+            this.subscriptions.push(this.bindingEngine
+                .propertyObserver(this.parameters, 'totalRecords')
                 .subscribe(function () { return _this.data_change(); }));
-            this.subscriptions.push(this.binding_engine
-                .propertyObserver(this.parameters, 'page_size')
+            this.subscriptions.push(this.bindingEngine
+                .propertyObserver(this.parameters, 'pageSize')
                 .subscribe(function () { return _this.data_change(); }));
         };
         AuDatatablePaginationComponent.prototype.data_change = function () {
-            if (this.parameters.current_page == undefined || this.parameters.total_records == undefined)
+            if (this.parameters.currentPage == undefined || this.parameters.totalRecords == undefined)
                 return;
             this.refreshing = true;
-            this.total_pages = Math.ceil(parseInt(this.parameters.total_records.toString()) / this.parameters.page_size);
-            this.previous_pages = this.parameters.current_page - this.amount_of_pages <= 0
-                ? this.parameters.current_page - 1
-                : this.amount_of_pages;
-            this.following_pages = this.parameters.current_page + this.amount_of_pages > this.total_pages
-                ? this.parameters.current_page == this.total_pages ? 0 : this.total_pages - this.parameters.current_page
-                : this.amount_of_pages;
+            this.totalPages = Math.ceil(parseInt(this.parameters.totalRecords.toString()) / this.parameters.pageSize);
+            this.previousPages = this.parameters.currentPage - this.amountOfPages <= 0
+                ? this.parameters.currentPage - 1
+                : this.amountOfPages;
+            this.followingPages = this.parameters.currentPage + this.amountOfPages > this.totalPages
+                ? this.parameters.currentPage == this.totalPages ? 0 : this.totalPages - this.parameters.currentPage
+                : this.amountOfPages;
             this.refreshing = false;
         };
-        AuDatatablePaginationComponent.prototype.next_page = function () {
+        AuDatatablePaginationComponent.prototype.nextPage = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (typeof this.on_next_page != 'function')
-                                throw new Error('[au-table-pagination:next_page] No on_next_page() callback has been set');
-                            if (this.parameters.current_page == this.total_pages)
+                            if (typeof this.onNextPage != 'function')
+                                throw new Error('[au-table-pagination:nextPage] No onNextPage() callback has been set');
+                            if (this.parameters.currentPage == this.totalPages)
                                 return [2 /*return*/];
                             this.refreshing = true;
-                            this.parameters.skip += this.parameters.page_size;
-                            this.parameters.current_page++;
-                            return [4 /*yield*/, this.on_next_page(this.parameters)];
+                            this.parameters.skip += this.parameters.pageSize;
+                            this.parameters.currentPage++;
+                            return [4 /*yield*/, this.onNextPage(this.parameters)];
                         case 1:
                             response = _a.sent();
-                            this.parameters.total_records = response.total_records;
-                            this.parameters.table_data = response.data;
+                            this.parameters.totalRecords = response.totalRecords;
+                            this.parameters.tableData = response.data;
                             this.refreshing = false;
                             return [2 /*return*/];
                     }
                 });
             });
         };
-        AuDatatablePaginationComponent.prototype.previous_page = function () {
+        AuDatatablePaginationComponent.prototype.previousPage = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (typeof this.on_previous_page != 'function')
-                                throw new Error('[au-table-pagination:previous_page] No on_previous_page() callback has been set');
-                            if (this.parameters.current_page == 1)
+                            if (typeof this.onPreviousPage != 'function')
+                                throw new Error('[au-table-pagination:previousPage] No onPreviousPage() callback has been set');
+                            if (this.parameters.currentPage == 1)
                                 return [2 /*return*/];
                             this.refreshing = true;
-                            this.parameters.skip -= this.parameters.page_size;
-                            this.parameters.current_page--;
-                            return [4 /*yield*/, this.on_next_page(this.parameters)];
+                            this.parameters.skip -= this.parameters.pageSize;
+                            this.parameters.currentPage--;
+                            return [4 /*yield*/, this.onNextPage(this.parameters)];
                         case 1:
                             response = _a.sent();
-                            this.parameters.total_records = response.total_records;
-                            this.parameters.table_data = response.data;
+                            this.parameters.totalRecords = response.totalRecords;
+                            this.parameters.tableData = response.data;
                             this.refreshing = false;
                             return [2 /*return*/];
                     }
                 });
             });
         };
-        AuDatatablePaginationComponent.prototype.change_page = function (page) {
+        AuDatatablePaginationComponent.prototype.changePage = function (page) {
             return __awaiter(this, void 0, void 0, function () {
                 var response;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            if (typeof this.on_page_change != 'function')
-                                throw new Error('[au-table-pagination:change_page] No on_page_change() callback has been set');
-                            if (page + 1 == this.parameters.current_page)
+                            if (typeof this.onPageChange != 'function')
+                                throw new Error('[au-table-pagination:changePage] No onChangePage() callback has been set');
+                            if (page + 1 == this.parameters.currentPage)
                                 return [2 /*return*/];
                             this.refreshing = true;
                             if (page < 0)
                                 page = 0;
-                            this.parameters.skip = page * this.parameters.page_size;
-                            this.parameters.current_page = page + 1;
-                            return [4 /*yield*/, this.on_next_page(this.parameters)];
+                            this.parameters.skip = page * this.parameters.pageSize;
+                            this.parameters.currentPage = page + 1;
+                            return [4 /*yield*/, this.onNextPage(this.parameters)];
                         case 1:
                             response = _a.sent();
-                            this.parameters.total_records = response.total_records;
-                            this.parameters.table_data = response.data;
+                            this.parameters.totalRecords = response.totalRecords;
+                            this.parameters.tableData = response.data;
                             this.refreshing = false;
                             return [2 /*return*/];
                     }
                 });
             });
         };
-        AuDatatablePaginationComponent.prototype.calculate_previous_page_number = function (index) {
-            var number = (this.parameters.current_page + index) - this.amount_of_pages;
+        AuDatatablePaginationComponent.prototype.calculatePreviousPageNumber = function (index) {
+            var number = (this.parameters.currentPage + index) - this.amountOfPages;
             return number == 0 ? 1 : number;
         };
         AuDatatablePaginationComponent.prototype.detached = function () {
@@ -157,16 +157,16 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         };
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatablePaginationComponent.prototype, "amount_of_pages", void 0);
+        ], AuDatatablePaginationComponent.prototype, "amountOfPages", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatablePaginationComponent.prototype, "on_next_page", void 0);
+        ], AuDatatablePaginationComponent.prototype, "onNextPage", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatablePaginationComponent.prototype, "on_previous_page", void 0);
+        ], AuDatatablePaginationComponent.prototype, "onPreviousPage", void 0);
         __decorate([
             aurelia_framework_1.bindable
-        ], AuDatatablePaginationComponent.prototype, "on_page_change", void 0);
+        ], AuDatatablePaginationComponent.prototype, "onPageChange", void 0);
         __decorate([
             aurelia_framework_1.bindable({
                 defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
@@ -175,7 +175,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         AuDatatablePaginationComponent = __decorate([
             aurelia_framework_1.customElement('au-datatable-pagination'),
             aurelia_framework_1.inject(aurelia_framework_1.BindingEngine),
-            aurelia_framework_1.inlineView("\n    <template>\n        <nav>\n            <ul class=\"au-pagination pagination\">\n                <li>\n                    <a click.delegate=\"previous_page()\">\n                        <span aria-hidden=\"true\">&laquo;</span>\n                    </a>\n                </li>\n                <li if.bind=\"parameters.current_page > amount_of_pages + 1\">\n                    <a click.delegate=\"change_page(0)\">1</a>\n                </li>\n                <li if.bind=\"parameters.current_page > amount_of_pages + 2\" class=\"dots\">\n                    <a>...</a>\n                </li>\n                <li if.bind=\"!refreshing\" repeat.for=\"i of previous_pages\">\n                    <a click.delegate=\"change_page((parameters.current_page + i) - amount_of_pages - 1)\"> ${ calculate_previous_page_number(i) }</a>\n                </li>\n                <li class=\"active\">\n                    <a>${ parameters.current_page }</a>\n                </li>\n                <li if.bind=\"!refreshing\" repeat.for=\"i of following_pages\">\n                    <a click.delegate=\"change_page(parameters.current_page + i)\">${ parameters.current_page + (i + 1) }</a>\n                </li>\n                <li if.bind=\"parameters.current_page < total_pages - 3\" class=\"dots\">\n                    <a>...</a>\n                </li>\n                <li if.bind=\"parameters.current_page < total_pages - amount_of_pages\">\n                    <a click.delegate=\"change_page(total_pages - 1)\">${ total_pages }</a>\n                </li>\n                <li>\n                    <a click.delegate=\"next_page()\">\n                        <span aria-hidden=\"true\">&raquo;</span>\n                    </a>\n                </li>\n            </ul>\n            <style>\n                .au-pagination {\n                    list-style: none;\n                }\n\n                .au-pagination li {\n                    float: left;\n                }\n\n                .au-pagination li a {\n                    padding: 5px 10px;\n                }\n            </style>    \n        </nav>\n    </template>\n")
+            aurelia_framework_1.inlineView("\n    <template>\n        <nav>\n            <ul class=\"au-pagination pagination\">\n                <li>\n                    <a click.delegate=\"previousPage()\">\n                        <span aria-hidden=\"true\">&laquo;</span>\n                    </a>\n                </li>\n                <li if.bind=\"parameters.currentPage > amountOfPages + 1\">\n                    <a click.delegate=\"changePage(0)\">1</a>\n                </li>\n                <li if.bind=\"parameters.currentPage > amountOfPages + 2\" class=\"dots\">\n                    <a>...</a>\n                </li>\n                <li if.bind=\"!refreshing\" repeat.for=\"i of previousPages\">\n                    <a click.delegate=\"changePage((parameters.currentPage + i) - amountOfPages - 1)\"> ${ calculatePreviousPageNumber(i) }</a>\n                </li>\n                <li class=\"active\">\n                    <a>${ parameters.currentPage }</a>\n                </li>\n                <li if.bind=\"!refreshing\" repeat.for=\"i of followingPages\">\n                    <a click.delegate=\"changePage(parameters.currentPage + i)\">${ parameters.currentPage + (i + 1) }</a>\n                </li>\n                <li if.bind=\"parameters.currentPage < totalPages - 3\" class=\"dots\">\n                    <a>...</a>\n                </li>\n                <li if.bind=\"parameters.currentPage < totalPages - amountOfPages\">\n                    <a click.delegate=\"changePage(totalPages - 1)\">${ totalPages }</a>\n                </li>\n                <li>\n                    <a click.delegate=\"nextPage()\">\n                        <span aria-hidden=\"true\">&raquo;</span>\n                    </a>\n                </li>\n            </ul>\n            <style>\n                .au-pagination {\n                    list-style: none;\n                }\n\n                .au-pagination li {\n                    float: left;\n                }\n\n                .au-pagination li a {\n                    padding: 5px 10px;\n                }\n            </style>    \n        </nav>\n    </template>\n")
         ], AuDatatablePaginationComponent);
         return AuDatatablePaginationComponent;
     }());

@@ -49,14 +49,14 @@ var AuDatatableSearchComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (typeof this.on_search_change != 'function')
-                            throw new Error('[au-table-search:search] No on_search_change() callback has been set');
+                        if (typeof this.onSearchChange != 'function')
+                            throw new Error('[au-table-search:search] No onSearchChange() callback has been set');
                         this.reset();
-                        return [4 /*yield*/, this.on_search_change(this.parameters)];
+                        return [4 /*yield*/, this.onSearchChange(this.parameters)];
                     case 1:
                         response = _a.sent();
-                        this.parameters.table_data = response.data;
-                        this.parameters.total_records = response.total_records;
+                        this.parameters.tableData = response.data;
+                        this.parameters.totalRecords = response.totalRecords;
                         this.reset();
                         return [2 /*return*/];
                 }
@@ -64,7 +64,7 @@ var AuDatatableSearchComponent = /** @class */ (function () {
         });
     };
     AuDatatableSearchComponent.prototype.reset = function () {
-        this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+        this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
         this.parameters.skip = 0;
     };
     __decorate([
@@ -72,10 +72,10 @@ var AuDatatableSearchComponent = /** @class */ (function () {
     ], AuDatatableSearchComponent.prototype, "placeholder", void 0);
     __decorate([
         bindable
-    ], AuDatatableSearchComponent.prototype, "input_classes", void 0);
+    ], AuDatatableSearchComponent.prototype, "inputClasses", void 0);
     __decorate([
         bindable
-    ], AuDatatableSearchComponent.prototype, "on_search_change", void 0);
+    ], AuDatatableSearchComponent.prototype, "onSearchChange", void 0);
     __decorate([
         bindable({
             defaultBindingMode: bindingMode.twoWay,
@@ -83,7 +83,7 @@ var AuDatatableSearchComponent = /** @class */ (function () {
     ], AuDatatableSearchComponent.prototype, "parameters", void 0);
     AuDatatableSearchComponent = __decorate([
         customElement('au-datatable-search'),
-        inlineView("\n    <template>\n        <div class=\"au-table-search\">\n            <input keyup.delegate=\"search() & debounce:500\" \n                value.bind=\"parameters.search_query\" \n                type=\"text\" \n                placeholder.bind=\"placeholder\" \n                class.bind=\"input_classes\" />\n        </div>\n    </template>\n")
+        inlineView("\n    <template>\n        <div class=\"au-table-search\">\n            <input keyup.delegate=\"search() & debounce:500\" \n                value.bind=\"parameters.searchQuery\" \n                type=\"text\" \n                placeholder.bind=\"placeholder\" \n                class.bind=\"inputClasses\" />\n        </div>\n    </template>\n")
     ], AuDatatableSearchComponent);
     return AuDatatableSearchComponent;
 }());
