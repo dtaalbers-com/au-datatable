@@ -1,5 +1,5 @@
 import { bindable, customAttribute, bindingMode } from 'aurelia-framework';
-import { AuDatatableParameters } from './au-datatable-contracts/AuDatatableParameters';
+import { AuDatatableParameters } from './AuDatatableParameters';
 
 @customAttribute('au-datatable')
 export class AuDatatableCustomAttribute {

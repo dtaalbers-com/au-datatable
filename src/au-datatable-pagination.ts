@@ -1,6 +1,6 @@
 import { customElement, bindable, bindingMode, BindingEngine, Disposable, inject, inlineView } from 'aurelia-framework';
-import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
+import { AuDatatableParameters } from './AuDatatableParameters';
+import { AuDatatableResponse } from './AuDatatableResponse';
 
 @customElement('au-datatable-pagination')
 @inject(BindingEngine)

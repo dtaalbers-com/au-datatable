@@ -1,7 +1,7 @@
 import { bindable, bindingMode, customElement, inlineView } from 'aurelia-framework';
-import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-import { AuDatatableFilter } from '../au-datatable-contracts/AuDatatableFilter';
-import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
+import { AuDatatableParameters } from './AuDatatableParameters';
+import { AuDatatableFilter } from './AuDatatableFilter';
+import { AuDatatableResponse } from './AuDatatableResponse';
 
 @customElement('au-datatable-filter')
 @inlineView(`

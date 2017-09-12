@@ -1,5 +1,5 @@
 import { customElement, bindable, BindingEngine, Disposable, inject, inlineView } from 'aurelia-framework';
-import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
+import { AuDatatableParameters } from './AuDatatableParameters';
 
 @customElement('au-datatable-info')
 @inject(BindingEngine)

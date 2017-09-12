@@ -1,6 +1,6 @@
 import { bindable, customAttribute, bindingMode, inject } from 'aurelia-framework';
-import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
-import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
+import { AuDatatableParameters } from './AuDatatableParameters';
+import { AuDatatableResponse } from './AuDatatableResponse';
 
 @customAttribute('au-datatable-sort')
 @inject(Element)
