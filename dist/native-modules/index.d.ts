@@ -1,5 +1,12 @@
-import { FrameworkConfiguration } from 'aurelia-framework';
-export declare function configure(aurelia: FrameworkConfiguration): void;
-export * from './au-datatable-contracts/AuDatatableParameters';
-export * from './au-datatable-contracts/AuDatatableResponse';
-export * from './au-datatable-contracts/AuDatatableFilter';
+import { AuDatatablePagesizeComponent } from './au-datatable-pagesize';
+import { AuDatatablePaginationComponent } from './au-datatable-pagination';
+import { AuDatatableCustomAttribute } from './au-datatable';
+import { AuDatatableInfoComponent } from './au-datatable-info';
+import { AuDatatableSearchComponent } from './au-datatable-search';
+import { AuDatatableSortCustomAttribute } from './au-datatable-sort';
+import { AuDatatableFilterComponent } from './au-datatable-filter';
+import { AuDatatableFilter } from './AuDatatableFilter';
+import { AuDatatableParameters } from './AuDatatableParameters';
+import { AuDatatableResponse } from './AuDatatableResponse';
+export declare function configure(config: any): void;
+export { AuDatatableCustomAttribute, AuDatatablePaginationComponent, AuDatatableInfoComponent, AuDatatablePagesizeComponent, AuDatatableSearchComponent, AuDatatableSortCustomAttribute, AuDatatableFilterComponent, AuDatatableFilter, AuDatatableParameters, AuDatatableResponse };
