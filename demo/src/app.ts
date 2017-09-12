@@ -11,14 +11,14 @@ export class App {
     public data: Array<any>;
 
     public parameters: AuDatatableParameters = {
-        search_query: undefined,
-        total_records: undefined,
-        table_data: undefined,
-        page_size: 10,
+        searchQuery: undefined,
+        totalRecords: undefined,
+        tableData: undefined,
+        pageSize: 10,
         skip: 0,
-        sort_column: 1,
-        sort_direction: 'ascending',
-        current_page: 1,
+        sortColumn: 1,
+        sortDirection: 'ascending',
+        currentPage: 1,
         filters: []
     }
 
@@ -26,19 +26,19 @@ export class App {
     [
         {
             description: 'Contains',
-            apply_to_columns: [1, 3, 4, 5, 6]
+            applyToColumns: [1, 3, 4, 5, 6]
         },
         {
             description: 'Greater Than',
-            apply_to_columns: [2]
+            applyToColumns: [2]
         },
         {
             description: 'Smaller Than',
-            apply_to_columns: [2]
+            applyToColumns: [2]
         },
         {
             description: 'Equals',
-            apply_to_columns: [1, 2, 3, 4, 5, 6]
+            applyToColumns: [1, 2, 3, 4, 5, 6]
         }
     ];
 
@@ -49,7 +49,7 @@ export class App {
     public async attached(): Promise<void> {
         let response = await this.fetch_data(this.parameters);
         this.data = response.data;
-        this.parameters.total_records = response.total_records;
+        this.parameters.totalRecords = response.totalRecords;
     }
 
     public next_page = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
@@ -116,27 +116,32 @@ export class App {
     }
 
     private async fetch_data(parameters: AuDatatableParameters): Promise<AuDatatableResponse> {
-        let direction = parameters.sort_direction == undefined
+        let direction = parameters.sortDirection == undefined
             ? undefined
-            : parameters.sort_direction == 'ascending' ? 0 : 1;
+            : parameters.sortDirection == 'ascending' ? 0 : 1;
         let filters = parameters.filters.map(x => {
             return {
                 value: x.value,
-                column: x.selected_column,
+                column: x.selectedColumn,
                 description: this.description_to_enum(x.description)
             };
         });
-        return await this.http.fetch('https://api.dtaalbers.com/au-datatable/datatable', {
+        let response = await this.http.fetch('https://api.dtaalbers.com/au-datatable/datatable', {
             method: 'POST',
             body: json({
                 skip: parameters.skip,
-                page_size: parameters.page_size,
-                search_query: parameters.search_query,
-                sort_column: parameters.sort_column,
+                page_size: parameters.pageSize,
+                search_query: parameters.searchQuery,
+                sort_column: parameters.sortColumn,
                 sort_direction: direction,
                 filters: filters
             })
-        }).then(x => x.json()) as AuDatatableResponse;
+        })
+        let mapped = await response.json();
+        return {
+            data: mapped.data,
+            totalRecords: mapped.total_records
+        } as AuDatatableResponse;
     }
 
     private description_to_enum(description: string): number {
