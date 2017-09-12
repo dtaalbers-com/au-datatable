@@ -1,8 +1,17 @@
-import { customElement, bindable } from 'aurelia-framework';
+import { customElement, bindable, inlineView } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
 @customElement('au-datatable-pagesize')
+@inlineView(`
+    <template>
+        <div class="au-table-pagesize">
+            <select class.bind="classes" value.bind="selected_page_size" change.delegate="page_size_change()">
+                <option repeat.for="size of page_sizes" model.bind="size">\${ size }</option>
+            </select>
+        </div>
+    </template>
+`)
 export class AuDatatablePagesizeComponent {
 
     private selected_page_size: number;

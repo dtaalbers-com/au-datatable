@@ -1,9 +1,61 @@
-import { customElement, bindable, bindingMode, BindingEngine, Disposable, inject } from 'aurelia-framework';
+import { customElement, bindable, bindingMode, BindingEngine, Disposable, inject, inlineView } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
 @customElement('au-datatable-pagination')
 @inject(BindingEngine)
+@inlineView(`
+    <template>
+        <nav>
+            <ul class="au-pagination pagination">
+                <li>
+                    <a click.delegate="previous_page()">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li if.bind="parameters.current_page > amount_of_pages + 1">
+                    <a click.delegate="change_page(0)">1</a>
+                </li>
+                <li if.bind="parameters.current_page > amount_of_pages + 2" class="dots">
+                    <a>...</a>
+                </li>
+                <li if.bind="!refreshing" repeat.for="i of previous_pages">
+                    <a click.delegate="change_page((parameters.current_page + i) - amount_of_pages - 1)"> \${ calculate_previous_page_number(i) }</a>
+                </li>
+                <li class="active">
+                    <a>\${ parameters.current_page }</a>
+                </li>
+                <li if.bind="!refreshing" repeat.for="i of following_pages">
+                    <a click.delegate="change_page(parameters.current_page + i)">\${ parameters.current_page + (i + 1) }</a>
+                </li>
+                <li if.bind="parameters.current_page < total_pages - 3" class="dots">
+                    <a>...</a>
+                </li>
+                <li if.bind="parameters.current_page < total_pages - amount_of_pages">
+                    <a click.delegate="change_page(total_pages - 1)">\${ total_pages }</a>
+                </li>
+                <li>
+                    <a click.delegate="next_page()">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+            <style>
+                .au-pagination {
+                    list-style: none;
+                }
+
+                .au-pagination li {
+                    float: left;
+                }
+
+                .au-pagination li a {
+                    padding: 5px 10px;
+                }
+            </style>    
+        </nav>
+    </template>
+`)
 export class AuDatatablePaginationComponent {
 
     @bindable public amount_of_pages: number = 2;

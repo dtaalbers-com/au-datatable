@@ -1,9 +1,94 @@
-import { bindable, bindingMode, customElement } from 'aurelia-framework';
+import { bindable, bindingMode, customElement, inlineView } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableFilter } from '../au-datatable-contracts/AuDatatableFilter';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
 @customElement('au-datatable-filter')
+@inlineView(`
+    <template>
+        <tr class="au-table-filter">
+            <td class="au-filter-cell" repeat.for="i of amount_of_columns" if.bind="parameters">
+                <div if.bind="should_generate_content(i)">
+                    <input class="au-filter-input" value.two-way="filter_values[i]" type="text" change.delegate="input_changed(i)">
+                    <button class="au-filter-btn" click.delegate="show_filters($event)" class.bind="btn_classes">&#9783;</button>
+                    <div class="au-filter-container">
+                        <ul class="au-filters">
+                            <li class="au-filter \${ is_selected_filter(filter, i) ? 'active': ''}" data-column="\${i}" repeat.for="filter of filters" if.bind="should_add_filter(filter ,i)" click.delegate="select_filter($event, filter, i)"> \${ filter.description }</li>
+                            <li class="au-clear" click.delegate="clear_filter($event, i)">\${ label_clear_filter } <span class="au-clear-icon">&#10006;</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+            <style>
+                .au-table-filter .au-filter-input {
+                    width: calc(100% - 35px);
+                    transition: 1s;
+                    outline: none;
+                    height: 25px;
+                    border: 1px #ddd solid;
+                }
+
+                .au-table-filter .au-filter-btn {
+                    width: 30px;
+                    margin-left: 5px;
+                    float: right;
+                    outline: none;
+                }
+
+                .au-table-filter .au-filter-container {
+                    width: 100%;
+                    display: none;
+                }
+
+                .au-table-filter .au-filter-container .au-filters {
+                    list-style: none;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    margin-top: 5px;
+                    position: relative;
+                    background-color: white;
+                    top: 0;
+                    bottom: 0;
+                    font-size: 8pt;
+                    right: 0;
+                    margin-bottom: 0;
+                }
+
+                .au-table-filter .au-filter-container .au-filters .au-filter {
+                    border-bottom: 1px solid #ddd;
+                    padding: 2px 5px;
+                }
+
+                .au-table-filter .au-filter-container .au-filters .au-clear {
+                    margin-top: 20px;
+                    font-size: 8pt;
+                    padding: 2px 5px;
+                    background: #333;
+                    color: white;
+                }
+
+                .au-table-filter .au-filter-container .au-filters .au-clear:hover {
+                    cursor: pointer;
+                }
+
+                .au-table-filter .au-filter-container .au-filters .au-clear .au-clear-icon {
+                    color: white;
+                    float: right;
+                    margin-top: 1px;
+                }
+
+                .au-table-filter .au-filter-container .au-filters .au-filter.active {
+                    background-color: #b9b8b8;
+                    color: white
+                }
+
+                .au-table-filter .au-filter-container .au-filters .au-filter:hover {
+                    cursor: pointer;
+                }
+            </style>
+        </tr>
+    </template>
+`)
 export class AuDatatableFilterComponent {
 
     @bindable public on_filter: Function;

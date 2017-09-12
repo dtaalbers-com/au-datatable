@@ -1,8 +1,19 @@
-import { customElement, bindable, bindingMode } from 'aurelia-framework';
+import { customElement, bindable, bindingMode, inlineView } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 import { AuDatatableResponse } from '../au-datatable-contracts/AuDatatableResponse';
 
 @customElement('au-datatable-search')
+@inlineView(`
+    <template>
+        <div class="au-table-search">
+            <input keyup.delegate="search() & debounce:500" 
+                value.bind="parameters.search_query" 
+                type="text" 
+                placeholder.bind="placeholder" 
+                class.bind="input_classes" />
+        </div>
+    </template>
+`)
 export class AuDatatableSearchComponent {
 
     @bindable public placeholder: string;

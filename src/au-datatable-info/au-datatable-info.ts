@@ -1,8 +1,16 @@
-import { customElement, bindable, BindingEngine, Disposable, inject } from 'aurelia-framework';
+import { customElement, bindable, BindingEngine, Disposable, inject, inlineView } from 'aurelia-framework';
 import { AuDatatableParameters } from '../au-datatable-contracts/AuDatatableParameters';
 
 @customElement('au-datatable-info')
 @inject(BindingEngine)
+@inlineView(`
+    <template>
+        <div class="au-table-info">
+            \${ info } 
+            <span if.bind="search_query.length > 0 && table_data.length > 0">&nbsp;(\${ label_filtered })</span>
+        </div>
+    </template>
+`)
 export class AuDatatableInfoComponent {
 
     @bindable public message: string;
