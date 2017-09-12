@@ -1,4 +1,4 @@
-# Aurelia Datatable
+# Aurelia Datatable **[in development]**
 A highly customizable html datatable, build for the Aurelia Framework.
 
 TODO 
