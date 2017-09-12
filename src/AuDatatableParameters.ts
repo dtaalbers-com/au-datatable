@@ -1,13 +1,13 @@
 import { AuDatatableFilter } from './AuDatatableFilter';
 
 export interface AuDatatableParameters {
-    search_query: string;
+    searchQuery: string;
     skip: number;
-    page_size: number;
-    total_records: number;
-    table_data: Array<any>;
-    current_page: number;
-    sort_direction: string | undefined;
-    sort_column: number;
+    pageSize: number;
+    totalRecords: number;
+    tableData: Array<any>;
+    currentPage: number;
+    sortDirection: string | undefined;
+    sortColumn: number;
     filters: Array<AuDatatableFilter>;
 }

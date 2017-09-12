@@ -7,34 +7,34 @@ import { AuDatatableParameters } from './AuDatatableParameters';
     <template>
         <div class="au-table-info">
             \${ info } 
-            <span if.bind="search_query.length > 0 && table_data.length > 0">&nbsp;(\${ label_filtered })</span>
+            <span if.bind="parameters.searchQuery.length > 0 && parameters.tableData.length > 0">&nbsp;(\${ labelFiltered })</span>
         </div>
     </template>
 `)
 export class AuDatatableInfoComponent {
 
     @bindable public message: string;
-    @bindable public label_filtered: string;
+    @bindable public labelFiltered: string;
     @bindable public parameters: AuDatatableParameters
 
     private info: string;
-    private start_record: number;
-    private end_record: number;
-    private current_page_copy: any;
+    private startRecord: number;
+    private endRecord: number;
+    private currentPageCopy: any;
     private subscriptions: Array<Disposable> = [];
 
     constructor(
-        private binding_engine: BindingEngine
+        private bindingEngine: BindingEngine
     ) { }
 
     public attached(): void {
         if (!this.message) this.message = 'START_RECORD to END_RECORD of total TOTAL_RECORDS records';
-        if (!this.label_filtered) this.label_filtered = 'filtered';
-        this.subscriptions.push(this.binding_engine
-            .propertyObserver(this.parameters, 'table_data')
-            .subscribe(() => this.update_record_info()));
-        this.subscriptions.push(this.binding_engine
-            .propertyObserver(this.parameters, 'page_size')
+        if (!this.labelFiltered) this.labelFiltered = 'filtered';
+        this.subscriptions.push(this.bindingEngine
+            .propertyObserver(this.parameters, 'tableData')
+            .subscribe(() => this.updateRecordInfo()));
+        this.subscriptions.push(this.bindingEngine
+            .propertyObserver(this.parameters, 'pageSize')
             .subscribe(() => this.reset()));
     }
 
@@ -42,59 +42,59 @@ export class AuDatatableInfoComponent {
         this.subscriptions.forEach(x => x.dispose());
     }
 
-    private update_record_info(): void {
-        if (!this.start_record && !this.end_record) {
-            this.start_record = 1;
-            this.end_record = this.parameters.page_size;
+    private updateRecordInfo(): void {
+        if (!this.startRecord && !this.endRecord) {
+            this.startRecord = 1;
+            this.endRecord = this.parameters.pageSize;
         } else {
-            if (this.current_page_copy + 1 == this.parameters.current_page) {
-                this.next_page();
-            } else if (this.current_page_copy - 1 == this.parameters.current_page) {
-                this.previous_page();
+            if (this.currentPageCopy + 1 == this.parameters.currentPage) {
+                this.nextPage();
+            } else if (this.currentPageCopy - 1 == this.parameters.currentPage) {
+                this.previousPage();
             } else {
-                this.page_changed();
+                this.pageChanged();
             }
         }
-        this.current_page_copy = this.parameters.current_page;
-        this.translate_info();
+        this.currentPageCopy = this.parameters.currentPage;
+        this.translateInfo();
     }
 
-    private translate_info(): void {
-        if (this.parameters.total_records == undefined
-            || this.parameters.page_size == undefined
-            || this.start_record == undefined
-            || this.end_record == undefined) return;
+    private translateInfo(): void {
+        if (this.parameters.totalRecords == undefined
+            || this.parameters.pageSize == undefined
+            || this.startRecord == undefined
+            || this.endRecord == undefined) return;
         this.info = this.message
-            .replace('START_RECORD', this.parameters.table_data.length == 0
+            .replace('START_RECORD', this.parameters.tableData.length == 0
                 ? '0'
-                : this.start_record.toString())
-            .replace('END_RECORD', this.parameters.table_data.length < this.parameters.page_size
-                ? this.parameters.total_records.toString()
-                : (this.parameters.table_data.length * this.parameters.current_page).toString())
-            .replace('TOTAL_RECORDS', this.parameters.total_records.toString());
+                : this.startRecord.toString())
+            .replace('END_RECORD', this.parameters.tableData.length < this.parameters.pageSize
+                ? this.parameters.totalRecords.toString()
+                : (this.parameters.tableData.length * this.parameters.currentPage).toString())
+            .replace('TOTAL_RECORDS', this.parameters.totalRecords.toString());
     }
 
-    private next_page(): void {
-        this.start_record += this.parameters.page_size;
-        this.end_record = (this.end_record + this.parameters.page_size) > this.parameters.total_records
-            ? this.parameters.total_records
-            : this.end_record + this.parameters.page_size;
+    private nextPage(): void {
+        this.startRecord += this.parameters.pageSize;
+        this.endRecord = (this.endRecord + this.parameters.pageSize) > this.parameters.totalRecords
+            ? this.parameters.totalRecords
+            : this.endRecord + this.parameters.pageSize;
     }
 
-    private previous_page(): void {
-        this.start_record -= this.parameters.page_size;
-        this.end_record = this.parameters.page_size * this.parameters.current_page;
+    private previousPage(): void {
+        this.startRecord -= this.parameters.pageSize;
+        this.endRecord = this.parameters.pageSize * this.parameters.currentPage;
     }
 
-    private page_changed(): void {
-        let page = this.parameters.current_page - 1;
-        this.start_record = (page * this.parameters.page_size) + 1;
-        let next = (page + 1) * this.parameters.page_size;
-        this.end_record = next > this.parameters.total_records ? this.parameters.total_records : next;
+    private pageChanged(): void {
+        let page = this.parameters.currentPage - 1;
+        this.startRecord = (page * this.parameters.pageSize) + 1;
+        let next = (page + 1) * this.parameters.pageSize;
+        this.endRecord = next > this.parameters.totalRecords ? this.parameters.totalRecords : next;
     }
 
     private reset(): void {
-        this.parameters.current_page = 1;
-        this.current_page_copy = 1;
+        this.parameters.currentPage = 1;
+        this.currentPageCopy = 1;
     }
 }

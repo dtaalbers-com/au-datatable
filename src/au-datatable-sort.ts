@@ -6,10 +6,10 @@ import { AuDatatableResponse } from './AuDatatableResponse';
 @inject(Element)
 export class AuDatatableSortCustomAttribute {
 
-    @bindable public on_sort: Function;
+    @bindable public onSort: Function;
     @bindable public columns: Array<number>;
-    @bindable public active_color: string = '#f44336';
-    @bindable public inactive_color: string = '#000'
+    @bindable public activeColor: string = '#f44336';
+    @bindable public inactiveColor: string = '#000'
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
@@ -37,54 +37,54 @@ export class AuDatatableSortCustomAttribute {
             header.setAttribute('index', column.toString());
             header.addEventListener('click', event => this.sort(event));
             header.innerHTML = header.innerHTML + this.template;
-            if (this.parameters.sort_column == column)
-                this.set_active(header, this.parameters.sort_direction)
+            if (this.parameters.sortColumn == column)
+                this.setActive(header, this.parameters.sortDirection)
         });
     }
 
     public async sort(event: any): Promise<void> {
-        if (typeof this.on_sort != 'function')
-            throw new Error('[au-table-sort:sort] No on_sort() callback has been set');
-        let column_index = this.get_index(event.target);
-        if (this.parameters.sort_column == column_index) {
-            switch (this.parameters.sort_direction) {
+        if (typeof this.onSort != 'function')
+            throw new Error('[au-table-sort:sort] No onSort() callback has been set');
+        let columnIndex = this.getIndex(event.target);
+        if (this.parameters.sortColumn == columnIndex) {
+            switch (this.parameters.sortDirection) {
                 case 'ascending':
-                    this.parameters.sort_direction = 'descending';
+                    this.parameters.sortDirection = 'descending';
                     break;
                 case 'descending':
-                    this.parameters.sort_direction = undefined;
+                    this.parameters.sortDirection = undefined;
                     break;
                 default:
-                    this.parameters.sort_direction = 'ascending';
+                    this.parameters.sortDirection = 'ascending';
                     break;
             }
         } else {
-            this.parameters.sort_column = column_index;
-            this.parameters.sort_direction = 'ascending'
+            this.parameters.sortColumn = columnIndex;
+            this.parameters.sortDirection = 'ascending'
         }
-        this.set_active(event.target, this.parameters.sort_direction);
-        let response = await this.on_sort(this.parameters) as AuDatatableResponse;
-        this.parameters.table_data = response.data;
-        this.parameters.total_records = response.total_records;
+        this.setActive(event.target, this.parameters.sortDirection);
+        let response = await this.onSort(this.parameters) as AuDatatableResponse;
+        this.parameters.tableData = response.data;
+        this.parameters.totalRecords = response.totalRecords;
     }
 
-    private set_active(target: any, direction: string | undefined): void {
+    private setActive(target: any, direction: string | undefined): void {
         this.reset();
         if (target.nodeName == 'SPAN') target = target.parentNode.closest('th');
-        let sort_container = target.getElementsByClassName('sorting')[0];
-        let sort = sort_container.getElementsByClassName(direction)[0];
-        if (sort) sort.style.color = this.active_color;
+        let sortContainer = target.getElementsByClassName('sorting')[0];
+        let sort = sortContainer.getElementsByClassName(direction)[0];
+        if (sort) sort.style.color = this.activeColor;
     }
 
     private reset(): void {
         this.headers.forEach(x => {
             let sorts = x.getElementsByClassName('sorting');
             if (sorts.length == 0) return;
-            Array.from(sorts[0].getElementsByTagName('span')).forEach(x => x.style.color = this.inactive_color);
+            Array.from(sorts[0].getElementsByTagName('span')).forEach(x => x.style.color = this.inactiveColor);
         });
     }
 
-    private get_index(target: any): number {
+    private getIndex(target: any): number {
         if (target.nodeName == 'SPAN') target = target.parentNode.closest('th');
         return target.getAttribute('index');
     }

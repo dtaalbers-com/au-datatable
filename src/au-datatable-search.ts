@@ -7,35 +7,35 @@ import { AuDatatableResponse } from './AuDatatableResponse';
     <template>
         <div class="au-table-search">
             <input keyup.delegate="search() & debounce:500" 
-                value.bind="parameters.search_query" 
+                value.bind="parameters.searchQuery" 
                 type="text" 
                 placeholder.bind="placeholder" 
-                class.bind="input_classes" />
+                class.bind="inputClasses" />
         </div>
     </template>
 `)
 export class AuDatatableSearchComponent {
 
     @bindable public placeholder: string;
-    @bindable public input_classes: string;
-    @bindable public on_search_change: Function;
+    @bindable public inputClasses: string;
+    @bindable public onSearchChange: Function;
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
     }) public parameters: AuDatatableParameters
 
     public async search(): Promise<void> {
-        if (typeof this.on_search_change != 'function')
-            throw new Error('[au-table-search:search] No on_search_change() callback has been set');
+        if (typeof this.onSearchChange != 'function')
+            throw new Error('[au-table-search:search] No onSearchChange() callback has been set');
         this.reset();
-        let response = await this.on_search_change(this.parameters) as AuDatatableResponse;
-        this.parameters.table_data = response.data;
-        this.parameters.total_records = response.total_records;
+        let response = await this.onSearchChange(this.parameters) as AuDatatableResponse;
+        this.parameters.tableData = response.data;
+        this.parameters.totalRecords = response.totalRecords;
         this.reset();
     }
 
     private reset(): void {
-        this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+        this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
         this.parameters.skip = 0;
     }
 }

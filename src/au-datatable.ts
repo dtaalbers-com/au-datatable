@@ -5,23 +5,23 @@ import { AuDatatableParameters } from './AuDatatableParameters';
 export class AuDatatableCustomAttribute {
 
     @bindable({
-        changeHandler: 'set_data'
+        changeHandler: 'setData'
     })
-    public starting_data: Array<never>;
+    public startingData: Array<never>;
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
-        changeHandler: 'update_current_page'
+        changeHandler: 'updateCurrentPage'
     })
     public parameters: AuDatatableParameters;
 
-    private set_data(): void {
-        if (this.starting_data.length > this.parameters.page_size) throw new Error('[au-table:bind] starting data is larger than page size.');
-        this.parameters.table_data = [].concat(this.starting_data);
-        this.parameters.current_page = 1;
+    private setData(): void {
+        if (this.startingData.length > this.parameters.pageSize) throw new Error('[au-table:bind] starting data is larger than page size.');
+        this.parameters.tableData = [].concat(this.startingData);
+        this.parameters.currentPage = 1;
         this.parameters.skip = 0;
     }
 
-    private update_current_page(): void {
-        this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+    private updateCurrentPage(): void {
+        this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
     }
 }	
