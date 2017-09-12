@@ -52,7 +52,7 @@ export class App {
         this.parameters.total_records = response.total_records;
     }
 
-    public next_page = async (parameters: AuDatatableParameters): Promise<any> => {
+    public next_page = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -61,7 +61,7 @@ export class App {
         }
     }
 
-    public previous_page = async (parameters: AuDatatableParameters): Promise<any> => {
+    public previous_page = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -70,7 +70,7 @@ export class App {
         }
     }
 
-    public change_page = async (parameters: AuDatatableParameters): Promise<any> => {
+    public change_page = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -79,7 +79,7 @@ export class App {
         }
     }
 
-    public sort = async (parameters: AuDatatableParameters): Promise<any> => {
+    public sort = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -88,7 +88,7 @@ export class App {
         }
     }
 
-    public search = async (parameters: AuDatatableParameters): Promise<any> => {
+    public search = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -97,7 +97,7 @@ export class App {
         }
     }
 
-    public page_size_changed = async (parameters: AuDatatableParameters): Promise<any> => {
+    public page_size_changed = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -106,7 +106,7 @@ export class App {
         }
     }
 
-    public filter = async (parameters: AuDatatableParameters): Promise<any> => {
+    public filter = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         try {
             let response = await this.fetch_data(parameters) as AuDatatableResponse;
             return response;
@@ -115,7 +115,7 @@ export class App {
         }
     }
 
-    private async fetch_data(parameters: AuDatatableParameters): Promise<any> {
+    private async fetch_data(parameters: AuDatatableParameters): Promise<AuDatatableResponse> {
         let direction = parameters.sort_direction == undefined
             ? undefined
             : parameters.sort_direction == 'ascending' ? 0 : 1;
@@ -136,7 +136,7 @@ export class App {
                 sort_direction: direction,
                 filters: filters
             })
-        }).then(x => x.json()) as any;
+        }).then(x => x.json()) as AuDatatableResponse;
     }
 
     private description_to_enum(description: string): number {
