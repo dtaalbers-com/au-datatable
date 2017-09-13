@@ -126,7 +126,7 @@ export class AuDatatableFilterComponent {
 
     public async selectFilter(event: any, filter: AuDatatableFilter, column: number): Promise<void> {
         if (typeof this.onFilter != 'function')
-            throw new Error('[au-table-filter:select_filter] No onFilter() callback has been set');
+            throw new Error('[au-table-filter:selectFilter] No onFilter() callback has been set');
         let value = this.filterValues[column];
         if (value) {
             this.removeFiltersForColumn(column);

@@ -80,16 +80,16 @@ export class AuDatatablePaginationComponent {
     public attached(): void {
         this.subscriptions.push(this.bindingEngine
             .propertyObserver(this.parameters, 'currentPage')
-            .subscribe(() => this.data_change()));
+            .subscribe(() => this.dataChange()));
         this.subscriptions.push(this.bindingEngine
             .propertyObserver(this.parameters, 'totalRecords')
-            .subscribe(() => this.data_change()));
+            .subscribe(() => this.dataChange()));
         this.subscriptions.push(this.bindingEngine
             .propertyObserver(this.parameters, 'pageSize')
-            .subscribe(() => this.data_change()));
+            .subscribe(() => this.dataChange()));
     }
 
-    private data_change(): void {
+    private dataChange(): void {
         if (this.parameters.currentPage == undefined || this.parameters.totalRecords == undefined) return;
         this.refreshing = true;
         this.totalPages = Math.ceil(parseInt(this.parameters.totalRecords.toString()) / this.parameters.pageSize);
