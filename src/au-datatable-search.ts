@@ -6,7 +6,7 @@ import { AuDatatableResponse } from './AuDatatableResponse';
 @inlineView(`
     <template>
         <div class="au-table-search">
-            <input keyup.delegate="search() & debounce:500" 
+            <input keyup.delegate="search()"
                 value.bind="parameters.searchQuery" 
                 type="text" 
                 placeholder.bind="placeholder" 
