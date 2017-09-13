@@ -122,7 +122,7 @@ export class AuDatatablePaginationComponent {
         this.refreshing = true;
         this.parameters.skip -= this.parameters.pageSize;
         this.parameters.currentPage--;
-        let response = await this.onNextPage(this.parameters) as AuDatatableResponse;
+        let response = await this.onPreviousPage(this.parameters) as AuDatatableResponse;
         this.parameters.totalRecords = response.totalRecords;
         this.parameters.tableData = response.data;
         this.refreshing = false;
@@ -136,7 +136,7 @@ export class AuDatatablePaginationComponent {
         if (page < 0) page = 0;
         this.parameters.skip = page * this.parameters.pageSize;
         this.parameters.currentPage = page + 1;
-        let response = await this.onNextPage(this.parameters) as AuDatatableResponse;
+        let response = await this.onPageChange(this.parameters) as AuDatatableResponse;
         this.parameters.totalRecords = response.totalRecords;
         this.parameters.tableData = response.data;
         this.refreshing = false;
