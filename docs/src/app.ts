@@ -12,9 +12,27 @@ export class App {
                 title: 'Aurelia Datatable Intro'
             },
             {
-                route: 'server-side-demo',
+                route: 'server-side/demo',
                 name: 'server-side-demo',
-                moduleId: './pages/server-side-demo/server-side-demo',
+                moduleId: './pages/server-side/demo/demo',
+                title: 'Server Side'
+            },
+            {
+                route: 'server-side/html',
+                name: 'server-side-html',
+                moduleId: './pages/server-side/html/html',
+                title: 'Server Side'
+            },
+            {
+                route: 'server-side/typescript',
+                name: 'server-side-typescript',
+                moduleId: './pages/server-side/typescript/typescript',
+                title: 'Server Side'
+            },
+            {
+                route: 'server-side/sass',
+                name: 'server-side-sass',
+                moduleId: './pages/server-side/sass/sass',
                 title: 'Server Side'
             }
         ]);

@@ -9,6 +9,6 @@ export class IntroPage {
     ) { }
 
     public openDemo(): void {
-        this.router.navigate('server-side-demo');
+        this.router.navigateToRoute('server-side-demo');
     }
 }

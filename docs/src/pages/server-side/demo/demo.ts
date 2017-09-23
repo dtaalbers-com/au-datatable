@@ -4,16 +4,15 @@ import { autoinject } from 'aurelia-framework';
 import { AuDatatableParameters } from 'au-datatable';
 import { AuDatatableFilter } from 'au-datatable';
 import { AuDatatableResponse } from 'au-datatable';
-import * as html from './files/page.html';
 
 @autoinject()
-export class DemoPage {
+export class ServerSideDemoPage {
 
     public data: Array<any>;
     public parameters: AuDatatableParameters = {
+        tableData: undefined,
         searchQuery: undefined,
         totalRecords: undefined,
-        tableData: undefined,
         pageSize: 10,
         skip: 0,
         sortColumn: 1,
@@ -45,6 +44,26 @@ export class DemoPage {
         private http: HttpClient,
         private router: Router,
     ) { }
+
+    public openDemoPage(): void {
+        this.router.navigateToRoute('server-side-demo');
+    }
+
+    public openHtmlPage(): void {
+        this.router.navigateToRoute('server-side-html');
+    }
+
+    public openTypescriptPage(): void {
+        this.router.navigateToRoute('server-side-typescript');
+    }
+
+    public openSassPage(): void {
+        this.router.navigateToRoute('server-side-sass');
+    }
+
+    public backToIntro(): void {
+        this.router.navigateToRoute('intro');
+    }
 
     public async attached(): Promise<void> {
         let response = await this.fetchData(this.parameters);
@@ -113,10 +132,6 @@ export class DemoPage {
         } catch (e) {
             alert(`[demo:filter] Failed to load the data: ${JSON.stringify(e)}`);
         }
-    }
-
-    public back(): void {
-        this.router.navigateToRoute('intro');
     }
 
     private async fetchData(parameters: AuDatatableParameters): Promise<AuDatatableResponse> {
