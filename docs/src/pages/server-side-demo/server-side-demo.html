@@ -1,0 +1,120 @@
+<template>
+    <require from="./server-side-demo.css"></require>
+    <div class="container" id="server-side-demo-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="nav-bar">
+                    <button class="btn" click.delegate="back()">Back to the intro</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-demo-tab" data-toggle="pill" href="#pills-demo" role="tab" aria-controls="pills-demo" aria-expanded="true">Server Side Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-html-tab" data-toggle="pill" href="#pills-html" role="tab" aria-controls="pills-html" aria-expanded="true">Html</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-typescript-tab" data-toggle="pill" href="#pills-typescript" role="tab" aria-controls="pills-typescript" aria-expanded="true">typescript</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-sass-tab" data-toggle="pill" href="#pills-sass" role="tab" aria-controls="pills-sass" aria-expanded="true">Sass</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-demo" role="tabpanel" aria-labelledby="pills-demo-tab">                        
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Manually styled with Bootstrap 4 beta (not included in plugin)</h6>
+                                </div>
+                                <div class="col-md-4">
+                                    <au-datatable-search 
+                                        placeholder="Search.." 
+                                        input-classes="form-control" 
+                                        on-search-change.bind="search" 
+                                        parameters.bind="parameters">
+                                    </au-datatable-search>
+                                </div>
+                                <div class="col-md-2">
+                                    <au-datatable-pagesize 
+                                        page-sizes.bind="[10,25,50,100]" 
+                                        classes="form-control" 
+                                        on-page-size-change.bind="pageSizeChanged" 
+                                        parameters.bind="parameters">
+                                    </au-datatable-pagesize>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-striped" au-datatable="
+                            starting-data.bind: data; 
+                            parameters.bind: parameters;">
+                            <thead au-datatable-sort="columns.bind: [1,2,3,4,5,6]; 
+                                on-sort.bind: sort; 
+                                parameters.bind: parameters">
+                                <tr>
+                                    <th></th>
+                                    <th>Fullname</th>
+                                    <th>Age</th>
+                                    <th>City</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Nationality</th>
+                                </tr>
+                                <tr as-element="au-datatable-filter" 
+                                    on-filter.bind="filter" 
+                                    filters.bind="tableFilters" 
+                                    columns.bind="[1,2,3,4,5,6]" 
+                                    parameters.bind="parameters" containerless>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr if.bind="parameters.tableData.length > 0" repeat.for="item of parameters.tableData">
+                                    <td><img src="${item.thumbnail}"></td>
+                                    <td>${item.name}</td>
+                                    <td>${item.age}</td>
+                                    <td>${item.city}</td>
+                                    <td>${item.username}</td>
+                                    <td>${item.email}</td>
+                                    <td>${item.nat}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="footer">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <au-datatable-info 
+                                        parameters.bind="parameters">
+                                    </au-datatable-info>
+                                </div>
+                                <div class="col-md-4">
+                                    <au-datatable-pagination 
+                                        class="float-right"
+                                        on-next-page.bind="nextPage" 
+                                        on-previous-page.bind="previousPage" 
+                                        on-page-change.bind="changePage" 
+                                        parameters.bind="parameters">
+                                    </au-datatable-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-html" role="tabpanel" aria-labelledby="pills-html-tab">
+                        <pre>
+                            <code>
+                                
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="tab-pane fade" id="pills-typescript" role="tabpanel" aria-labelledby="pills-typescript-tab">
+                        typescript
+                    </div>
+                    <div class="tab-pane fade" id="pills-sass" role="tabpanel" aria-labelledby="pills-sass-tab">
+                        Sass
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

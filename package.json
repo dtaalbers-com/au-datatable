@@ -1,6 +1,6 @@
 {
     "name": "au-datatable",
-    "version": "0.0.13",
+    "version": "0.0.16",
     "description": "A highly customizable aurelia html datatable plugin",
     "keywords": [
         "aurelia",

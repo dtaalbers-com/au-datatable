@@ -1,0 +1,42 @@
+<template>
+    <require from="./intro.css"></require>
+    <div class="container" id="intro">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="logos">
+                    <img class="logo-dtaalbers" src="src/assets/images/logo-dtaalbers.png" alt="logo dtaalbers">
+                    <img class="logo-aurelia" src="src/assets/images/logo-aurelia.png" alt="logo aurelia">
+                </div>
+                <div class="header">Aurelia Datatable</div>
+                <div class="subheader">A highly customizable html datatable, build for the Aurelia Framework.</div>
+            </div>
+        </div>
+        <div class="row button-container">
+            <div class="col-md-4">
+                <button class="btn btn-au" click.delegate="openDemo()">
+                    <span class="title">Server Side Demo</span>
+                    <span class="subtitle">You said something about server paging?</span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-au">
+                    <span class="title">Client Side Demo</span>
+                    <span class="subtitle">I don't want to use server side paging.</span>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-au">
+                    <span class="title">Docs</span>
+                    <span class="subtitle">How does it work? Tell me!</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-message">
+                    Passionately build by&nbsp;<a href="http://dtaalbers.com" target="_blank">dtaalbers</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
