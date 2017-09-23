@@ -1,4 +1,4 @@
-export interface AuDatatableFilter {
+export declare class AuDatatableFilter {
     description: string;
     value?: string | undefined;
     selectedColumn?: number;

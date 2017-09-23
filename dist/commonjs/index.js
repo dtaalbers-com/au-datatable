@@ -15,6 +15,12 @@ var au_datatable_sort_1 = require("./au-datatable-sort");
 exports.AuDatatableSortCustomAttribute = au_datatable_sort_1.AuDatatableSortCustomAttribute;
 var au_datatable_filter_1 = require("./au-datatable-filter");
 exports.AuDatatableFilterComponent = au_datatable_filter_1.AuDatatableFilterComponent;
+var AuDatatableFilter_1 = require("./AuDatatableFilter");
+exports.AuDatatableFilter = AuDatatableFilter_1.AuDatatableFilter;
+var AuDatatableParameters_1 = require("./AuDatatableParameters");
+exports.AuDatatableParameters = AuDatatableParameters_1.AuDatatableParameters;
+var AuDatatableResponse_1 = require("./AuDatatableResponse");
+exports.AuDatatableResponse = AuDatatableResponse_1.AuDatatableResponse;
 function configure(config) {
     config.globalResources(aurelia_pal_1.PLATFORM.moduleName('./au-datatable'));
     config.globalResources(aurelia_pal_1.PLATFORM.moduleName('./au-datatable-pagination'));

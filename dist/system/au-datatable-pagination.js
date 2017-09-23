@@ -61,15 +61,15 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                     var _this = this;
                     this.subscriptions.push(this.bindingEngine
                         .propertyObserver(this.parameters, 'currentPage')
-                        .subscribe(function () { return _this.data_change(); }));
+                        .subscribe(function () { return _this.dataChange(); }));
                     this.subscriptions.push(this.bindingEngine
                         .propertyObserver(this.parameters, 'totalRecords')
-                        .subscribe(function () { return _this.data_change(); }));
+                        .subscribe(function () { return _this.dataChange(); }));
                     this.subscriptions.push(this.bindingEngine
                         .propertyObserver(this.parameters, 'pageSize')
-                        .subscribe(function () { return _this.data_change(); }));
+                        .subscribe(function () { return _this.dataChange(); }));
                 };
-                AuDatatablePaginationComponent.prototype.data_change = function () {
+                AuDatatablePaginationComponent.prototype.dataChange = function () {
                     if (this.parameters.currentPage == undefined || this.parameters.totalRecords == undefined)
                         return;
                     this.refreshing = true;
@@ -119,7 +119,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                                     this.refreshing = true;
                                     this.parameters.skip -= this.parameters.pageSize;
                                     this.parameters.currentPage--;
-                                    return [4 /*yield*/, this.onNextPage(this.parameters)];
+                                    return [4 /*yield*/, this.onPreviousPage(this.parameters)];
                                 case 1:
                                     response = _a.sent();
                                     this.parameters.totalRecords = response.totalRecords;
@@ -145,7 +145,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                                         page = 0;
                                     this.parameters.skip = page * this.parameters.pageSize;
                                     this.parameters.currentPage = page + 1;
-                                    return [4 /*yield*/, this.onNextPage(this.parameters)];
+                                    return [4 /*yield*/, this.onPageChange(this.parameters)];
                                 case 1:
                                     response = _a.sent();
                                     this.parameters.totalRecords = response.totalRecords;

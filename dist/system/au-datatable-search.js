@@ -93,7 +93,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                 ], AuDatatableSearchComponent.prototype, "parameters", void 0);
                 AuDatatableSearchComponent = __decorate([
                     aurelia_framework_1.customElement('au-datatable-search'),
-                    aurelia_framework_1.inlineView("\n    <template>\n        <div class=\"au-table-search\">\n            <input keyup.delegate=\"search() & debounce:500\" \n                value.bind=\"parameters.searchQuery\" \n                type=\"text\" \n                placeholder.bind=\"placeholder\" \n                class.bind=\"inputClasses\" />\n        </div>\n    </template>\n")
+                    aurelia_framework_1.inlineView("\n    <template>\n        <div class=\"au-table-search\">\n            <input keyup.delegate=\"search()\"\n                value.bind=\"parameters.searchQuery\" \n                type=\"text\" \n                placeholder.bind=\"placeholder\" \n                class.bind=\"inputClasses\" />\n        </div>\n    </template>\n")
                 ], AuDatatableSearchComponent);
                 return AuDatatableSearchComponent;
             }());
