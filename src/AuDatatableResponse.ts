@@ -1,4 +1,4 @@
-export interface AuDatatableResponse {
+export class AuDatatableResponse {
     data: Array<any>;
     totalRecords: number;
 }
