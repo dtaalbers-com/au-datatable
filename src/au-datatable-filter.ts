@@ -24,13 +24,14 @@ import { AuDatatableResponse } from './AuDatatableResponse';
                     width: calc(100% - 35px);
                     transition: 1s;
                     outline: none;
-                    height: 25px;
+                    height: 30px;
                     border: 1px #ddd solid;
                 }
 
                 .au-table-filter .au-filter-btn {
                     width: 30px;
                     margin-left: 5px;
+                    height: 30px;
                     float: right;
                     outline: none;
                 }
