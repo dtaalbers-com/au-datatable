@@ -14,7 +14,7 @@ export declare class AuDatatablePaginationComponent {
     private subscriptions;
     constructor(bindingEngine: BindingEngine);
     attached(): void;
-    private data_change();
+    private dataChange();
     nextPage(): Promise<void>;
     previousPage(): Promise<void>;
     changePage(page: number): Promise<void>;

@@ -6,6 +6,9 @@ import { AuDatatableInfoComponent } from './au-datatable-info';
 import { AuDatatableSearchComponent } from './au-datatable-search';
 import { AuDatatableSortCustomAttribute } from './au-datatable-sort';
 import { AuDatatableFilterComponent } from './au-datatable-filter';
+import { AuDatatableFilter } from './AuDatatableFilter';
+import { AuDatatableParameters } from './AuDatatableParameters';
+import { AuDatatableResponse } from './AuDatatableResponse';
 export function configure(config) {
     config.globalResources(PLATFORM.moduleName('./au-datatable'));
     config.globalResources(PLATFORM.moduleName('./au-datatable-pagination'));
@@ -15,4 +18,4 @@ export function configure(config) {
     config.globalResources(PLATFORM.moduleName('./au-datatable-sort'));
     config.globalResources(PLATFORM.moduleName('./au-datatable-filter'));
 }
-export { AuDatatableCustomAttribute, AuDatatablePaginationComponent, AuDatatableInfoComponent, AuDatatablePagesizeComponent, AuDatatableSearchComponent, AuDatatableSortCustomAttribute, AuDatatableFilterComponent };
+export { AuDatatableCustomAttribute, AuDatatablePaginationComponent, AuDatatableInfoComponent, AuDatatablePagesizeComponent, AuDatatableSearchComponent, AuDatatableSortCustomAttribute, AuDatatableFilterComponent, AuDatatableFilter, AuDatatableParameters, AuDatatableResponse };

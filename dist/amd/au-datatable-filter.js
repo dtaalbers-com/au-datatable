@@ -69,7 +69,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
                     switch (_a.label) {
                         case 0:
                             if (typeof this.onFilter != 'function')
-                                throw new Error('[au-table-filter:select_filter] No onFilter() callback has been set');
+                                throw new Error('[au-table-filter:selectFilter] No onFilter() callback has been set');
                             value = this.filterValues[column];
                             if (!value) return [3 /*break*/, 2];
                             this.removeFiltersForColumn(column);

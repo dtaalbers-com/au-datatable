@@ -1,5 +1,5 @@
 import { AuDatatableFilter } from './AuDatatableFilter';
-export interface AuDatatableParameters {
+export declare class AuDatatableParameters {
     searchQuery: string;
     skip: number;
     pageSize: number;
