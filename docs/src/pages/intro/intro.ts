@@ -8,7 +8,11 @@ export class IntroPage {
         private router: Router
     ) { }
 
-    public openDemo(): void {
+    public openServerSideDemo(): void {
         this.router.navigateToRoute('server-side-demo');
+    }
+
+    public openClientSideDemo(): void {
+        this.router.navigateToRoute('client-side-demo');
     }
 }

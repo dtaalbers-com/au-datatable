@@ -46,23 +46,21 @@
                 <table class="table table-bordered table-striped" au-datatable="
                             starting-data.bind: data; 
                             parameters.bind: parameters;">
-                    <thead au-datatable-sort="columns.bind: [1,2,3,4,5,6]; 
+                    <thead au-datatable-sort="columns.bind: [1,2,3,4]; 
                                 on-sort.bind: sort; 
                                 parameters.bind: parameters">
                         <tr>
                             <th></th>
                             <th>Fullname</th>
                             <th>Age</th>
-                            <th>City</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Nationality</th>
                         </tr>
                         <tr as-element="au-datatable-filter" 
                             on-filter.bind="filter" 
                             btn-classes="btn btn-default filter-button" 
                             filters.bind="tableFilters" 
-                            columns.bind="[1,2,3,4,5,6]" 
+                            columns.bind="[1,2,3,4]" 
                             parameters.bind="parameters" 
                             containerless>
                         </tr>
@@ -72,10 +70,8 @@
                             <td><img src="${item.thumbnail}"></td>
                             <td>${item.name}</td>
                             <td>${item.age}</td>
-                            <td>${item.city}</td>
                             <td>${item.username}</td>
                             <td>${item.email}</td>
-                            <td>${item.nat}</td>
                         </tr>
                     </tbody>
                 </table>

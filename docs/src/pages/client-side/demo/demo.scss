@@ -1,4 +1,4 @@
-#server-side-demo-container {
+#client-side-demo-container {
     padding: 30px;
     background-color: white;
 
@@ -27,6 +27,23 @@
                     cursor: pointer;
                 }
             }
+        }
+    }
+
+    .loader {
+        position: absolute;
+        background-color: rgba(174,176,178,0.2);
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+
+        i {
+            font-size: 25pt;
+            color: #333;
+            position: absolute;
+			width: unset;
+			top: 40%;
+			left: 47%;
         }
     }
 

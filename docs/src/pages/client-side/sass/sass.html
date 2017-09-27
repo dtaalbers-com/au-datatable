@@ -1,32 +1,45 @@
-#server-side-demo-container {
+<template>
+        <require from="./sass.css"></require>
+        <div class="container" id="client-side-demo-container-sass">
+            <div class="row nav-bar">
+                <div class="col-md-12 nav-btn">
+                    <button class="btn active" click.delegate="backToIntro()">Back to the intro</button>
+                </div>
+                <div class="col-md-3 nav-btn">
+                    <button class="btn" click.delegate="openDemoPage()">Client side demo</button>
+                </div>
+                <div class="col-md-3 nav-btn">
+                    <button class="btn" click.delegate="openHtmlPage()">Html</button>
+                </div>
+                <div class="col-md-3 nav-btn">
+                    <button class="btn" click.delegate="openTypescriptPage()">Typescript</button>
+                </div>
+                <div class="col-md-3 nav-btn">
+                    <button class="btn active" click.delegate="openSassPage()">Sass</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 content">
+                    <pre>
+                        <code>
+#client-side-demo-container {
     padding: 30px;
     background-color: white;
 
-    .nav-bar {
-        margin-bottom: 20px;
+    .loader {
+        position: absolute;
+        background-color: rgba(174,176,178,0.2);
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
 
-        .nav-btn {
-            padding: 0;
-
-            button {
-                border: 1px solid #ed682f;
-                color: #ed682f;
-                background-color: transparent;
-                border-radius: 0px;
-                width: 100%;
-                height: 40px;
-                opacity: .8;
-                text-transform: uppercase;
-                
-                &.active {
-                    background-color: #ed682f;
-                    color: white;
-                }
-                
-                &:hover {
-                    cursor: pointer;
-                }
-            }
+        i {
+            font-size: 25pt;
+            color: #333;
+            position: absolute;
+            width: unset;
+            top: 40%;
+            left: 47%;
         }
     }
 
@@ -97,18 +110,18 @@
     }
 
     select.form-control {
-		width: 100%;
-		height: 38px;                 
-		-webkit-appearance: none;
-		font-size: 9pt;
-		-moz-appearance: none;
-		background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='18' height='18' viewBox='0 0 24 24'><path fill='grey' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>") #fff;
-		background-position: 98% 50%;
-		background-repeat: no-repeat;
-		border-radius: 0;
-		border: 1px solid rgba(0, 0, 0, 0.15);
-		padding: 2px 0 0 10px;
-	} 
+        width: 100%;
+        height: 38px;                 
+        -webkit-appearance: none;
+        font-size: 9pt;
+        -moz-appearance: none;
+        background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='18' height='18' viewBox='0 0 24 24'><path fill='grey' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>") #fff;
+        background-position: 98% 50%;
+        background-repeat: no-repeat;
+        border-radius: 0;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        padding: 2px 0 0 10px;
+    } 
 
     table {
         margin: 0;
@@ -128,7 +141,7 @@
                     background-color: #333 !important;
                     color: white !important;
                 }
-                     
+                        
                 td:first-child {
                     text-align: center;
                 }
@@ -213,3 +226,9 @@
         margin-top: 50px;
     }
 }
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </template>

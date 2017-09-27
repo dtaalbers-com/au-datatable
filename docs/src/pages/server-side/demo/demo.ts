@@ -24,7 +24,7 @@ export class ServerSideDemoPage {
     [
         {
             description: 'Contains',
-            applyToColumns: [1, 3, 4, 5, 6]
+            applyToColumns: [1, 3, 4]
         },
         {
             description: 'Greater Than',
@@ -36,7 +36,7 @@ export class ServerSideDemoPage {
         },
         {
             description: 'Equals',
-            applyToColumns: [1, 2, 3, 4, 5, 6]
+            applyToColumns: [1, 2, 3, 4]
         }
     ];
 
@@ -162,6 +162,7 @@ export class ServerSideDemoPage {
             totalRecords: mapped.total_records
         } as AuDatatableResponse;
     }
+    
 
     private descriptionToEnum(description: string): number {
         switch (description) {

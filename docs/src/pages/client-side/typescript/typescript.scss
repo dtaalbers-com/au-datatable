@@ -1,6 +1,7 @@
-#server-side-demo-container {
+#client-side-demo-container-typescript {
     padding: 30px;
-    
+    background-color: white;
+
     .nav-bar {
         margin-bottom: 20px;
 
@@ -9,6 +10,7 @@
 
             button {
                 border: 1px solid #ed682f;
+                margin-top: -1px !important;
                 color: #ed682f;
                 background-color: transparent;
                 border-radius: 0px;
