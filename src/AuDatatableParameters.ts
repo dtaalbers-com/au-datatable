@@ -2,12 +2,12 @@ import { AuDatatableFilter } from './AuDatatableFilter';
 
 export class AuDatatableParameters {
     searchQuery?: string;
-    skip?: number;
+    skip?: number = 0;
     pageSize?: number;
-    totalRecords: number;
-    tableData: Array<any>;
+    totalRecords?: number;
+    tableData?: Array<any>;
     currentPage?: number;
     sortDirection?: string | undefined = 'ascending';
     sortColumn?: number = 0;
-    filters?: Array<AuDatatableFilter>;
+    filters?: Array<AuDatatableFilter> = [];
 }
