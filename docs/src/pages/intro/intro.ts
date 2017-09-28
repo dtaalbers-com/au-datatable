@@ -15,4 +15,8 @@ export class IntroPage {
     public openClientSideDemo(): void {
         this.router.navigateToRoute('client-side-demo');
     }
+
+    public openDocs(): void {
+        this.router.navigateToRoute('docs');
+    }
 }

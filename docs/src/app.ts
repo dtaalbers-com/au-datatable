@@ -4,6 +4,7 @@ import { Router, RouterConfiguration } from 'aurelia-router';
 export class App {
     public configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'dtaalbers.com';
+        config.options.pushState = true
         config.map([
             {
                 route: ['', 'intro'],
@@ -58,6 +59,12 @@ export class App {
                 name: 'client-side-sass',
                 moduleId: './pages/client-side/sass/sass',
                 title: 'Client Side'
+            },
+            {
+                route: 'docs',
+                name: 'docs',
+                moduleId: './pages/docs/docs',
+                title: 'Docs'
             }
         ]);
     }

@@ -1,0 +1,105 @@
+<template>
+    <require from="./docs.css"></require>
+    <div class="container" id="docs">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h3>Table of contents</h3>
+                    <ul class="table-of-contents">
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#au-datatable">#au-datatable</a></li>
+                        <li><a href="#au-pagesize">#au-pagesize</a></li>
+                        <li><a href="#au-pagination">#au-pagination</a></li>
+                        <li><a href="#au-sort">#au-sort</a></li>
+                        <li><a href="#au-search">#au-search</a></li>
+                        <li><a href="#au-info">#au-info</a></li>
+                        <li><a href="#au-filter">#au-filter</a></li>
+                        <li><a click.delegate="back()">back</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-content">
+                    <div id="introduction" class="block">
+                        <div class="header">
+                            Introduction
+                        </div>
+                        <div class="content">
+                            This plugin was created because, frankly, I needed a highly customizable aurelia table plugin that works well with server side data. I've looked around but couldn't find anything that suited my needs. So I decided to create my own plugin. This plugin is suited to use with client data and server side data.<br>
+                            
+                            It has no dependency on anything but Aurelia itself and it is highly customizable and plugable. Some components/attributes are needed to run the table and some are optional.
+                            The table itself does have minimal styling, but making it pretty is your own responsibility. It is very easy to combine with bootstrap styling though, as you can see in my demo's.
+                        </div>
+                    </div>
+                    <div id="installation" class="block">
+                        <div class="header">
+                            Installation
+                        </div>
+                        <div class="content">
+                            You can install the 
+                        </div>
+                    </div>
+                    <div id="au-datatable" class="block">
+                        <div class="header">
+                            #au-datatable
+                        </div>
+                        <div class="content">
+                            To start plumbing the table we have to start preparing the viewmodel. Start by adding the following properties to your viewmodel.<br><br>
+
+                            <pre>
+    public data: Array&lt;any&gt;;
+    public parameters: AuDatatableParameters = new AuDatatableParameters();
+                            </pre>
+
+                            Next, you need to add the <code>au-datatable</code> attribute to your <code>tbody</code>tag and bind the parameters to it. Like this<br><br>
+
+                            <pre>
+    &lt;table au-datatable="starting-data.bind: data; parameters.bind: parameters;"&gt;
+                            </pre>
+
+                            To fire up the table you have to load data into the <code>data</code> property of the viemodel. This can be done sync or async, it doesn't matter the table can handle both. When your data is loaded into the <code>data</code> property, it's gets loaded into the <code>au-datatable</code> via de <code>starting-data</code> binding on the attribute. The starting data will get copied into <code>paramaters: AuDatatableParameters</code> on your viewmodel.<br><br>
+
+                            Now you can can read your data from the <code>parameters</code> like this<br><br>
+
+                            <pre>
+    &lt;tr repeat.for="item of parameters.tableData"&gt;
+        &lt;td&gt;&lt;img src="\${item.thumbnail}"&gt;&lt;/td&gt;
+        &lt;td&gt;\${item.name}&lt;/td&gt;
+        &lt;td&gt;\${item.age}&lt;/td&gt;
+        &lt;td&gt;\${item.username}&lt;/td&gt;
+        &lt;td&gt;\${item.email}&lt;/td&gt;
+    &lt;/tr&gt;
+                            </pre>
+
+                            <code>
+
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- <div id="au-pagination" class="block">
+                        #au-pagination
+                    </div>
+                    <div id="au-pagesize" class="block">
+                        #au-pagesize
+                    </div>
+                    <div id="au-sort" class="block">
+                        #au-sort
+                    </div>
+                    <div id="au-search" class="block">
+                        #au-search
+                    </div>
+                    <div id="au-info" class="block">
+                        #au-info
+                    </div>
+                    <div id="au-filter" class="block">
+                        #au-filter
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
