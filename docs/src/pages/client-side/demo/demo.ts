@@ -8,21 +8,8 @@ import { AuDatatableResponse } from 'au-datatable';
 @autoinject()
 export class ClientSideDemoPage {
 
-    public users: Array<any>;
     public data: Array<any>;
-    public isLoading: boolean = false;
-    public parameters: AuDatatableParameters = {
-        tableData: undefined,
-        searchQuery: undefined,
-        totalRecords: undefined,
-        pageSize: 10,
-        skip: 0,
-        sortColumn: 2,
-        sortDirection: 'ascending',
-        currentPage: 2,
-        filters: []
-    }
-
+    public parameters: AuDatatableParameters = new AuDatatableParameters();
     public tableFilters: Array<AuDatatableFilter> =
     [
         {
@@ -42,6 +29,9 @@ export class ClientSideDemoPage {
             applyToColumns: [1, 2, 3, 4, 5, 6]
         }
     ];
+    
+    public users: Array<any>;
+    public isLoading: boolean = false;
 
     constructor(
         private http: HttpClient,
@@ -131,30 +121,31 @@ export class ClientSideDemoPage {
     }
 
     private async sortData(data: Array<any>, column: number, direction: string): Promise<Array<any>> {
-        let sorted = [] as Array<any>;
+        let returnValue = [] as Array<any>;
         switch (column.toString()) {
             case '1':
-                sorted = this.sortArrayOnKey(data, direction, 'name');
+                returnValue = this.sortArrayOnKey(data, direction, 'name');
                 break;
             case '2':
                 switch (direction) {
                     case 'ascending':
-                        sorted = data.sort((a, b) => a.age - b.age);
+                        returnValue = data.sort((a, b) => a.age - b.age);
                         break;
                     case 'descending':
-                        sorted = data.sort((a, b) => b.age - a.age);
-                    default: sorted = data;
+                        returnValue = data.sort((a, b) => b.age - a.age);
+                    default: returnValue = data;
                         break;
                 }
                 break;
             case '3':
-                sorted = this.sortArrayOnKey(data, direction, 'username');
+                returnValue = this.sortArrayOnKey(data, direction, 'username');
                 break;
             case '4':
-                sorted = this.sortArrayOnKey(data, direction, 'email');
+                returnValue = this.sortArrayOnKey(data, direction, 'email');
                 break;
+            default: returnValue = data;
         }
-        return Promise.resolve(sorted);
+        return Promise.resolve(returnValue);
     }
 
     public openDemoPage(): void {

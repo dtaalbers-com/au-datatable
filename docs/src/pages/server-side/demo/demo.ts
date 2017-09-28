@@ -9,17 +9,7 @@ import { AuDatatableResponse } from 'au-datatable';
 export class ServerSideDemoPage {
 
     public data: Array<any>;
-    public parameters: AuDatatableParameters = {
-        tableData: undefined,
-        searchQuery: undefined,
-        totalRecords: undefined,
-        pageSize: 10,
-        skip: 0,
-        sortColumn: 1,
-        sortDirection: 'ascending',
-        currentPage: 1,
-        filters: []
-    }
+    public parameters: AuDatatableParameters = new AuDatatableParameters();
     public tableFilters: Array<AuDatatableFilter> =
     [
         {
@@ -67,6 +57,9 @@ export class ServerSideDemoPage {
 
     public async attached(): Promise<void> {
         let response = await this.fetchData(this.parameters);
+        // Hack when api refuses to load data when 
+        // api receives first request after restart
+        if (response.totalRecords == 0) location.reload();
         this.data = response.data;
         this.parameters.totalRecords = response.totalRecords;
     }
@@ -162,7 +155,7 @@ export class ServerSideDemoPage {
             totalRecords: mapped.total_records
         } as AuDatatableResponse;
     }
-    
+
 
     private descriptionToEnum(description: string): number {
         switch (description) {
