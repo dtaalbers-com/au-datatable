@@ -212,4 +212,19 @@
     .nav-tabs {
         margin-top: 50px;
     }
+
+    @media (max-width: 768px) {
+
+        .footer {
+            height: 100px;
+
+            au-datatable-pagination {
+                float: unset !important;
+    
+                nav {
+                    margin-top: 10px;
+                }
+            }
+        }
+    } 
 }

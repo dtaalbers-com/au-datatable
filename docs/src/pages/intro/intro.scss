@@ -12,13 +12,11 @@
         
         .logo-dtaalbers {
             height: 150px;
-            margin-right: 50px;
-            widows: 150px;
+            margin-right: 25px;
         }
         
         .logo-aurelia {
             height: 150px;
-            widows: 150px;
         }
     }
 
@@ -64,4 +62,17 @@
             color: #ed682f;
         }
     }
+    
+    @media (max-width: 384px) {
+        .logos .logo-dtaalbers {
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            font-size: 40pt;
+            margin: 0 50px;
+        }
+    }    
 }
