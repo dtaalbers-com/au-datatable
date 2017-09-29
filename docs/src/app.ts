@@ -4,7 +4,6 @@ import { Router, RouterConfiguration } from 'aurelia-router';
 export class App {
     public configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'dtaalbers.com';
-        config.options.pushState = true
         config.map([
             {
                 route: ['', 'intro'],
