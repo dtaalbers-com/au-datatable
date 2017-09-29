@@ -1,0 +1,107 @@
+#docs {
+    padding: 20px;
+
+    .logos {
+        margin: 50px 0;
+        text-align: center;
+        
+        .logo-dtaalbers {
+            height: 150px;
+            margin-right: 25px;
+        }
+        
+        .logo-aurelia {
+            height: 150px;
+        }
+    }
+
+    .links {
+        list-style: none;
+        margin: 40px 0px;
+        text-align: center;
+
+        a {
+            width: 200px;
+            background-color: #ed682f;
+            padding: 10px 20px;
+            margin: 5px;
+            text-align: center;
+            color: white;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .back-to-top {
+        position: fixed;
+        z-index: 9999;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .page-header {
+        text-align: center;
+
+        .table-of-contents {
+            list-style: none;
+            padding: 0;
+    
+            li {
+
+                a {
+                    float: left;
+                    width: 200px;
+                    border: 1px solid #ed682f;
+                    padding: 5px;
+                    margin: 5px;
+                    text-align: center;
+                    transition: .5s;
+                    color: #ed682f;
+                    
+                    &:hover {
+                        cursor: pointer;
+                            background-color: #ed682f;
+                            text-decoration: none;
+                            color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .page-content {        
+        .header {
+            height: 30px;
+            color: white;
+            padding: 2px 5px;
+            margin: 20px 0;
+            background-color: #ed682f;
+        }
+
+        .content {
+            pre {
+                margin-bottom: 0;
+                color: #BD4145;
+
+                &.large-bottom {
+                    margin-bottom: -25px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 500px) {
+        .table-of-contents {
+            list-style: none;
+            margin-left: -5px;
+    
+            li {
+                a {
+                    width: 99% !important;
+                }
+            }
+        }
+    }
+}

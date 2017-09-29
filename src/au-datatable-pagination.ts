@@ -8,34 +8,34 @@ import { AuDatatableResponse } from './AuDatatableResponse';
     <template>
         <nav>
             <ul class="au-pagination pagination">
-                <li>
-                    <a click.delegate="previousPage()">
+                <li class="page-item">
+                    <a class="page-link" click.delegate="previousPage()">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li if.bind="parameters.currentPage > amountOfPages + 1">
-                    <a click.delegate="changePage(0)">1</a>
+                <li class="page-item" if.bind="parameters.currentPage > amountOfPages + 1">
+                    <a class="page-link" click.delegate="changePage(0)">1</a>
                 </li>
-                <li if.bind="parameters.currentPage > amountOfPages + 2" class="dots">
-                    <a>...</a>
+                <li class="page-item dots" if.bind="parameters.currentPage > amountOfPages + 2">
+                    <a class="page-link">...</a>
                 </li>
-                <li if.bind="!refreshing" repeat.for="i of previousPages">
-                    <a click.delegate="changePage((parameters.currentPage + i) - amountOfPages - 1)"> \${ calculatePreviousPageNumber(i) }</a>
+                <li class="page-item" if.bind="!refreshing" repeat.for="i of previousPages">
+                    <a class="page-link" click.delegate="changePage((parameters.currentPage + i) - amountOfPages - 1)"> \${ calculatePreviousPageNumber(i) }</a>
                 </li>
-                <li class="active">
-                    <a>\${ parameters.currentPage }</a>
+                <li class="page-item active">
+                    <a class="page-link">\${ parameters.currentPage }</a>
                 </li>
-                <li if.bind="!refreshing" repeat.for="i of followingPages">
-                    <a click.delegate="changePage(parameters.currentPage + i)">\${ parameters.currentPage + (i + 1) }</a>
+                <li class="page-item" if.bind="!refreshing" repeat.for="i of followingPages">
+                    <a class="page-link" click.delegate="changePage(parameters.currentPage + i)">\${ parameters.currentPage + (i + 1) }</a>
                 </li>
-                <li if.bind="parameters.currentPage < totalPages - 3" class="dots">
-                    <a>...</a>
+                <li class="page-item dots" if.bind="parameters.currentPage < totalPages - 3">
+                    <a class="page-link">...</a>
                 </li>
-                <li if.bind="parameters.currentPage < totalPages - amountOfPages">
-                    <a click.delegate="changePage(totalPages - 1)">\${ totalPages }</a>
+                <li class="page-item" if.bind="parameters.currentPage < totalPages - amountOfPages">
+                    <a class="page-link" click.delegate="changePage(totalPages - 1)">\${ totalPages }</a>
                 </li>
-                <li>
-                    <a click.delegate="nextPage()">
+                <li class="page-item">
+                    <a class="page-link" click.delegate="nextPage()">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
