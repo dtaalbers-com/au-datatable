@@ -34,11 +34,19 @@
         }
     }
 
+    .back-to-top {
+        position: fixed;
+        z-index: 9999;
+        bottom: 20px;
+        right: 20px;
+    }
+
     .page-header {
         text-align: center;
 
         .table-of-contents {
             list-style: none;
+            padding: 0;
     
             li {
 
@@ -79,6 +87,19 @@
 
                 &.large-bottom {
                     margin-bottom: -25px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 500px) {
+        .table-of-contents {
+            list-style: none;
+            margin-left: -5px;
+    
+            li {
+                a {
+                    width: 99% !important;
                 }
             }
         }

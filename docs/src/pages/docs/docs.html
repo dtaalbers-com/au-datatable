@@ -1,6 +1,7 @@
 <template>
     <require from="./docs.css"></require>
     <div class="container" id="docs">
+        <button class="btn btn-danger back-to-top" click.delegate="backToTop()">&#8679;</button>
         <div class="row">
             <div class="col-md-12">
                 <div class="logos">
@@ -27,7 +28,7 @@
                         <li><a href="#AuDatatableParameters">AuDatatableParameters</a></li>
                         <li><a href="#AuDatatableFilter">AuDatatableFilter</a></li>
                         <li><a href="#AuDatatableResponse">AuDatatableResponse</a></li>
-                        <li><a click.delegate="back()">back</a></li>
+                        <li><a click.delegate="back()">Back to the intro</a></li>
                     </ul>
                 </div>
             </div>
@@ -272,6 +273,90 @@
                                 <li><code>description</code>Here you can add a description/name for the filter that will displayed in the dropdown.</li>
                                 <li><code>applyToColumns</code> This property expects a array of indexes (numbers) you want the filter to be added to. Note that a zero based index is used.</li>
                                 <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-filter&gt;</code> so that the component is able to manipulate the table parameters e.g. table data, skip, current page etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="AuDatatableParameters" class="block">
+                        <div class="header">
+                            #AuDatatableParameters (class)
+                        </div>
+                        <div class="content">
+                            This class is binded to the <code>au-datatable</code> attribute which contains all table data. This class is also provided in every event that is triggered by interaction.
+
+                            <pre class="large-bottom">
+                                <code>
+    export class AuDatatableParameters {
+        searchQuery?: string;
+        skip?: number = 0;
+        pageSize?: number = 10;
+        totalRecords?: number;
+        tableData?: Array&lt;any&gt;;
+        currentPage?: number;
+        sortDirection?: string | undefined = 'ascending';
+        sortColumn?: number = 0;
+        filters?: Array&lt;AuDatatableFilter&gt; = [];
+    }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>searchQuery</code> The search query that is entered through the <code>au-datatable-search</code> component.</li>
+                                <li><code>skip</code> The amount of records to skip when calling for new table data.</li>
+                                <li><code>pageSize</code>The amount of records to take when calling for new table data. This property has a default value of 10 and is set when the <code>au-datatable-pagesize</code> is used.</li>
+                                <li><code>totalRecords</code>The total records number of the table data.</li>
+                                <li><code>tableData</code>The current table data, which has the total records count that equals to the page size. The <code>tableData</code> is updated by every event triggered by the components/attributes</li>
+                                <li><code>currentPage</code>This is the number of the page the table is currently navigated to.</li>
+                                <li><code>sortDirection</code> The direcion the data needs to be sorted on.</li>
+                                <li><code>sortColumn</code>The zero based index of the column that needs the be sorted.</li>
+                                <li><code>filters</code>The available filters for the table used by the <code>au-datatable-filter </code> component</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="AuDatatableResponse" class="block">
+                        <div class="header">
+                            #AuDatatableResponse (class)
+                        </div>
+                        <div class="content">
+                            This class should be return in each callback event. The triggered event expect this class as a response and it will use the properties provided to update the table data.
+
+                            <pre class="large-bottom">
+                                <code>
+    export class AuDatatableResponse {
+        data: Array&lt;any&gt;;
+        totalRecords: number;
+    }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>data</code> The data the event expects back from the callback that is bound to the event. Can be of any type and <strong>the length can not exceed current selected page size.</strong></li>
+                                <li><code>totalRecords</code> The total records of the entire data set for the table.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="AuDatatableFilter" class="block">
+                        <div class="header">
+                            #AuDatatableFilter (class)
+                        </div>
+                        <div class="content">
+                            This class is provided in an array for the <code>au-datatable-filter</code> component. 
+
+                            <pre class="large-bottom">
+                                <code>
+    export class AuDatatableFilter {
+        description: string;
+        value?: string | undefined;
+        selectedColumn?: number;
+        applyToColumns?: Array&lt;number&gt;;
+    }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>description</code> The description of the filter. This description will be shown in the filter dropdown and will be provided to the callback as a parameter once it is selected.</li>
+                                <li><code>value</code> The entered value of the filter.</li>
+                                <li><code>selectedColumn</code> The zero based index of the column the filter was selected of. This property is filled automatically and you do not have to set it when binding the filter to the <code>au-datatable-filter</code> component.</li>
+                                <li><code>applyToColumns</code> An array of zero based indexes of the columns that the filter needs to be applied to.</li>
                             </ul>
                         </div>
                     </div>
