@@ -2,14 +2,16 @@
     background-color: #fbfbfb;
     text-align: center;
 
+    .app-version {
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        font-size: 9pt;
+    }
+
     .header {
         font-size: 70pt;
         color: #333;
-
-        .sub {
-            font-size: 20pt;
-            margin-left: 30px;
-        }
     }
 
     .logos {
