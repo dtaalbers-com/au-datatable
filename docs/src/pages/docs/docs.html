@@ -1,0 +1,366 @@
+<template>
+    <require from="./docs.css"></require>
+    <div class="container" id="docs">
+        <button class="btn btn-danger back-to-top" click.delegate="backToTop()">&#8679;</button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="logos">
+                    <img class="logo-dtaalbers" src="src/assets/images/logo-dtaalbers.png" alt="logo dtaalbers">
+                    <img class="logo-aurelia" src="src/assets/images/logo-aurelia.png" alt="logo aurelia">
+                    <div class="links">
+                        <a href="https://github.com/dtaalbers/au-datatable" target="_blank">View it on GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h3>Table of content</h3>
+                    <ul class="table-of-contents">
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#au-datatable">au-datatable-datatable</a></li>
+                        <li><a href="#au-datatable-pagination">au-datatable-pagination</a></li>
+                        <li><a href="#au-datatable-pagesize">au-datatable-pagesize</a></li>
+                        <li><a href="#au-datatable-sort">au-datatable-sort</a></li>
+                        <li><a href="#au-datatable-search">au-datatable-search</a></li>
+                        <li><a href="#au-datatable-info">au-datatable-info</a></li>
+                        <li><a href="#au-datatable-filter">au-datatable-filter</a></li>
+                        <li><a href="#AuDatatableParameters">AuDatatableParameters</a></li>
+                        <li><a href="#AuDatatableFilter">AuDatatableFilter</a></li>
+                        <li><a href="#AuDatatableResponse">AuDatatableResponse</a></li>
+                        <li><a click.delegate="back()">Back to the intro</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-content">
+                    <div id="introduction" class="block">
+                        <div class="header">
+                            Introduction
+                        </div>
+                        <div class="content">
+                            This plugin was created because I needed a highly customizable aurelia table plugin that works well with server side data. I've looked around but couldn't find anything that suited my needs. So I decided to create my own plugin. The plugin can be build on existing htmls table and can be used with client- or server side data. The only dependency the plugin has is Aurelia itself. Some components/attributes are needed to run the table and some are optional. The table has minimal styling, but making it pretty is your own responsibility. It is very easy to combine with bootstrap styling though, as you can see in my demo's.<br><br> All components have events that are fired by interacting with the table. You are expected to collect the data yourself based on the parameters provided by the plugin. This way you can do everything you want during theses events, for example add custom loaders when loading data. For examples on how to do this, you can check out my client- and server side demo's.
+                        </div>
+                    </div>
+                    <div id="installation" class="block">
+                        <div class="header">
+                            Installation
+                        </div>
+                        <div class="content">
+                            Install the the npm package <code>npm install au-datatable --save</code> or if you are working with <code>jspm</code> use
+                            <code>jspm install npm:au-datatable</code>. Then add the plugin to aurelia in your <code>main.ts</code> like this
+
+                            <pre>                               
+    aurelia.use
+        .standardConfiguration()
+        .plugin('au-datatable')                                
+                            </pre> If you are working with <code>jspm</code> and <code>typescript</code> you'll have to add the following to the <code>paths</code> property in your <code>tsconfig.json</code> file so that the shipped module is known when importing
+                            <code>au-datatable</code> classes.
+
+                            <pre class="large-bottom">
+                                <code>
+    "paths": {
+        "src/*": ["src/*"],
+        "au-datatable": ["jspm_packages/npm/au-datatable@&lt;version&gt;"]
+    }
+                                </code>
+                            </pre>
+
+                        </div>
+                    </div>
+                    <div id="au-datatable" class="block">
+                        <div class="header">
+                            #au-datatable (attribute)
+                        </div>
+                        <div class="content">
+                            Start plumbing the table by adding the following properties to your viewmodel.<br><br>
+
+                            <pre>
+    public data: Array&lt;any&gt;;
+    public parameters: AuDatatableParameters = new AuDatatableParameters();
+                            </pre> Next, you need to add the <code>au-datatable</code> attribute to your <code>tbody</code>tag and bind the parameters to it.<br><br>
+
+                            <pre>
+    &lt;table au-datatable="starting-data.bind: data; parameters.bind: parameters;"&gt;
+                            </pre> To fire up the table you have to load data into the <code>data</code> property of the viemodel. This can be done sync or async, it doesn't matter the table handles both. Your initial data is loaded into the <code>parameters.tableData</code> property. Use that propery to render your table rows.<br><br>
+
+                            <pre>
+    &lt;tr repeat.for="item of parameters.tableData"&gt;
+        &lt;td&gt;&lt;img src="\${item.thumbnail}"&gt;&lt;/td&gt;
+        &lt;td&gt;\${item.name}&lt;/td&gt;
+        &lt;td&gt;\${item.age}&lt;/td&gt;
+        &lt;td&gt;\${item.username}&lt;/td&gt;
+        &lt;td&gt;\${item.email}&lt;/td&gt;
+    &lt;/tr&gt;
+                            </pre> Your table is ready, but it doesn't really do much. Look into the following components to make the table more interactive.
+
+                        </div>
+                    </div>
+
+                    <div id="au-datatable-pagination" class="block">
+                        <div class="header">
+                            #au-datatable-pagination (component)
+                        </div>
+                        <div class="content">
+                            Pagination is needed to change the pages of the table, luckily I have component that will take care of that for you! Place it anywhere on the page. Here is how you use the component
+
+                            <pre class="large-bottom">
+                                <code>
+    &lt;au-datatable-pagination 
+        on-next-page.bind="nextPage" 
+        on-previous-page.bind="previousPage" 
+        on-page-change.bind="changePage" 
+        parameters.bind="parameters"&gt;
+    &lt;/au-datatable-pagination&gt;
+
+    public nextPage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; { }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>on-previous-page</code> This event is triggered when the '&laquo;' (previous) button is clicked. You'll get <code>Promise&lt;AuDatatableParameters&gt;</code> from the table in your callback function which contains the new skip/take value and the rest of the table data. The event expects an <code>Promise&lt;AuDatatableResponse&gt;</code> object as response.</li>
+                                <li><code>on-next-page</code> This event is triggered when the '&raquo;' (next) button is clicked. You'll get <code>Promise&lt;AuDatatableParameters&gt;</code> from the table in your callback function which contains the new skip/take value and the rest of the table data. The event expects an <code>Promise&lt;AuDatatableResponse&gt;</code> object as response.</li>
+                                <li><code>on-page-change</code> This event is triggered when any of the numbered buttons in the pagination is clicked. You'll get <code>Promise&lt;AuDatatableParameters&gt;</code> from the table in your callback function which contains the new skip/take value and the rest of the table data. The event expects an <code>Promise&lt;AuDatatableResponse&gt;</code> object as response.</li>
+                                <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-pagination&gt;</code> so that the component is able to manipulate the table parameters e.g. table data, skip, current page etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="au-datatable-pagesize" class="block">
+                        <div class="header">
+                            #au-datatable-pagesize (component)
+                        </div>
+                        <div class="content">
+                            The pagesize component lets you change the pagesize (skip parameter) of the table. You can place it anywhere on the page.
+
+                            <pre class="large-bottom">
+                                <code>
+    &lt;au-datatable-pagesize 
+        page-sizes.bind="[10,25,50,100]" 
+        classes="form-control" 
+        on-page-size-change.bind="pageSizeChanged" 
+        parameters.bind="parameters"&gt;
+    &lt;/au-datatable-pagesize&gt;
+
+    public pageSizeChanged = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; { }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>page-sizes</code> This is an array of number which the select box will be filled with. The first number added to the array will be used as default page size when initializing the table.</li>
+                                <li><code>classes</code> You can add a string of classes here that will be added to the select html component. Multiple classes can be added seperated by a space.</li>
+                                <li><code>on-page-size-change</code>This event gets triggered when the page size is changed. You'll get <code>Promise&lt;AuDatatableParameters&gt;</code> from the table in your callback function which contain all the current table data. The event expects an <code>Promise&lt;AuDatatableResponse&gt;</code> object as response.</li>
+                                <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-pagesize&gt;</code> so that the component is able to manipulate the table parameters e.g. table data, skip, current page etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="au-datatable-sort" class="block">
+                        <div class="header">
+                            #au-datatable-sort (attribute)
+                        </div>
+                        <div class="content">
+                            The sort attribute allows you to sort columns ascending or descending. When bound to the <code>thead</code> html component of your table it will automatically add sort buttons to your header columns.
+
+                            <pre class="large-bottom">
+                                <code>
+    &lt;thead au-datatable-sort="columns.bind: [1,2,3,4];  on-sort.bind: sort; parameters.bind: parameters"&gt;
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>columns</code> Here you can configure which columns needs to have the ability to be sorted. Remember that this property works with a zero based index.</li>
+                                <li><code>on-sort</code> This event gets triggered when a column is being sorted. The <code>sortDirection</code> and <code>sortColumn</code> are provided as callback parameters next to the rest of the table data. The sort direction can have three values; ascending, descending and and undefined, and will be change automatically by repeatedly clicking on the same column header</li>
+                                <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-sort&gt;</code> so that the component is able to manipulate the table parameters e.g. table data, skip, current page etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="au-datatable-search" class="block">
+                        <div class="header">
+                            #au-datatable-search (component)
+                        </div>
+                        <div class="content">
+                            The search components add a single point of filtering for the table. You can place it anywhere on the page.
+
+                            <pre class="large-bottom">
+                                <code>
+    &lt;au-datatable-search 
+        placeholder="Search.." 
+        input-classes="form-control" 
+        on-search-change.bind="search" 
+        parameters.bind="parameters"&gt;
+    &lt;/au-datatable-search&gt;
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>placeholder</code> You can add your own placeholder for the input element used by the <code>&lt;au-datatable-search&gt;</code> component</li>
+                                <li><code>input-classes</code> You can add a string of classes here that will be added to the input html component. Multiple classes can be added seperated by a space.</li>
+                                <li><code>on-search-change</code> This event gets triggered when a column is being sorted. A <code>searchQuery</code> value is provided as callback parameter next to the rest of the table data. This event gets triggered on the <code>keyUp</code> event of the input.</li>
+                                <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-search&gt;</code> so that the component is able to manipulate the table parameters e.g. table data, skip, current page etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="au-datatable-info" class="block">
+                        <div class="header">
+                            #au-datatable-info (component)
+                        </div>
+                        <div class="content">
+                            This component displays information about the data in the table. E.g. what record set is shown and how many records are available for the table.
+
+                            <pre>
+                                <code>
+    &lt;au-datatable-info parameters.bind="parameters"&gt; &lt;/au-datatable-info&gt;
+                                </code>
+                            </pre>
+
+                            <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-info&gt;</code> so that the component is able to calculate and display the current data set and total records</li>
+                        </div>
+                    </div>
+                    <div id="au-datatable-filter" class="block">
+                        <div class="header">
+                            #au-datatable-filter (component)
+                        </div>
+                        <div class="content">
+                            This component adds an extra row to your <code>thead</code> html element. It will add an filter button and filter input just below your header column. When clicked on the filter button it will show the provided filters. When a value is entered and a filter is selected it will trigger a filter event. That event will provid the selected filter, which column is used and what the entered value is through the callback parameters. Note that it is important that you add the component as <code>as-element</code> because when you don't, the browser doesn't understand it is an extra row in the <code>thead</code> element and renders the component above the table.
+
+                            <pre class="large-bottom">
+                                <code>
+    &lt;thead au-datatable-sort="columns.bind: [1,2,3,4]; on-sort.bind: sort; parameters.bind:parameters"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&lt;/th&gt;
+            &lt;th&gt;Fullname&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+            &lt;th&gt;Username&lt;/th&gt;
+            &lt;th&gt;Email&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr as-element="au-datatable-filter" 
+            on-filter.bind="filter" 
+            btn-classes="btn btn-default filter-button" 
+            filters.bind="tableFilters" 
+            columns.bind="[1,2,3,4]" 
+            parameters.bind="parameters" 
+            containerless&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+
+    public tableFilters: Array&lt;AuDatatableFilter&gt; =
+    [
+        {
+            description: 'Contains',
+            applyToColumns: [1, 3, 4]
+        },
+        {
+            description: 'Greater Than',
+            applyToColumns: [2]
+        },
+        {
+            description: 'Smaller Than',
+            applyToColumns: [2]
+        },
+        {
+            description: 'Equals',
+            applyToColumns: [1, 2, 3, 4]
+        }
+    ];
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>on-filter</code> This event gets triggered when a value is entered and a filter is selected. An <code>Array&lt;AuDatatableFilter&gt;</code> with the selected filters will be provided by the callback parameters with the rest of the table data. Every selected filter will have provide the <code>description</code> and <code>selectedColumn</code>.</li>
+                                <li><code>btn-classes</code> You can add a string of classes here that will be added to the button html component. Multiple classes can be added seperated by a space.</li>
+                                <li><code>filters</code>This filters will be added to the column filter dropdown.</li>
+                                <li><code>description</code>Here you can add a description/name for the filter that will displayed in the dropdown.</li>
+                                <li><code>applyToColumns</code> This property expects a array of indexes (numbers) you want the filter to be added to. Note that a zero based index is used.</li>
+                                <li><code>parameters</code> You need to bind the parameters object to the <code>&lt;au-datatable-filter&gt;</code> so that the component is able to manipulate the table parameters e.g. table data, skip, current page etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="AuDatatableParameters" class="block">
+                        <div class="header">
+                            #AuDatatableParameters (class)
+                        </div>
+                        <div class="content">
+                            This class is binded to the <code>au-datatable</code> attribute which contains all table data. This class is also provided in every event that is triggered by interaction.
+
+                            <pre class="large-bottom">
+                                <code>
+    export class AuDatatableParameters {
+        searchQuery?: string;
+        skip?: number = 0;
+        pageSize?: number = 10;
+        totalRecords?: number;
+        tableData?: Array&lt;any&gt;;
+        currentPage?: number;
+        sortDirection?: string | undefined = 'ascending';
+        sortColumn?: number = 0;
+        filters?: Array&lt;AuDatatableFilter&gt; = [];
+    }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>searchQuery</code> The search query that is entered through the <code>au-datatable-search</code> component.</li>
+                                <li><code>skip</code> The amount of records to skip when calling for new table data.</li>
+                                <li><code>pageSize</code>The amount of records to take when calling for new table data. This property has a default value of 10 and is set when the <code>au-datatable-pagesize</code> is used.</li>
+                                <li><code>totalRecords</code>The total records number of the table data.</li>
+                                <li><code>tableData</code>The current table data, which has the total records count that equals to the page size. The <code>tableData</code> is updated by every event triggered by the components/attributes</li>
+                                <li><code>currentPage</code>This is the number of the page the table is currently navigated to.</li>
+                                <li><code>sortDirection</code> The direcion the data needs to be sorted on.</li>
+                                <li><code>sortColumn</code>The zero based index of the column that needs the be sorted.</li>
+                                <li><code>filters</code>The available filters for the table used by the <code>au-datatable-filter </code> component</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="AuDatatableResponse" class="block">
+                        <div class="header">
+                            #AuDatatableResponse (class)
+                        </div>
+                        <div class="content">
+                            This class should be return in each callback event. The triggered event expect this class as a response and it will use the properties provided to update the table data.
+
+                            <pre class="large-bottom">
+                                <code>
+    export class AuDatatableResponse {
+        data: Array&lt;any&gt;;
+        totalRecords: number;
+    }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>data</code> The data the event expects back from the callback that is bound to the event. Can be of any type and <strong>the length can not exceed current selected page size.</strong></li>
+                                <li><code>totalRecords</code> The total records of the entire data set for the table.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="AuDatatableFilter" class="block">
+                        <div class="header">
+                            #AuDatatableFilter (class)
+                        </div>
+                        <div class="content">
+                            This class is provided in an array for the <code>au-datatable-filter</code> component. 
+
+                            <pre class="large-bottom">
+                                <code>
+    export class AuDatatableFilter {
+        description: string;
+        value?: string | undefined;
+        selectedColumn?: number;
+        applyToColumns?: Array&lt;number&gt;;
+    }
+                                </code>
+                            </pre>
+
+                            <ul>
+                                <li><code>description</code> The description of the filter. This description will be shown in the filter dropdown and will be provided to the callback as a parameter once it is selected.</li>
+                                <li><code>value</code> The entered value of the filter.</li>
+                                <li><code>selectedColumn</code> The zero based index of the column the filter was selected of. This property is filled automatically and you do not have to set it when binding the filter to the <code>au-datatable-filter</code> component.</li>
+                                <li><code>applyToColumns</code> An array of zero based indexes of the columns that the filter needs to be applied to.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>

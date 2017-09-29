@@ -24,6 +24,7 @@
     "doc",
     "node_modules",
     "test",
-    "demo"
+    "demo",
+    "docs"
   ]
 }

@@ -1,0 +1,31 @@
+import { AuDatatableParameters } from './AuDatatableParameters';
+import { AuDatatableFilter } from './AuDatatableFilter';
+export declare class AuDatatableFilterComponent {
+    onFilter: Function;
+    columns: Array<number>;
+    btnClasses: string;
+    filters: Array<AuDatatableFilter>;
+    labelClearFilter: string;
+    parameters: AuDatatableParameters;
+    private amountOfColumns;
+    private auTableFilter;
+    private filterElements;
+    private activeFilterBtn;
+    private filterValues;
+    attached(): void;
+    detached(): void;
+    shouldGenerateContent(column: number): boolean;
+    shouldAddFilter(filter: AuDatatableFilter, column: number): boolean;
+    selectFilter(event: any, filter: AuDatatableFilter, column: number): Promise<void>;
+    isSelectedFilter(filter: AuDatatableFilter, column: number): boolean;
+    showFilters(event: any): void;
+    inputChanged(column: number): Promise<void>;
+    clearFilter(event: any, column: number): Promise<void>;
+    private getColumnsCount();
+    private hideFilterDropdowns(event);
+    private showInputWarning(event);
+    private setActiveLabelFilter(event);
+    private removeFiltersForColumn(column);
+    private removeActiveLabelsForColumn(column);
+    private reset();
+}

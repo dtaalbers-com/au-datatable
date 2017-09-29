@@ -8,25 +8,25 @@ import { bindable, customAttribute, bindingMode } from 'aurelia-framework';
 var AuDatatableCustomAttribute = /** @class */ (function () {
     function AuDatatableCustomAttribute() {
     }
-    AuDatatableCustomAttribute.prototype.set_data = function () {
-        if (this.starting_data.length > this.parameters.page_size)
+    AuDatatableCustomAttribute.prototype.setData = function () {
+        if (this.startingData.length > this.parameters.pageSize)
             throw new Error('[au-table:bind] starting data is larger than page size.');
-        this.parameters.table_data = [].concat(this.starting_data);
-        this.parameters.current_page = 1;
+        this.parameters.tableData = [].concat(this.startingData);
+        this.parameters.currentPage = 1;
         this.parameters.skip = 0;
     };
-    AuDatatableCustomAttribute.prototype.update_current_page = function () {
-        this.parameters.current_page = this.parameters.total_records > 0 ? 1 : 0;
+    AuDatatableCustomAttribute.prototype.updateCurrentPage = function () {
+        this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
     };
     __decorate([
         bindable({
-            changeHandler: 'set_data'
+            changeHandler: 'setData'
         })
-    ], AuDatatableCustomAttribute.prototype, "starting_data", void 0);
+    ], AuDatatableCustomAttribute.prototype, "startingData", void 0);
     __decorate([
         bindable({
             defaultBindingMode: bindingMode.twoWay,
-            changeHandler: 'update_current_page'
+            changeHandler: 'updateCurrentPage'
         })
     ], AuDatatableCustomAttribute.prototype, "parameters", void 0);
     AuDatatableCustomAttribute = __decorate([

@@ -1,7 +1,7 @@
-import { AuDatatableParameters } from './au-datatable-contracts/AuDatatableParameters';
+import { AuDatatableParameters } from './AuDatatableParameters';
 export declare class AuDatatableCustomAttribute {
-    starting_data: Array<never>;
+    startingData: Array<never>;
     parameters: AuDatatableParameters;
-    private set_data();
-    private update_current_page();
+    private setData();
+    private updateCurrentPage();
 }

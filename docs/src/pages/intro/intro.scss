@@ -1,0 +1,78 @@
+#intro {
+    background-color: #fbfbfb;
+    text-align: center;
+
+    .header {
+        font-size: 70pt;
+        color: #333;
+    }
+
+    .logos {
+        margin-top: 50px;
+        
+        .logo-dtaalbers {
+            height: 150px;
+            margin-right: 25px;
+        }
+        
+        .logo-aurelia {
+            height: 150px;
+        }
+    }
+
+    .subheader {
+        font-size: 15pt;
+        color: #333;
+        margin: 0px 0 40px 0;
+    }
+
+    .button-container {
+
+        button {
+            margin-top: 10px;
+            height: 200px;   
+            width: 100%;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            .title {
+                display: block;
+                color: white;
+                font-size: 15pt;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+            }
+
+            .subtitle {
+                display: block;
+                font-size: 10pt;
+                color: #611a00;
+                line-height: 10px;
+            }
+        }
+    }
+
+    .footer-message {
+        margin-top: 40px;
+        color: #333;
+
+        a {
+            color: #ed682f;
+        }
+    }
+    
+    @media (max-width: 384px) {
+        .logos .logo-dtaalbers {
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            font-size: 40pt;
+            margin: 0 50px;
+        }
+    }    
+}
