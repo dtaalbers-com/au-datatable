@@ -22,182 +22,162 @@
                 <div class="col-md-12 content">
                     <pre>
                         <code>
-import { Router } from 'aurelia-router';
-import { HttpClient, json } from 'aurelia-fetch-client';
-import { autoinject } from 'aurelia-framework';
-import { AuDatatableParameters } from 'au-datatable';
-import { AuDatatableFilter } from 'au-datatable';
-import { AuDatatableResponse } from 'au-datatable';
-
-@autoinject()
-export class ClientSideDemoPage {
-
-    public users: Array&lt;any&gt;;
-    public data: Array&lt;any&gt;;
-    public isLoading: boolean = false;
-    public parameters: AuDatatableParameters = {
-        tableData: undefined,
-        searchQuery: undefined,
-        totalRecords: undefined,
-        pageSize: 10,
-        skip: 0,
-        sortColumn: 2,
-        sortDirection: 'ascending',
-        currentPage: 2,
-        filters: []
+public data: Array&lt;any&gt;;
+public parameters: AuDatatableParameters = new AuDatatableParameters();
+public tableFilters: Array&lt;AuDatatableFilter&gt; =
+[
+    {
+        description: 'Contains',
+        applyToColumns: [1, 3, 4, 5, 6]
+    },
+    {
+        description: 'Greater Than',
+        applyToColumns: [2]
+    },
+    {
+        description: 'Smaller Than',
+        applyToColumns: [2]
+    },
+    {
+        description: 'Equals',
+        applyToColumns: [1, 2, 3, 4, 5, 6]
     }
+];
 
-    public tableFilters: Array&lt;AuDatatableFilter&gt; =
-    [
-        {
-            description: 'Contains',
-            applyToColumns: [1, 3, 4, 5, 6]
-        },
-        {
-            description: 'Greater Than',
-            applyToColumns: [2]
-        },
-        {
-            description: 'Smaller Than',
-            applyToColumns: [2]
-        },
-        {
-            description: 'Equals',
-            applyToColumns: [1, 2, 3, 4, 5, 6]
-        }
-    ];
+public users: Array&lt;any&gt;;
+public isLoading: boolean = false;
 
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-    ) { }
+constructor(
+    private http: HttpClient,
+    private router: Router,
+) { }
 
-    public async attached(): Promise&lt;void&gt; {
-        this.isLoading = true;
-        let response = await this.processData(this.parameters);
-        this.parameters.totalRecords = response.totalRecords;
-        this.data = response.data;
-        this.isLoading = false;
-    }
+public async attached(): Promise&lt;void&gt; {
+    this.isLoading = true;
+    let response = await this.processData(this.parameters);
+    this.parameters.totalRecords = response.totalRecords;
+    this.data = response.data;
+    this.isLoading = false;
+}
 
-    public nextPage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
-    public previousPage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
-    public changePage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
-    public sort = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
-    public search = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
-    public pageSizeChanged = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
-    public filter = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public nextPage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public previousPage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public changePage = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public sort = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public search = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public pageSizeChanged = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
+public filter = async (parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; =&gt; this.processData(parameters);
 
-    private async processData(parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; {
-        this.isLoading = true;
-        if (!this.users) this.users = await this.fetchData();
-        var data = Object.assign([], this.users);
-        data = await this.sortData(data, parameters.sortColumn, parameters.sortDirection);
-        data = parameters.searchQuery ? await this.filterOnQueryString(data, parameters.searchQuery) : data;
-        data = parameters.filters.length &gt; 0 ? await this.filterOnFilters(data, parameters.filters) : data;
-        this.isLoading = false;
-        return Promise.resolve({
-            totalRecords: data.length,
-            data: data.slice(parameters.skip, parameters.skip + parameters.pageSize)
-        } as AuDatatableResponse);
-    }
+private async processData(parameters: AuDatatableParameters): Promise&lt;AuDatatableResponse&gt; {
+    this.isLoading = true;
+    if (!this.users) this.users = await this.fetchData();
+    var data = Object.assign([], this.users);
+    data = await this.sortData(data, parameters.sortColumn, parameters.sortDirection);
+    data = parameters.searchQuery ? await this.filterOnQueryString(data, parameters.searchQuery) : data;
+    data = parameters.filters.length &gt; 0 ? await this.filterOnFilters(data, parameters.filters) : data;
+    this.isLoading = false;
+    return Promise.resolve({
+        totalRecords: data.length,
+        data: data.slice(parameters.skip, parameters.skip + parameters.pageSize)
+    } as AuDatatableResponse);
+}
 
-    private async filterOnQueryString(data: Array&lt;any&gt;, query: string): Promise&lt;Array&lt;any&gt;&gt; {
-        let filtered = data.filter(x =&gt; x.name.toLowerCase().includes(query.toLowerCase())
-            || x.username.toLowerCase().includes(query.toLowerCase())
-            || x.email.toLowerCase().includes(query.toLowerCase()));
-        return Promise.resolve(filtered);
-    }
+private async filterOnQueryString(data: Array&lt;any&gt;, query: string): Promise&lt;Array&lt;any&gt;&gt; {
+    let filtered = data.filter(x =&gt; x.name.toLowerCase().includes(query.toLowerCase())
+        || x.username.toLowerCase().includes(query.toLowerCase())
+        || x.email.toLowerCase().includes(query.toLowerCase()));
+    return Promise.resolve(filtered);
+}
 
-    private async filterOnFilters(data: Array&lt;any&gt;, filters: Array&lt;AuDatatableFilter&gt;): Promise&lt;Array&lt;any&gt;&gt; {
-        filters.forEach(filter =&gt; {
-            switch (filter.description) {
-                case 'Contains':
-                    switch (filter.selectedColumn.toString()) {
-                        case '1':
-                            data = data.filter(x =&gt; x.name.includes(filter.value));
-                            break;
-                        case '3':
-                            data = data.filter(x =&gt; x.username.includes(filter.value));
-                            break;
-                        case '4':
-                            data = data.filter(x =&gt; x.email.includes(filter.value));
-                            break;
-                        default: throw new Error('[filter] Unknown selected column');
-                    }
-                    break;
-                case 'Greater Than':
-                    data = data.filter(x =&gt; x.age &gt; filter.value);
-                    break;
-                case 'Smaller Than':
-                    data = data.filter(x =&gt; x.age &lt; filter.value);
-                    break;
-                case 'Equals':
-                    switch (filter.selectedColumn.toString()) {
-                        case '1':
-                            data = data.filter(x =&gt; x.name == filter.value);
-                            break;
-                        case '2':
-                            data = data.filter(x =&gt; x.age == filter.value);
-                            break;
-                        case '3':
-                            data = data.filter(x =&gt; x.username == filter.value);
-                            break;
-                        case '4':
-                            data = data.filter(x =&gt; x.email == filter.value);
-                            break;
-                        default: throw new Error('[filter] Unknown selected column');
-                    }
-                    break;
-            }
-        });
-        return Promise.resolve(data);
-    }
-
-    private async sortData(data: Array&lt;any&gt;, column: number, direction: string): Promise&lt;Array&lt;any&gt;&gt; {
-        let sorted = [] as Array&lt;any&gt;;
-        switch (column.toString()) {
-            case '1':
-                sorted = this.sortArrayOnKey(data, direction, 'name');
-                break;
-            case '2':
-                switch (direction) {
-                    case 'ascending':
-                        sorted = data.sort((a, b) =&gt; a.age - b.age);
+private async filterOnFilters(data: Array&lt;any&gt;, filters: Array&lt;AuDatatableFilter&gt;): Promise&lt;Array&lt;any&gt;&gt; {
+    filters.forEach(filter =&gt; {
+        switch (filter.description) {
+            case 'Contains':
+                switch (filter.selectedColumn.toString()) {
+                    case '1':
+                        data = data.filter(x =&gt; x.name.includes(filter.value));
                         break;
-                    case 'descending':
-                        sorted = data.sort((a, b) =&gt; b.age - a.age);
-                    default: sorted = data;
+                    case '3':
+                        data = data.filter(x =&gt; x.username.includes(filter.value));
                         break;
+                    case '4':
+                        data = data.filter(x =&gt; x.email.includes(filter.value));
+                        break;
+                    default: throw new Error('[filter] Unknown selected column');
                 }
                 break;
-            case '3':
-                sorted = this.sortArrayOnKey(data, direction, 'username');
+            case 'Greater Than':
+                data = data.filter(x =&gt; x.age &gt; filter.value);
                 break;
-            case '4':
-                sorted = this.sortArrayOnKey(data, direction, 'email');
+            case 'Smaller Than':
+                data = data.filter(x =&gt; x.age &lt; filter.value);
+                break;
+            case 'Equals':
+                switch (filter.selectedColumn.toString()) {
+                    case '1':
+                        data = data.filter(x =&gt; x.name == filter.value);
+                        break;
+                    case '2':
+                        data = data.filter(x =&gt; x.age == filter.value);
+                        break;
+                    case '3':
+                        data = data.filter(x =&gt; x.username == filter.value);
+                        break;
+                    case '4':
+                        data = data.filter(x =&gt; x.email == filter.value);
+                        break;
+                    default: throw new Error('[filter] Unknown selected column');
+                }
                 break;
         }
-        return Promise.resolve(sorted);
-    }
+    });
+    return Promise.resolve(data);
+}
 
-    private async fetchData(): Promise&lt;any&gt; {
-        return await this.http.fetch('https://api.dtaalbers.com/au-datatable/datatable')
-            .then(x =&gt; x.json());
+private async sortData(data: Array&lt;any&gt;, column: number, direction: string): Promise&lt;Array&lt;any&gt;&gt; {
+    let returnValue = [] as Array&lt;any&gt;;
+    switch (column.toString()) {
+        case '1':
+            returnValue = this.sortArrayOnKey(data, direction, 'name');
+            break;
+        case '2':
+            switch (direction) {
+                case 'ascending':
+                    returnValue = data.sort((a, b) =&gt; a.age - b.age);
+                    break;
+                case 'descending':
+                    returnValue = data.sort((a, b) =&gt; b.age - a.age);
+                default: returnValue = data;
+                    break;
+            }
+            break;
+        case '3':
+            returnValue = this.sortArrayOnKey(data, direction, 'username');
+            break;
+        case '4':
+            returnValue = this.sortArrayOnKey(data, direction, 'email');
+            break;
+        default: returnValue = data;
     }
+    return Promise.resolve(returnValue);
+}
 
-    private sortArrayOnKey(array: Array&lt;any&gt;, direction: string, key: string): Array&lt;any&gt; {
-        if (!direction) return array;
-        let sorted = array.sort((a, b) =&gt; {
-            if (a[key] &lt; b[key])
-                return -1;
-            if (a[key] &gt; b[key])
-                return 1;
-            return 0;
-        });
-        return direction == 'ascending' ? sorted : sorted.reverse();
-    }
-}     
+private async fetchData(): Promise&lt;any&gt; {
+    return await this.http.fetch('https://api.dtaalbers.com/au-datatable/datatable')
+        .then(x =&gt; x.json());
+}
+
+private sortArrayOnKey(array: Array&lt;any&gt;, direction: string, key: string): Array&lt;any&gt; {
+    if (!direction) return array;
+    let sorted = array.sort((a, b) =&gt; {
+        if (a[key] &lt; b[key])
+            return -1;
+        if (a[key] &gt; b[key])
+            return 1;
+        return 0;
+    });
+    return direction == 'ascending' ? sorted : sorted.reverse();
+}
                         </code>
                     </pre>
                 </div>
