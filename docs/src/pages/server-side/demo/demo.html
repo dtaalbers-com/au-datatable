@@ -29,7 +29,7 @@
                             <au-datatable-search 
                                 placeholder="Search.." 
                                 input-classes="form-control" 
-                                on-search-change.bind="search" 
+                                on-search-change.bind="refresh" 
                                 parameters.bind="parameters">
                             </au-datatable-search>
                         </div>
@@ -37,18 +37,14 @@
                             <au-datatable-pagesize 
                                 page-sizes.bind="[10,25,50,100]" 
                                 classes="form-control" 
-                                on-page-size-change.bind="pageSizeChanged" 
+                                on-page-size-change.bind="refresh" 
                                 parameters.bind="parameters">
                             </au-datatable-pagesize>
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped" au-datatable="
-                            starting-data.bind: data; 
-                            parameters.bind: parameters;">
-                    <thead au-datatable-sort="columns.bind: [1,2,3,4]; 
-                                on-sort.bind: sort; 
-                                parameters.bind: parameters">
+                <table class="table table-bordered table-striped" au-datatable="starting-data.bind: data; parameters.bind: parameters;">
+                    <thead au-datatable-sort="columns.bind: [1,2,3,4]; on-sort.bind: refresh; parameters.bind: parameters">
                         <tr>
                             <th></th>
                             <th>Fullname</th>
@@ -57,7 +53,7 @@
                             <th>Email</th>
                         </tr>
                         <tr as-element="au-datatable-filter" 
-                            on-filter.bind="filter" 
+                            on-filter.bind="refresh" 
                             btn-classes="btn btn-default filter-button" 
                             filters.bind="tableFilters" 
                             columns.bind="[1,2,3,4]" 
@@ -85,9 +81,9 @@
                         <div class="col-md-4">
                             <au-datatable-pagination 
                                 class="float-right" 
-                                on-next-page.bind="nextPage" 
-                                on-previous-page.bind="previousPage" 
-                                on-page-change.bind="changePage" 
+                                on-next-page.bind="refresh" 
+                                on-previous-page.bind="refresh" 
+                                on-page-change.bind="refresh" 
                                 parameters.bind="parameters">
                             </au-datatable-pagination>
                         </div>

@@ -56,7 +56,7 @@ export class ServerSideDemoPage {
     }
 
     public async attached(): Promise<void> {
-        let response = await this.fetchData(this.parameters);
+        let response = await this.refresh(this.parameters);
         // Hack when api refuses to load data when 
         // api receives first request after restart
         if (response.totalRecords == 0) location.reload();
@@ -64,70 +64,7 @@ export class ServerSideDemoPage {
         this.parameters.totalRecords = response.totalRecords;
     }
 
-    public nextPage = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:next_page] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    public previousPage = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:previous_page] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    public changePage = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:change_page] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    public sort = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:sort] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    public search = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:change_page] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    public pageSizeChanged = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:change_page] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    public filter = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
-        try {
-            let response = await this.fetchData(parameters) as AuDatatableResponse;
-            return response;
-        } catch (e) {
-            alert(`[demo:filter] Failed to load the data: ${JSON.stringify(e)}`);
-        }
-    }
-
-    private async fetchData(parameters: AuDatatableParameters): Promise<AuDatatableResponse> {
+    private refresh = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         let direction = parameters.sortDirection == undefined
             ? undefined
             : parameters.sortDirection == 'ascending' ? 0 : 1;

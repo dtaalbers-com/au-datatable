@@ -29,7 +29,7 @@ export class ClientSideDemoPage {
             applyToColumns: [1, 2, 3, 4, 5, 6]
         }
     ];
-    
+
     public users: Array<any>;
     public isLoading: boolean = false;
 
@@ -40,21 +40,13 @@ export class ClientSideDemoPage {
 
     public async attached(): Promise<void> {
         this.isLoading = true;
-        let response = await this.processData(this.parameters);
+        let response = await this.refresh(this.parameters);
         this.parameters.totalRecords = response.totalRecords;
         this.data = response.data;
         this.isLoading = false;
     }
 
-    public nextPage = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-    public previousPage = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-    public changePage = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-    public sort = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-    public search = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-    public pageSizeChanged = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-    public filter = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => this.processData(parameters);
-
-    private async processData(parameters: AuDatatableParameters): Promise<AuDatatableResponse> {
+    public refresh = async (parameters: AuDatatableParameters): Promise<AuDatatableResponse> => {
         this.isLoading = true;
         if (!this.users) this.users = await this.fetchData();
         var data = Object.assign([], this.users);
