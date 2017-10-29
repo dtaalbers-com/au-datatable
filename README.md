@@ -1,4 +1,4 @@
-# Aurelia Datatable (1.0.0-beta-002)
+# Aurelia Datatable (1.0.0-beta-003)
 A highly customizable html datatable, build for the Aurelia Framework.
 
 <p align="left">
