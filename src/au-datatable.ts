@@ -9,19 +9,14 @@ export class AuDatatableCustomAttribute {
     })
     public startingData: Array<never>;
     @bindable({
-        defaultBindingMode: bindingMode.twoWay,
-        changeHandler: 'updateCurrentPage'
+        defaultBindingMode: bindingMode.twoWay
     })
     public parameters: AuDatatableParameters;
 
     private setData(): void {
         if (this.startingData.length > this.parameters.pageSize) throw new Error('[au-table:bind] starting data is larger than page size.');
         this.parameters.tableData = [].concat(this.startingData);
-        this.parameters.currentPage = 1;
+        if (!this.parameters.currentPage) this.parameters.currentPage = 1;
         this.parameters.skip = 0;
-    }
-
-    private updateCurrentPage(): void {
-        this.parameters.currentPage = this.parameters.totalRecords > 0 ? 1 : 0;
     }
 }	

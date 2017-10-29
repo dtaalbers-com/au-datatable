@@ -9,7 +9,7 @@ import { AuDatatableResponse } from './AuDatatableResponse';
         <tr class="au-table-filter">
             <td class="au-filter-cell" repeat.for="i of amountOfColumns" if.bind="parameters">
                 <div if.bind="shouldGenerateContent(i)">
-                    <input class="au-filter-input" value.two-way="filterValues[i]" type="text" change.delegate="inputChanged(i)">
+                    <input class="au-filter-input" value.bind="filterValues[i]" type="text" change.delegate="inputChanged(i)">
                     <button class="au-filter-btn" click.delegate="showFilters($event)" class.bind="btnClasses">&#9783;</button>
                     <div class="au-filter-container">
                         <ul class="au-filters">
@@ -106,11 +106,13 @@ export class AuDatatableFilterComponent {
     private auTableFilter: any;
     private filterElements: Array<any>;
     private activeFilterBtn: any;
-    private filterValues: Array<string | undefined> = [];
+    private filterValues: Array<string | undefined> = []; å
 
     public attached(): void {
+        if (!this.parameters.filters) this.parameters.filters = [];
         this.getColumnsCount();
         document.getElementsByTagName('html')[0].addEventListener('click', e => this.hideFilterDropdowns(e));
+        this.parameters.filters.map(x => this.filterValues[x.selectedColumn] = x.value);
     }
 
     public detached(): void {

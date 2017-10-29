@@ -44,7 +44,7 @@ export class AuDatatableInfoComponent {
 
     private updateRecordInfo(): void {
         if (!this.startRecord && !this.endRecord) {
-            this.startRecord = 1;
+            this.startRecord = (this.parameters.pageSize * this.parameters.currentPage) - (this.parameters.pageSize - 1);
             this.endRecord = this.parameters.pageSize;
         } else {
             if (this.currentPageCopy + 1 == this.parameters.currentPage) {

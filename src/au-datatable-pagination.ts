@@ -65,6 +65,7 @@ export class AuDatatablePaginationComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
+        changeHandler: 'dataChange'
     }) public parameters: AuDatatableParameters;
 
     private totalPages: number;

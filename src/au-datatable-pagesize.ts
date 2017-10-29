@@ -6,7 +6,7 @@ import { AuDatatableResponse } from './AuDatatableResponse';
 @inlineView(`
     <template>
         <div class="au-table-pagesize">
-            <select class.bind="classes" value.bind="selectedPageSize" change.delegate="pageSizeChange()">
+            <select class.bind="classes" value.bind="selectedPageSize" change.delegate="pageSizeChange()" matcher.bind="setSelected">
                 <option repeat.for="size of pageSizes" model.bind="size">\${ size }</option>
             </select>
         </div>
@@ -24,7 +24,11 @@ export class AuDatatablePagesizeComponent {
     public bind(): void {
         if (!this.pageSizes || this.pageSizes.length == 0)
             throw new Error('[au-table-pagesize:bind] No page sizes has been bound.');
-        this.parameters.pageSize = this.pageSizes[0]
+        if (!this.parameters.pageSize) this.parameters.pageSize = this.pageSizes[0];
+    }
+
+    public setSelected = (option: number): boolean => {
+        return option == this.parameters.pageSize;
     }
 
     public async pageSizeChange(): Promise<void> {
