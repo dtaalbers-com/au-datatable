@@ -14,9 +14,11 @@ export class AuDatatableCustomAttribute {
     public parameters: AuDatatableParameters;
 
     private setData(): void {
-        if (this.startingData.length > this.parameters.pageSize) throw new Error('[au-table:bind] starting data is larger than page size.');
-        this.parameters.tableData = [].concat(this.startingData);
-        if (!this.parameters.currentPage) this.parameters.currentPage = 1;
-        this.parameters.skip = 0;
+        setTimeout(() => {
+            if (this.startingData.length > this.parameters.pageSize) throw new Error('[au-table:bind] starting data is larger than page size.');
+            this.parameters.tableData = [].concat(this.startingData);
+            if (!this.parameters.currentPage) this.parameters.currentPage = 1;
+            this.parameters.skip = 0;
+        });
     }
 }	
