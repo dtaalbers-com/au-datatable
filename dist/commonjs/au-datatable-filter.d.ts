@@ -12,6 +12,7 @@ export declare class AuDatatableFilterComponent {
     private filterElements;
     private activeFilterBtn;
     private filterValues;
+    å: any;
     attached(): void;
     detached(): void;
     shouldGenerateContent(column: number): boolean;

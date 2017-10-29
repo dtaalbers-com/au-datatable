@@ -6,6 +6,7 @@ export declare class AuDatatablePagesizeComponent {
     onPageSizeChange: Function;
     parameters: AuDatatableParameters;
     bind(): void;
+    setSelected: (option: number) => boolean;
     pageSizeChange(): Promise<void>;
     private reset();
 }

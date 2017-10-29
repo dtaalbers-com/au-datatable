@@ -44,11 +44,16 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     Object.defineProperty(exports, "__esModule", { value: true });
     var AuDatatablePagesizeComponent = /** @class */ (function () {
         function AuDatatablePagesizeComponent() {
+            var _this = this;
+            this.setSelected = function (option) {
+                return option == _this.parameters.pageSize;
+            };
         }
         AuDatatablePagesizeComponent.prototype.bind = function () {
             if (!this.pageSizes || this.pageSizes.length == 0)
                 throw new Error('[au-table-pagesize:bind] No page sizes has been bound.');
-            this.parameters.pageSize = this.pageSizes[0];
+            if (!this.parameters.pageSize)
+                this.parameters.pageSize = this.pageSizes[0];
         };
         AuDatatablePagesizeComponent.prototype.pageSizeChange = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -88,7 +93,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         ], AuDatatablePagesizeComponent.prototype, "parameters", void 0);
         AuDatatablePagesizeComponent = __decorate([
             aurelia_framework_1.customElement('au-datatable-pagesize'),
-            aurelia_framework_1.inlineView("\n    <template>\n        <div class=\"au-table-pagesize\">\n            <select class.bind=\"classes\" value.bind=\"selectedPageSize\" change.delegate=\"pageSizeChange()\">\n                <option repeat.for=\"size of pageSizes\" model.bind=\"size\">${ size }</option>\n            </select>\n        </div>\n    </template>\n")
+            aurelia_framework_1.inlineView("\n    <template>\n        <div class=\"au-table-pagesize\">\n            <select class.bind=\"classes\" value.bind=\"selectedPageSize\" change.delegate=\"pageSizeChange()\" matcher.bind=\"setSelected\">\n                <option repeat.for=\"size of pageSizes\" model.bind=\"size\">${ size }</option>\n            </select>\n        </div>\n    </template>\n")
         ], AuDatatablePagesizeComponent);
         return AuDatatablePagesizeComponent;
     }());

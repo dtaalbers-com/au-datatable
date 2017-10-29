@@ -170,6 +170,7 @@ var AuDatatablePaginationComponent = /** @class */ (function () {
     __decorate([
         aurelia_framework_1.bindable({
             defaultBindingMode: aurelia_framework_1.bindingMode.twoWay,
+            changeHandler: 'dataChange'
         })
     ], AuDatatablePaginationComponent.prototype, "parameters", void 0);
     AuDatatablePaginationComponent = __decorate([

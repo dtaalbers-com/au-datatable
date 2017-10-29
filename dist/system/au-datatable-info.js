@@ -38,7 +38,7 @@ System.register(["aurelia-framework"], function (exports_1, context_1) {
                 };
                 AuDatatableInfoComponent.prototype.updateRecordInfo = function () {
                     if (!this.startRecord && !this.endRecord) {
-                        this.startRecord = 1;
+                        this.startRecord = (this.parameters.pageSize * this.parameters.currentPage) - (this.parameters.pageSize - 1);
                         this.endRecord = this.parameters.pageSize;
                     }
                     else {

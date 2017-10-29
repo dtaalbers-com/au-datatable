@@ -168,6 +168,7 @@ var AuDatatablePaginationComponent = /** @class */ (function () {
     __decorate([
         bindable({
             defaultBindingMode: bindingMode.twoWay,
+            changeHandler: 'dataChange'
         })
     ], AuDatatablePaginationComponent.prototype, "parameters", void 0);
     AuDatatablePaginationComponent = __decorate([
