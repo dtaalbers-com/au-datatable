@@ -1,0 +1,6 @@
+<template>
+    <div class="au-table-info">
+        \${ info }
+        <span if.bind="request.searchQuery.length > 0 && request.tableData.length > 0">&nbsp;(\${ labelFiltered })</span>
+    </div>
+</template>
