@@ -1,11 +1,81 @@
 {
-  "rules": {
-    "quotemark": [true, "single"],
-    "object-literal-sort-keys": false,
-    "ordered-imports": [false],
-    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-module", "check-separator", "check-type"],
-    "interface-name": [true, "never-prefix"],
-    "no-shadowed-variable": false,
-    "no-string-literal": false
-  }
+    "defaultSeverity": "warning",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rulesDirectory": [],
+    "rules": {
+        "class-name": true,
+        "disable-next-line:curly": true,
+        "arrow-return-shorthand": true,
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape"
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "ignore",
+                "singleline": "never"
+            }
+        ],
+        "eofline": true,
+        "forin": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "no-unused-variable": false, 
+        "no-unused-locals": false, 
+        "no-unused-expression": false,            
+        "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-snake-case"
+        ],
+        "label-position": true,
+        "member-access": true,
+        "no-construct": true,
+        "no-debugger": true,
+        "no-duplicate-super": true,
+        "no-empty": true,
+        "no-empty-interface": true,
+        "no-eval": true,
+        "curly": [
+            true,
+            "ignore-same-line"
+        ],
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "max-line-length": false,
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-catch",
+            "check-else",
+            "check-whitespace"
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "triple-equals": [
+            true,
+            "allow-null-check"
+        ],
+        "typedef-whitespace": [
+            true,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            }
+        ],
+        "import-spacing": true
+    }
 }
