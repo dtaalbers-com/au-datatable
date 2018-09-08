@@ -11,6 +11,7 @@ export default class AuDatatableSearchComponent {
 
     @bindable() private placeholder: string;
     @bindable() private inputClasses: string;
+    @bindable() private debounce: string = '500';
     @bindable() private onSearchChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
 
     private async search(): Promise<void> {
