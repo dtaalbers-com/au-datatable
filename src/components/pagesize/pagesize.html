@@ -1,7 +1,7 @@
 <template>
     <div class="au-table-pagesize">
         <select class.bind="classes" value.bind="selectedPageSize" change.delegate="pageSizeChange()" matcher.bind="setSelected">
-            <option repeat.for="size of pageSizes" model.bind="size">\${ size }</option>
+            <option repeat.for="size of pageSizes" model.bind="size">${ size }</option>
         </select>
     </div>
 </template>

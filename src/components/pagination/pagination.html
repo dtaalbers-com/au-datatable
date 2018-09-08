@@ -13,19 +13,19 @@
                 <a class="page-link">...</a>
             </li>
             <li class="page-item" if.bind="!refreshing" repeat.for="i of previousPages">
-                <a class="page-link" click.delegate="changePage((request.currentPage + i) - amountOfPages - 1)"> \${ calculatePreviousPageNumber(i) }</a>
+                <a class="page-link" click.delegate="changePage((request.currentPage + i) - amountOfPages - 1)">${ calculatePreviousPageNumber(i) }</a>
             </li>
             <li class="page-item active">
-                <a class="page-link">\${ request.currentPage }</a>
+                <a class="page-link">${ request.currentPage }</a>
             </li>
             <li class="page-item" if.bind="!refreshing" repeat.for="i of followingPages">
-                <a class="page-link" click.delegate="changePage(request.currentPage + i)">\${ request.currentPage + (i + 1) }</a>
+                <a class="page-link" click.delegate="changePage(request.currentPage + i)">${ request.currentPage + (i + 1) }</a>
             </li>
             <li class="page-item dots" if.bind="request.currentPage < totalPages - 3">
                 <a class="page-link">...</a>
             </li>
             <li class="page-item" if.bind="request.currentPage < totalPages - amountOfPages">
-                <a class="page-link" click.delegate="changePage(totalPages - 1)">\${ totalPages }</a>
+                <a class="page-link" click.delegate="changePage(totalPages - 1)">${ totalPages }</a>
             </li>
             <li class="page-item">
                 <a class="page-link" click.delegate="nextPage()">
