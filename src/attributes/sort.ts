@@ -10,12 +10,12 @@ export default class AuDatatableSortAttribute {
         defaultBindingMode: bindingMode.twoWay,
     }) private request: IAuDatatableRequest;
 
-    @bindable() private onSort: Function;
-    @bindable() private columns: Array<number>;
+    @bindable() private onSort: (request: IAuDatatableRequest) => IAuDatatableResponse;
+    @bindable() private columns: number[];
     @bindable() private activeColor: string = '#f44336';
-    @bindable() private inactiveColor: string = '#000'
+    @bindable() private inactiveColor: string = '#000';
 
-    private headers: Array<HTMLTableHeaderCellElement>;
+    private headers: HTMLTableHeaderCellElement[];
     private template: string = `
         <span class="sorting" style="float: right;">
             <span class="ascending sort" style="font-weight: bold;">&#8593;</span>
@@ -32,13 +32,13 @@ export default class AuDatatableSortAttribute {
             throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
         }
         this.headers = Array.from(this.element.getElementsByTagName('th'));
-        this.columns.forEach(column => {
+        this.columns.forEach((column) => {
             const header = this.headers[column];
             header.style.cursor = 'pointer';
             header.setAttribute('index', column.toString());
             header.addEventListener('click', event => this.sort(event));
             header.innerHTML = header.innerHTML + this.template;
-            if (this.request.sortColumn === column) {
+            if (this.request.sortBy === column) {
                 this.setActive(header, this.request.sortDirection);
             }
         });
@@ -49,7 +49,7 @@ export default class AuDatatableSortAttribute {
             throw new Error('[au-table-sort:sort] No onSort() callback has been set');
         }
         const columnIndex = this.getIndex(event.target);
-        if (this.request.sortColumn === columnIndex) {
+        if (this.request.sortBy === columnIndex) {
             switch (this.request.sortDirection) {
                 case 'ascending':
                     this.request.sortDirection = 'descending';
@@ -62,7 +62,7 @@ export default class AuDatatableSortAttribute {
                     break;
             }
         } else {
-            this.request.sortColumn = columnIndex;
+            this.request.sortBy = columnIndex;
             this.request.sortDirection = 'ascending'
         }
         this.setActive(event.target, this.request.sortDirection);
@@ -84,8 +84,8 @@ export default class AuDatatableSortAttribute {
     }
 
     private reset(): void {
-        this.headers.forEach(x => {
-            let sorts = x.getElementsByClassName('sorting');
+        this.headers.forEach((x) => {
+            const sorts = x.getElementsByClassName('sorting');
             if (sorts.length === 0) {
                 return;
             }

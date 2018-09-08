@@ -7,18 +7,18 @@ export default class AuDatatableSearchComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
-    }) private request: IAuDatatableRequest
+    }) private request: IAuDatatableRequest;
 
-    @bindable private placeholder: string;
-    @bindable private inputClasses: string;
-    @bindable private onSearchChange: Function;
+    @bindable() private placeholder: string;
+    @bindable() private inputClasses: string;
+    @bindable() private onSearchChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
 
     private async search(): Promise<void> {
         if (typeof this.onSearchChange !== 'function') {
             throw new Error('[au-table-search:search] No onSearchChange() callback has been set');
         }
         this.reset();
-        let response = await this.onSearchChange(this.request) as IAuDatatableResponse;
+        const response = await this.onSearchChange(this.request) as IAuDatatableResponse;
         this.request.tableData = response.data;
         this.request.totalRecords = response.totalRecords;
         this.reset();

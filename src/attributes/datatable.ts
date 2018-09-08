@@ -17,17 +17,16 @@ export default class AuDatatableAttribute {
     private setData(): void {
         setTimeout(() => {
             if (!this.request) {
-                throw new Error('[au-table:bind] starting data is larger than page size.');
+                throw new Error('[au-table:bind] No request found');
             }
-
             if (this.startingData.length > this.request.pageSize) {
                 throw new Error('[au-table:bind] starting data is larger than page size.');
             }
-            this.request.tableData = Array.from(this.startingData);
+            this.request.tableData = [].concat(this.startingData);
             if (!this.request.currentPage) {
                 this.request.currentPage = 1;
             }
             this.request.skip = 0;
         });
     }
-}	
+}

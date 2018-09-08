@@ -10,7 +10,7 @@ export default class AuDatatableFilterComponent {
         defaultBindingMode: bindingMode.twoWay,
     }) private request: IAuDatatableRequest;
 
-    @bindable() private onFilter: Function;
+    @bindable() private onFilter: (request: IAuDatatableRequest) => IAuDatatableResponse;
     @bindable() private columns: number[];
     @bindable() private btnClasses: string;
     @bindable() private filters: IAuDatatableFilter[];

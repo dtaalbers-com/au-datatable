@@ -5,12 +5,12 @@ import IAuDatatableResponse from '../../models/response';
 @customElement('au-datatable-pagesize')
 export default class AuDatatablePagesizeComponent {
 
-    private selectedPageSize: number;
-
-    @bindable() private pageSizes: Array<number>;
+    @bindable() private pageSizes: number[];
     @bindable() private classes: string;
-    @bindable() private onPageSizeChange: Function;
-    @bindable() private request: IAuDatatableRequest
+    @bindable() private onPageSizeChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
+    @bindable() private request: IAuDatatableRequest;
+
+    private selectedPageSize: number;
 
     private bind(): void {
         if (!this.pageSizes || this.pageSizes.length === 0) {
@@ -26,7 +26,7 @@ export default class AuDatatablePagesizeComponent {
     }
 
     private async pageSizeChange(): Promise<void> {
-        if (typeof this.onPageSizeChange != 'function') {
+        if (typeof this.onPageSizeChange !== 'function') {
             throw new Error('[au-table-pagesize:pageSizeChange] No onPageSizeChange() callback has been set');
         }
         this.request.pageSize = this.selectedPageSize;

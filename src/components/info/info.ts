@@ -7,13 +7,13 @@ export default class AuDatatableInfoComponent {
 
     @bindable() private message: string;
     @bindable() private labelFiltered: string;
-    @bindable() private request: IAuDatatableRequest
+    @bindable() private request: IAuDatatableRequest;
 
     private info: string;
     private startRecord: number;
     private endRecord: number;
     private currentPageCopy: any;
-    private subscriptions: Array<Disposable> = [];
+    private subscriptions: Disposable[] = [];
 
     constructor(
         private bindingEngine: BindingEngine
@@ -35,7 +35,7 @@ export default class AuDatatableInfoComponent {
     }
 
     private detached(): void {
-        this.subscriptions.forEach(x => x.dispose());
+        this.subscriptions.forEach((x) => x.dispose());
     }
 
     private updateRecordInfo(): void {
@@ -43,9 +43,9 @@ export default class AuDatatableInfoComponent {
             this.startRecord = (this.request.pageSize * this.request.currentPage) - (this.request.pageSize - 1);
             this.endRecord = this.request.pageSize;
         } else {
-            if (this.currentPageCopy + 1 == this.request.currentPage) {
+            if (this.currentPageCopy + 1 === this.request.currentPage) {
                 this.nextPage();
-            } else if (this.currentPageCopy - 1 == this.request.currentPage) {
+            } else if (this.currentPageCopy - 1 === this.request.currentPage) {
                 this.previousPage();
             } else {
                 this.pageChanged();
@@ -56,8 +56,10 @@ export default class AuDatatableInfoComponent {
     }
 
     private translateInfo(): void {
-        if (this.request.totalRecords === undefined || this.request.pageSize === undefined
-            || this.startRecord === undefined || this.endRecord === undefined) {
+        if (this.request.totalRecords === undefined
+            || this.request.pageSize === undefined
+            || this.startRecord === undefined
+            || this.endRecord === undefined) {
             return;
         }
         this.info = this.message

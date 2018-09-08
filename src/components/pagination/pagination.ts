@@ -12,15 +12,15 @@ export default class AuDatatablePaginationComponent {
     }) private request: IAuDatatableRequest;
 
     @bindable() private amountOfPages: number = 2;
-    @bindable() private onNextPage: Function;
-    @bindable() private onPreviousPage: Function;
-    @bindable() private onPageChange: Function;
+    @bindable() private onNextPage: (request: IAuDatatableRequest) => IAuDatatableResponse;
+    @bindable() private onPreviousPage: (request: IAuDatatableRequest) => IAuDatatableResponse;
+    @bindable() private onPageChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
 
     private totalPages: number;
     private followingPages: number;
     private previousPages: number;
     private refreshing: boolean = false;
-    private subscriptions: Array<Disposable> = [];
+    private subscriptions: Disposable[] = [];
 
     constructor(
         private bindingEngine: BindingEngine
