@@ -1,9 +1,9 @@
 import { bindable, customElement } from 'aurelia-framework';
-import { IAuDatatableRequest } from '../../models/request';
-import { IAuDatatableResponse } from '../../models/response';
+import IAuDatatableRequest from '../../models/request';
+import IAuDatatableResponse from '../../models/response';
 
 @customElement('au-datatable-pagesize')
-export class AuDatatablePagesizeComponent {
+export default class AuDatatablePagesizeComponent {
 
     private selectedPageSize: number;
 

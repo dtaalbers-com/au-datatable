@@ -1,13 +1,14 @@
 import { bindable, bindingMode, customAttribute } from 'aurelia-framework';
-import { IAuDatatableRequest } from '../models/request';
+import IAuDatatableRequest from '../models/request';
 
 @customAttribute('au-datatable')
-export class AuDatatableAttribute {
+export default class AuDatatableAttribute {
 
     @bindable({
         changeHandler: 'setData'
     })
     private startingData: any[];
+
     @bindable({
         defaultBindingMode: bindingMode.twoWay
     })

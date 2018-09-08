@@ -1,10 +1,10 @@
 import { bindable, BindingEngine, bindingMode, customElement, Disposable, inject } from 'aurelia-framework';
-import { IAuDatatableRequest } from '../../models/request';
-import { IAuDatatableResponse } from '../../models/response';
+import IAuDatatableRequest from '../../models/request';
+import IAuDatatableResponse from '../../models/response';
 
 @customElement('au-datatable-pagination')
 @inject(BindingEngine)
-export class AuDatatablePaginationComponent {
+export default class AuDatatablePaginationComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,

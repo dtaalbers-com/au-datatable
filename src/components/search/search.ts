@@ -1,9 +1,9 @@
 import { bindable, bindingMode, customElement } from 'aurelia-framework';
-import { IAuDatatableRequest } from '../../models/request';
-import { IAuDatatableResponse } from '../../models/response';
+import IAuDatatableRequest from '../../models/request';
+import IAuDatatableResponse from '../../models/response';
 
 @customElement('au-datatable-search')
-export class AuDatatableSearchComponent {
+export default class AuDatatableSearchComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,

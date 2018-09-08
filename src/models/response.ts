@@ -1,4 +1,4 @@
-export interface IAuDatatableResponse {
+export default interface IAuDatatableResponse {
     data: any[];
     totalRecords: number;
 }

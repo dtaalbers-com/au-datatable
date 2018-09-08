@@ -1,10 +1,10 @@
 import { bindable, bindingMode, customAttribute, inject } from 'aurelia-framework';
-import { IAuDatatableRequest } from '../models/request';
-import { IAuDatatableResponse } from '../models/response';
+import IAuDatatableRequest from '../models/request';
+import IAuDatatableResponse from '../models/response';
 
 @customAttribute('au-datatable-sort')
 @inject(Element)
-export class AuDatatableSortAttribute {
+export default class AuDatatableSortAttribute {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,

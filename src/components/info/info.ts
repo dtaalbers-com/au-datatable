@@ -1,9 +1,9 @@
 import { bindable, BindingEngine, customElement, Disposable, inject } from 'aurelia-framework';
-import { IAuDatatableRequest } from '../../models/request';
+import IAuDatatableRequest from '../../models/request';
 
 @customElement('au-datatable-info')
 @inject(BindingEngine)
-export class AuDatatableInfoComponent {
+export default class AuDatatableInfoComponent {
 
     @bindable() private message: string;
     @bindable() private labelFiltered: string;

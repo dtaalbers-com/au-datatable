@@ -1,10 +1,10 @@
 import { bindable, bindingMode, customElement } from 'aurelia-framework';
-import { IAuDatatableFilter } from '../../models/filter';
-import { IAuDatatableRequest } from '../../models/request';
-import { IAuDatatableResponse } from '../../models/response';
+import IAuDatatableFilter from '../../models/filter';
+import IAuDatatableRequest from '../../models/request';
+import IAuDatatableResponse from '../../models/response';
 
 @customElement('au-datatable-filter')
-export class AuDatatableFilterComponent {
+export default class AuDatatableFilterComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
