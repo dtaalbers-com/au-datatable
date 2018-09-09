@@ -1,71 +1,75 @@
-   .au-table-filter {
+.au-table-filter {
 
-     .au-filter-input {
-       width: calc(100% - 35px);
-       transition: 1s;
-       outline: none;
-       height: 30px;
-       border: 1px #ddd solid;
-     }
+  .au-filter-input {
+    width: calc(100% - 35px);
+    transition: 1s;
+    outline: none;
+    height: 30px;
+    border: 1px #ddd solid;
+  }
 
-     .au-filter-btn {
-       width: 30px;
-       margin-left: 5px;
-       height: 30px;
-       float: right;
-       outline: none;
-     }
+  .au-filter-btn {
+    width: 30px;
+    margin-left: 5px;
+    height: 30px;
+    float: right;
+    outline: none;
+    padding: 0;
+    background-color: #333;
+    color: white;
+    opacity: .8;
+    border-radius: 0;
+  }
 
-     .au-table-filter {
-       .au-filter-container {
-         width: 100%;
-         display: none;
+  .au-filter-container {
+    width: 100%;
+    display: none;
 
-         .au-filters {
-           list-style: none;
-           padding: 10px;
-           border: 1px solid #ddd;
-           margin-top: 5px;
-           position: relative;
-           background-color: white;
-           top: 0;
-           bottom: 0;
-           font-size: 8pt;
-           right: 0;
-           margin-bottom: 0;
+    .au-filters {
+      list-style: none;
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin-top: 5px;
+      position: relative;
+      background-color: white;
+      top: 0;
+      bottom: 0;
+      font-size: 8pt;
+      right: 0;
+      margin-bottom: 0;
 
-           .au-filter {
-             border-bottom: 1px solid #ddd;
-             padding: 2px 5px;
+      .au-clear {
+        margin-top: 20px;
+        font-size: 8pt;
+        padding: 2px 5px;
+        background: #333;
+        color: white;
 
-             &:active {
-               background-color: #b9b8b8;
-               color: white
-             }
+        &:hover {
+          cursor: pointer;
+        }
 
-             &:hover {
-               cursor: pointer;
-             }
+        .au-clear-icon {
+          color: white;
+          content: "\2716";
+          float: right;
+          margin-top: 2px;
+        }
+      }
 
-             .au-clear {
-               margin-top: 20px;
-               font-size: 8pt;
-               padding: 2px 5px;
-               background: #333;
-               color: white;
+      .au-filter {
+        border-bottom: 1px solid #ddd;
+        padding: 2px 5px;
 
-               &:hover {
-                 cursor: pointer;
-               }
+        &:active {
+          background-color: #b9b8b8;
+          color: white
+        }
 
-               .au-clear-icon {
-                 color: white;
-                 float: right;
-                 margin-top: 1px;
-               }
-             }
-           }
-         }
-       }
-     }
-   }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

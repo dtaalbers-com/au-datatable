@@ -6,8 +6,8 @@
                 <button class="au-filter-btn" click.delegate="showFilters($event)" class.bind="btnClasses">&#9783;</button>
                 <div class="au-filter-container">
                     <ul class="au-filters">
-                        <li class="au-filter \${ isSelectedFilter(filter, i) ? 'active': ''}" data-column="\${i}" repeat.for="filter of filters" if.bind="shouldAddFilter(filter ,i)" click.delegate="selectFilter($event, filter, i)"> \${ filter.description }</li>
-                        <li class="au-clear" click.delegate="clearFilter($event, i)">\${ labelClearFilter } <span class="au-clear-icon">&#10006;</span></li>
+                        <li class="au-filter ${ isSelectedFilter(filter, i) ? 'active': ''}" data-column="${i}" repeat.for="filter of filters" if.bind="shouldAddFilter(filter ,i)" click.delegate="selectFilter($event, filter, i)">${ filter.description }</li>
+                        <li class="au-clear" click.delegate="clearFilter($event, i)">${ labelClearFilter } <span class="au-clear-icon"></span></li>
                     </ul>
                 </div>
             </div>

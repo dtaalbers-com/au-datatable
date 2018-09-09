@@ -10,7 +10,7 @@ export default class AuDatatableSearchComponent {
     }) private request: IAuDatatableRequest;
 
     @bindable() private placeholder: string;
-    @bindable() private inputClasses: string;
+    @bindable() private inputClass: string;
     @bindable() private debounce: string = '500';
     @bindable() private onSearchChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
 

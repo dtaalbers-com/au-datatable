@@ -19,6 +19,7 @@ export function configure(config: FrameworkConfiguration) {
         PLATFORM.moduleName('./components/pagination/pagination'),
         PLATFORM.moduleName('./components/search/search'),
         PLATFORM.moduleName('./components/pagesize/pagesize'),
+        PLATFORM.moduleName('./components/filter/filter'),
         PLATFORM.moduleName('./components/info/info')
     ]);
 }

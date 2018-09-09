@@ -1,8 +1,9 @@
-import { bindable, bindingMode, customElement } from 'aurelia-framework';
+import { bindable, bindingMode, containerless, customElement } from 'aurelia-framework';
 import IAuDatatableFilter from '../../models/filter';
 import IAuDatatableRequest from '../../models/request';
 import IAuDatatableResponse from '../../models/response';
 
+@containerless()
 @customElement('au-datatable-filter')
 export default class AuDatatableFilterComponent {
 
@@ -14,7 +15,7 @@ export default class AuDatatableFilterComponent {
     @bindable() private columns: number[];
     @bindable() private btnClasses: string;
     @bindable() private filters: IAuDatatableFilter[];
-    @bindable() private labelClearFilter: string = 'Clear filter';
+    @bindable() private labelClearFilter: string = 'clear filter';
 
     private amountOfColumns: number;
     private auTableFilter: any;
@@ -32,7 +33,7 @@ export default class AuDatatableFilterComponent {
     }
 
     private detached(): void {
-        document.getElementsByTagName('html')[0].removeEventListener('click', e => this.hideFilterDropdowns(e));
+        document.getElementsByTagName('html')[0].removeEventListener('click', (e) => this.hideFilterDropdowns(e));
     }
 
     private shouldGenerateContent(column: number): boolean {
@@ -86,8 +87,8 @@ export default class AuDatatableFilterComponent {
             this.request.tableData = response.data;
             this.reset();
         } else {
-            if (this.request.filters.some(x => x.selectedColumn === column)) {
-                const filter = this.request.filters.find(x => x.selectedColumn === column);
+            if (this.request.filters.some((x) => x.selectedColumn === column)) {
+                const filter = this.request.filters.find((x) => x.selectedColumn === column);
                 filter.value = this.filterValues[column];
                 const response = await this.onFilter(this.request) as IAuDatatableResponse;
                 this.request.totalRecords = response.totalRecords;
