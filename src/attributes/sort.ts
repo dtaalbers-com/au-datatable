@@ -18,8 +18,8 @@ export default class AuDatatableSortAttribute {
     private headers: HTMLTableHeaderCellElement[];
     private template: string = `
         <span class="sorting" style="float: right;">
-            <span class="ascending sort" style="font-weight: bold;">&#8593;</span>
-            <span class="descending sort" style="margin-left: -3px;">&#8595;</span>
+            <span class="asc sort" style="font-weight: bold;">&#8593;</span>
+            <span class="desc sort" style="margin-left: -8px;">&#8595;</span>
         </span>
     `;
 
@@ -51,19 +51,19 @@ export default class AuDatatableSortAttribute {
         const columnIndex = this.getIndex(event.target);
         if (this.request.sortBy === columnIndex) {
             switch (this.request.sortDirection) {
-                case 'ascending':
-                    this.request.sortDirection = 'descending';
+                case 'asc':
+                    this.request.sortDirection = 'desc';
                     break;
-                case 'descending':
+                case 'desc':
                     this.request.sortDirection = undefined;
                     break;
                 default:
-                    this.request.sortDirection = 'ascending';
+                    this.request.sortDirection = 'asc';
                     break;
             }
         } else {
             this.request.sortBy = columnIndex;
-            this.request.sortDirection = 'ascending'
+            this.request.sortDirection = 'asc';
         }
         this.setActive(event.target, this.request.sortDirection);
         const response = await this.onSort(this.request) as IAuDatatableResponse;
