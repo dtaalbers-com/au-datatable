@@ -11,7 +11,6 @@ export default class AuDatatableSortAttribute {
     }) private request: IAuDatatableRequest;
 
     @bindable() private onSort: (request: IAuDatatableRequest) => IAuDatatableResponse;
-    @bindable() private columns: number[];
     @bindable() private activeColor: string = '#f44336';
     @bindable() private inactiveColor: string = '#000';
 
@@ -32,24 +31,30 @@ export default class AuDatatableSortAttribute {
             throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
         }
         this.headers = Array.from(this.element.getElementsByTagName('th'));
-        this.columns.forEach((column) => {
-            const header = this.headers[column];
-            header.style.cursor = 'pointer';
-            header.setAttribute('index', column.toString());
-            header.addEventListener('click', event => this.sort(event));
-            header.innerHTML = header.innerHTML + this.template;
-            if (this.request.sortBy === column) {
-                this.setActive(header, this.request.sortDirection);
-            }
-        });
+        this.headers
+            // Filter out columns without a data name property
+            .filter((header) => {
+                const name = this.getName(header);
+                return name !== null && name !== undefined;
+            })
+            // Generate our sort icons for each header
+            .forEach((header) => {
+                const name = this.getName(header);
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', (event) => this.sort(event));
+                header.innerHTML = header.innerHTML + this.template;
+                if (this.request.sortBy === name) {
+                    this.setActive(header, this.request.sortDirection);
+                }
+            });
     }
 
     private async sort(event: any): Promise<void> {
         if (typeof this.onSort !== 'function') {
             throw new Error('[au-table-sort:sort] No onSort() callback has been set');
         }
-        const columnIndex = this.getIndex(event.target);
-        if (this.request.sortBy === columnIndex) {
+        const name = this.getName(event.target);
+        if (this.request.sortBy === name) {
             switch (this.request.sortDirection) {
                 case 'asc':
                     this.request.sortDirection = 'desc';
@@ -62,7 +67,7 @@ export default class AuDatatableSortAttribute {
                     break;
             }
         } else {
-            this.request.sortBy = columnIndex;
+            this.request.sortBy = name;
             this.request.sortDirection = 'asc';
         }
         this.setActive(event.target, this.request.sortDirection);
@@ -94,10 +99,10 @@ export default class AuDatatableSortAttribute {
         });
     }
 
-    private getIndex(target: any): number {
+    private getName(target: any): number {
         if (target.nodeName === 'SPAN') {
             target = target.parentNode.closest('th');
         }
-        return target.getAttribute('index');
+        return target.getAttribute('data-name');
     }
 }
