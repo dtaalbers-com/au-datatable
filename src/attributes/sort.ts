@@ -67,7 +67,7 @@ export default class AuDatatableSortAttribute {
         }
         this.setActive(event.target, this.request.sortDirection);
         const response = await this.onSort(this.request) as IAuDatatableResponse;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
         this.request.totalRecords = response.totalRecords;
     }
 

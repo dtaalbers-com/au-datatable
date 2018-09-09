@@ -33,7 +33,7 @@ export default class AuDatatablePagesizeComponent {
         this.reset();
         const response = await this.onPageSizeChange(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
     }
 
     private reset(): void {

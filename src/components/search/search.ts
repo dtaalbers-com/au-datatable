@@ -20,7 +20,7 @@ export default class AuDatatableSearchComponent {
         }
         this.reset();
         const response = await this.onSearchChange(this.request) as IAuDatatableResponse;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
         this.request.totalRecords = response.totalRecords;
         this.reset();
     }

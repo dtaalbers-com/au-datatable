@@ -27,7 +27,7 @@ export default class AuDatatableInfoComponent {
             this.labelFiltered = 'filtered';
         }
         this.subscriptions.push(this.bindingEngine
-            .propertyObserver(this.request, 'tableData')
+            .propertyObserver(this.request, 'data')
             .subscribe(() => this.updateRecordInfo()));
         this.subscriptions.push(this.bindingEngine
             .propertyObserver(this.request, 'pageSize')
@@ -63,12 +63,12 @@ export default class AuDatatableInfoComponent {
             return;
         }
         this.info = this.message
-            .replace('START_RECORD', this.request.tableData.length === 0
+            .replace('START_RECORD', this.request.data.length === 0
                 ? '0'
                 : this.startRecord.toString())
-            .replace('END_RECORD', this.request.tableData.length < this.request.pageSize
+            .replace('END_RECORD', this.request.data.length < this.request.pageSize
                 ? this.request.totalRecords.toString()
-                : (this.request.tableData.length * this.request.currentPage).toString())
+                : (this.request.data.length * this.request.currentPage).toString())
             .replace('TOTAL_RECORDS', this.request.totalRecords.toString());
     }
 

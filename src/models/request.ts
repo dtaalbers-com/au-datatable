@@ -5,7 +5,7 @@ export default interface IAuDatatableRequest {
     skip?: number;
     pageSize?: number;
     totalRecords?: number;
-    tableData?: any[];
+    data?: any[];
     currentPage?: number;
     sortDirection?: string | undefined;
     sortBy?: number;

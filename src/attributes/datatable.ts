@@ -22,7 +22,7 @@ export default class AuDatatableAttribute {
             if (this.startingData.length > this.request.pageSize) {
                 throw new Error('[au-table:bind] starting data is larger than page size.');
             }
-            this.request.tableData = [].concat(this.startingData);
+            this.request.data = [].concat(this.startingData);
             if (!this.request.currentPage) {
                 this.request.currentPage = 1;
             }

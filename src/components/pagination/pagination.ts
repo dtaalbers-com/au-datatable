@@ -65,7 +65,7 @@ export default class AuDatatablePaginationComponent {
         this.request.currentPage++;
         const response = await this.onNextPage(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
         this.refreshing = false;
     }
 
@@ -81,7 +81,7 @@ export default class AuDatatablePaginationComponent {
         this.request.currentPage--;
         const response = await this.onPreviousPage(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
         this.refreshing = false;
     }
 
@@ -100,7 +100,7 @@ export default class AuDatatablePaginationComponent {
         this.request.currentPage = page + 1;
         const response = await this.onPageChange(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
         this.refreshing = false;
     }
 

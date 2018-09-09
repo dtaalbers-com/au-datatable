@@ -60,7 +60,7 @@ export default class AuDatatableFilterComponent {
             this.setActiveLabelFilter(event);
             const response = await this.onFilter(this.request) as IAuDatatableResponse;
             this.request.totalRecords = response.totalRecords;
-            this.request.tableData = response.data;
+            this.request.data = response.data;
             this.reset();
         } else {
             this.showInputWarning(event);
@@ -84,7 +84,7 @@ export default class AuDatatableFilterComponent {
             this.removeFiltersForColumn(column);
             const response = await this.onFilter(this.request) as IAuDatatableResponse;
             this.request.totalRecords = response.totalRecords;
-            this.request.tableData = response.data;
+            this.request.data = response.data;
             this.reset();
         } else {
             if (this.request.filters.some((x) => x.selectedColumn === column)) {
@@ -92,7 +92,7 @@ export default class AuDatatableFilterComponent {
                 filter.value = this.filterValues[column];
                 const response = await this.onFilter(this.request) as IAuDatatableResponse;
                 this.request.totalRecords = response.totalRecords;
-                this.request.tableData = response.data;
+                this.request.data = response.data;
                 this.reset();
             }
         }
@@ -106,7 +106,7 @@ export default class AuDatatableFilterComponent {
         this.filterValues[column] = undefined;
         const response = await this.onFilter(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
-        this.request.tableData = response.data;
+        this.request.data = response.data;
         this.reset();
     }
 
