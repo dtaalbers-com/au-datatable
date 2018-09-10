@@ -1,32 +1,31 @@
 import { bindable, bindingMode, customAttribute } from 'aurelia-framework';
 import IAuDatatableRequest from '../models/request';
+import IAuDatatableResponse from '../models/response';
 
 @customAttribute('au-datatable')
 export default class AuDatatableAttribute {
 
     @bindable({
-        changeHandler: 'setData'
+        changeHandler: 'init'
     })
-    private startingData: any[];
+    private onInit: (request: IAuDatatableRequest) => IAuDatatableResponse;
 
     @bindable({
-        defaultBindingMode: bindingMode.twoWay
+        defaultBindingMode: bindingMode.twoWay,
+        changeHandler: 'init'
     })
     private request: IAuDatatableRequest;
 
-    private setData(): void {
-        setTimeout(() => {
-            if (!this.request) {
-                throw new Error('[au-table:bind] No request found');
-            }
-            if (this.startingData.length > this.request.pageSize) {
-                throw new Error('[au-table:bind] starting data is larger than page size.');
-            }
-            this.request.data = [].concat(this.startingData);
-            if (!this.request.currentPage) {
-                this.request.currentPage = 1;
-            }
-            this.request.skip = 0;
-        });
+    private async init(): Promise<void> {
+        if (!this.request || !this.onInit) {
+            return;
+        }
+        this.request.skip = 0;
+        const response = await this.onInit(this.request);
+        this.request.data = response.data;
+        this.request.totalRecords = response.totalRecords;
+        if (!this.request.currentPage) {
+            this.request.currentPage = 1;
+        }
     }
 }

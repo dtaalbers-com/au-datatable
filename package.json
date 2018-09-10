@@ -39,7 +39,7 @@
         "prebuild:sass-core": "cross-env rimraf scss",
         "build:sass-core": "cross-env copyfiles --up 1 src/au-datatable.scss scss",
         "build:sass-components": "cross-env copyfiles --up 2 src/**/**/*.scss scss",
-        "build": "concurrently \"npm run build:sass-core\" \"npm run build:sass-components\" \"npm run build:amd\" \"npm run build:commonjs\" \"npm run build:es2015\" \"npm run build:native-modules\" \"npm run build:system\""
+        "build": "concurrently \"npm run build:sass-core\" \"npm run build:amd\" \"npm run build:commonjs\" \"npm run build:es2015\" \"npm run build:native-modules\" \"npm run build:system\"  \"npm run build:sass-components\""
     },
     "dependencies": {
         "aurelia-binding": "^2.0.0",
