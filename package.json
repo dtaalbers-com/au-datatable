@@ -10,6 +10,16 @@
         "html",
         "datatable"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dtaalbers/au-datatable.git"
+    },
+    "author": "Tom Aalbers <dtaalbers@gmail.com>",
+    "license": "MIT",
+    "homepage": "https://github.com/dtaalbers/au-datatable",
+    "bugs": {
+        "url": "https://github.com/dtaalbers/au-datatable/issues"
+    },
     "main": "dist/commonjs/index.js",
     "typings": "dist/commonjs/index.d.ts",
     "scripts": {
