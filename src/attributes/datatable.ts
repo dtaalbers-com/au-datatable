@@ -20,6 +20,9 @@ export default class AuDatatableAttribute {
         if (!this.request || !this.onInit) {
             return;
         }
+        if (!this.request.pageSize) {
+            this.request.pageSize = 10;
+        }
         this.request.skip = 0;
         const response = await this.onInit(this.request);
         this.request.data = response.data;

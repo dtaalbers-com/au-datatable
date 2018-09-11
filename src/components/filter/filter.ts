@@ -12,7 +12,6 @@ export default class AuDatatableFilterComponent {
     }) private request: IAuDatatableRequest;
 
     @bindable() private onFilter: (request: IAuDatatableRequest) => IAuDatatableResponse;
-    @bindable() private columns: number[];
     @bindable() private btnClasses: string;
     @bindable() private filters: IAuDatatableFilter[];
     @bindable() private labelClearFilter: string = 'clear filter';
@@ -37,7 +36,8 @@ export default class AuDatatableFilterComponent {
     }
 
     private shouldGenerateContent(column: number): boolean {
-        return this.columns.some((x) => x === column);
+        const filter = this.filters.find((fltr) => fltr.applyToColumns.some((c) => c === column));
+        return filter !== null && filter !== undefined;
     }
 
     private shouldAddFilter(filter: IAuDatatableFilter, column: number): boolean {
@@ -145,7 +145,7 @@ export default class AuDatatableFilterComponent {
     private removeFiltersForColumn(column: number): void {
         this.removeActiveLabelsForColumn(column);
         this.request.filters = this.request.filters
-            .filter(x => x.selectedColumn !== column);
+            .filter((x) => x.selectedColumn !== column);
     }
 
     private removeActiveLabelsForColumn(column: number): void {
