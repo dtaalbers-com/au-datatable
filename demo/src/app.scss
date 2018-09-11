@@ -1,0 +1,87 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/au-datatable/scss/au-datatable";
+
+body {
+  background-color: #fbfbfb;
+  font-family: 'Roboto Condensed'
+}
+
+.table-container {
+  background-color: #fff;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .header {
+    border-top: 1px solid #e9ecef;
+    border-left: 1px solid #e9ecef;
+    border-right: 1px solid #e9ecef;
+
+    h6 {
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+  }
+
+  .footer {
+    border-left: 1px solid #e9ecef;
+    border-right: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+  }
+}
+
+.intro {
+  text-align: center;
+
+  .app-version {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 9pt;
+  }
+
+  .header {
+    font-size: 70pt;
+    color: #333;
+  }
+
+  .logos {
+
+    .logo-dtaalbers {
+      height: 150px;
+    }
+
+    .logo-aurelia {
+      height: 150px;
+    }
+  }
+
+  .subheader {
+    font-size: 15pt;
+    color: #333;
+  }
+
+  .footer-message {
+    color: #333;
+
+    a {
+      color: #ed682f;
+    }
+  }
+
+  @media (max-width: 384px) {
+    .logos .logo-dtaalbers {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      font-size: 40pt;
+      margin: 0 50px;
+    }
+  }
+}

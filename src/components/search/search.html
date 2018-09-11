@@ -1,0 +1,5 @@
+<template>
+    <div class="au-table-search">
+        <input keyup.delegate="search() & debounce:debounce" value.bind="request.searchQuery" type="text" placeholder.bind="placeholder" class.bind="inputClass" />
+    </div>
+</template>
