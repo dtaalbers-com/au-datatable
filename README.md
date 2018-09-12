@@ -9,6 +9,6 @@ A highly customizable html datatable, build for the Aurelia Framework.
 </p>
 
 
-Check out the docs on <a href="https://apps.dtaalbers.com/au-datatable/" target="_blank">https://apps.dtaalbers.com/au-datatable/</a>!
+Check out the demo on <a href="https://apps.dtaalbers.com/au-datatable/" target="_blank">https://apps.dtaalbers.com/au-datatable/</a>!
 
 If you have any questions, remarks or anything else, feel free to make a issue on this repo. Let me know what you think of the plugin, I'd love to hear your feedback!
