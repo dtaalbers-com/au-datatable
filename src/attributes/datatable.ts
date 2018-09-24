@@ -16,6 +16,22 @@ export default class AuDatatableAttribute {
     })
     private request: IAuDatatableRequest;
 
+    public async refresh(request?: IAuDatatableRequest): Promise<void> {
+        if (request) {
+            this.request = request;
+        } else {
+            this.request.data = [];
+            this.request.currentPage = 1;
+            this.request.skip = 0;
+            this.request.searchQuery = null;
+            this.request.filters = [];
+        }
+
+        const response = await this.onInit(this.request);
+        this.request.data = response.data;
+        this.request.totalRecords = response.totalRecords;
+    }
+
     private async init(): Promise<void> {
         if (!this.request || !this.onInit) {
             return;
