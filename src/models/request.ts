@@ -8,6 +8,6 @@ export default interface IAuDatatableRequest {
     data?: any[];
     currentPage?: number;
     sortDirection?: string | undefined;
-    sortBy?: number;
+    sortBy?: string;
     filters?: IAuDatatableFilter[];
 }

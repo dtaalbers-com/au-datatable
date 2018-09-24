@@ -99,7 +99,7 @@ export default class AuDatatableSortAttribute {
         });
     }
 
-    private getName(target: any): number {
+    private getName(target: any): string {
         if (target.nodeName === 'SPAN') {
             target = target.parentNode.closest('th');
         }
