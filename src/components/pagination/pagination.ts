@@ -12,6 +12,7 @@ export default class AuDatatablePaginationComponent {
     }) private request: IAuDatatableRequest;
 
     @bindable() private amountOfPages: number = 2;
+    @bindable() private pagesChangeStepSize: number = 1;
     @bindable() private onNextPage: (request: IAuDatatableRequest) => IAuDatatableResponse;
     @bindable() private onPreviousPage: (request: IAuDatatableRequest) => IAuDatatableResponse;
     @bindable() private onPageChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
@@ -57,48 +58,43 @@ export default class AuDatatablePaginationComponent {
         if (typeof this.onNextPage !== 'function') {
             throw new Error('[au-table-pagination:nextPage] No onNextPage() callback has been set');
         }
-        if (this.request.currentPage === this.totalPages) {
-            return;
-        }
-        this.refreshing = true;
-        this.request.skip += this.request.pageSize;
-        this.request.currentPage++;
-        const response = await this.onNextPage(this.request) as IAuDatatableResponse;
-        this.request.totalRecords = response.totalRecords;
-        this.request.data = response.data;
-        this.refreshing = false;
+
+        return this.selectPage(+this.request.currentPage + +this.pagesChangeStepSize - 1, this.onNextPage);
     }
 
     private async previousPage(): Promise<void> {
         if (typeof this.onPreviousPage !== 'function') {
             throw new Error('[au-table-pagination:previousPage] No onPreviousPage() callback has been set');
         }
-        if (this.request.currentPage === 1) {
-            return;
-        }
-        this.refreshing = true;
-        this.request.skip -= this.request.pageSize;
-        this.request.currentPage--;
-        const response = await this.onPreviousPage(this.request) as IAuDatatableResponse;
-        this.request.totalRecords = response.totalRecords;
-        this.request.data = response.data;
-        this.refreshing = false;
+
+        return this.selectPage(+this.request.currentPage - +this.pagesChangeStepSize - 1, this.onPreviousPage);
     }
 
     private async changePage(page: number): Promise<void> {
         if (typeof this.onPageChange !== 'function') {
-            throw new Error('[au-table-pagination:changePage] No onChangePage() callback has been set');
+            throw new Error('[au-table-pagination:changePage] No onPageChange() callback has been set');
+        }
+
+        return this.selectPage(page, this.onPageChange);
+    }
+
+    private async selectPage(page: number, onPageSelect: (request: IAuDatatableRequest) => IAuDatatableResponse): Promise<void> {
+        if (typeof onPageSelect !== 'function') {
+            throw new Error('[au-table-pagination:selectPage] No onPageSelect() callback has been set');
         }
         if (page + 1 === this.request.currentPage) {
             return;
         }
         this.refreshing = true;
+        if (page + 1 > this.totalPages) {
+            page = this.totalPages - 1;
+        }
         if (page < 0) {
             page = 0;
         }
         this.request.skip = page * this.request.pageSize;
         this.request.currentPage = page + 1;
-        const response = await this.onPageChange(this.request) as IAuDatatableResponse;
+        const response = await onPageSelect(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
         this.request.data = response.data;
         this.refreshing = false;
