@@ -94,7 +94,7 @@ export default class AuDatatablePaginationComponent {
         }
         this.request.skip = page * this.request.pageSize;
         this.request.currentPage = page + 1;
-        const response = await this.onPageChange(this.request) as IAuDatatableResponse;
+        const response = await onPageSelect(this.request) as IAuDatatableResponse;
         this.request.totalRecords = response.totalRecords;
         this.request.data = response.data;
         this.refreshing = false;
