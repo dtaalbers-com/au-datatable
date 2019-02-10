@@ -55,16 +55,32 @@ export default class AuDatatablePaginationComponent {
     }
 
     private async nextPage(): Promise<void> {
-        return this.changePage(+this.request.currentPage + +this.pagesChangeStepSize - 1);
+        if (typeof this.onNextPage !== 'function') {
+            throw new Error('[au-table-pagination:nextPage] No onNextPage() callback has been set');
+        }
+
+        return this.selectPage(+this.request.currentPage + +this.pagesChangeStepSize - 1, this.onNextPage);
     }
 
     private async previousPage(): Promise<void> {
-        return this.changePage(+this.request.currentPage - +this.pagesChangeStepSize - 1);
+        if (typeof this.onPreviousPage !== 'function') {
+            throw new Error('[au-table-pagination:previousPage] No onPreviousPage() callback has been set');
+        }
+
+        return this.selectPage(+this.request.currentPage - +this.pagesChangeStepSize - 1, this.onPreviousPage);
     }
 
     private async changePage(page: number): Promise<void> {
         if (typeof this.onPageChange !== 'function') {
-            throw new Error('[au-table-pagination:changePage] No onChangePage() callback has been set');
+            throw new Error('[au-table-pagination:changePage] No onPageChange() callback has been set');
+        }
+
+        return this.selectPage(page, this.onPageChange);
+    }
+
+    private async selectPage(page: number, onPageSelect: (request: IAuDatatableRequest) => IAuDatatableResponse): Promise<void> {
+        if (typeof onPageSelect !== 'function') {
+            throw new Error('[au-table-pagination:selectPage] No onPageSelect() callback has been set');
         }
         if (page + 1 === this.request.currentPage) {
             return;
