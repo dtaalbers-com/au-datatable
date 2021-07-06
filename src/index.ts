@@ -1,4 +1,5 @@
 import { FrameworkConfiguration } from 'aurelia-framework';
+import { PLATFORM } from 'aurelia-pal';
 import { AuDatatableAttribute } from './attributes/datatable';
 import { AuDatatableSortAttribute } from './attributes/sort';
 import { AuDatatableFilterComponent } from './components/filter/filter';
@@ -25,12 +26,12 @@ export {
 
 export function configure(config: FrameworkConfiguration): void {
     config.globalResources([
-        AuDatatableAttribute,
-        AuDatatableSortAttribute,
-        AuDatatablePaginationComponent,
-        AuDatatableSearchComponent,
-        AuDatatablePagesizeComponent,
-        AuDatatableFilterComponent,
-        AuDatatableInfoComponent
+        PLATFORM.moduleName('./attributes/datatable'),
+        PLATFORM.moduleName('./attributes/sort'),
+        PLATFORM.moduleName('./components/pagination/pagination'),
+        PLATFORM.moduleName('./components/search/search'),
+        PLATFORM.moduleName('./components/pagesize/pagesize'),
+        PLATFORM.moduleName('./components/filter/filter'),
+        PLATFORM.moduleName('./components/info/info')
     ]);
 }
