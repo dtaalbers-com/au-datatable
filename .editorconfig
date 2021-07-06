@@ -5,18 +5,8 @@ root = true
 
 # Unix-style newlines with a newline ending every file
 [*]
-end_of_line = crlf
+end_of_line = lf
 insert_final_newline = true
-
-# 4 space indentation
-[**.*]
+# 2 space indentation
 indent_style = space
-indent_size = 4
-
-[*.{json}]
 indent_size = 2
-
-[node_modules/**/*,dist/**/*]
-insert_final_newline = false
-indent_style = none
-indent_size = none

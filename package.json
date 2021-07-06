@@ -1,6 +1,6 @@
 {
     "name": "au-datatable",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "A highly customizable aurelia html datatable plugin",
     "keywords": [
         "aurelia",
@@ -20,67 +20,110 @@
     "bugs": {
         "url": "https://github.com/dtaalbers/au-datatable/issues"
     },
-    "main": "dist/commonjs/index.js",
-    "typings": "dist/commonjs/index.d.ts",
-    "scripts": {
-        "lint": "cross-env tslint --project tsconfig.json",
-        "pretest": "cross-env npm run lint",
-        "test": "cross-env jest",
-        "test-watch": "concurrently \"./node_modules/.bin/tsc --watch\" \"./node_modules/.bin/karma start\"",
-        "prebuild:amd": "cross-env rimraf dist/amd",
-        "build:amd": "cross-env tsc --project tsconfig.json --outDir dist/amd --module amd",
-        "postbuild:amd": "cross-env copyfiles --up 1 src/**/**/*.html dist/amd",
-        "prebuild:commonjs": "cross-env rimraf dist/commonjs",
-        "build:commonjs": "cross-env tsc --project tsconfig.json --outDir dist/commonjs --module commonjs",
-        "postbuild:commonjs": "cross-env copyfiles --up 1 src/**/**/*.html dist/commonjs",
-        "prebuild:es2015": "cross-env rimraf dist/es2015",
-        "build:es2015": "cross-env tsc --project tsconfig.json --outDir dist/es2015 --module es2015 --target es2015",
-        "postbuild:es2015": "cross-env copyfiles --up 1 src/**/**/*.html  dist/es2015",
-        "prebuild:native-modules": "cross-env rimraf dist/native-modules",
-        "build:native-modules": "cross-env tsc --project tsconfig.json --outDir dist/native-modules --module es2015",
-        "postbuild:native-modules": "cross-env copyfiles --up 1 src/**/**/*.html  dist/native-modules",
-        "prebuild:system": "cross-env rimraf dist/system",
-        "build:system": "cross-env tsc --project tsconfig.json --outDir dist/system --module system",
-        "postbuild:system": "cross-env copyfiles --up 1 src/**/**/*.html dist/system",
-        "prebuild": "cross-env rimraf dist",
-        "bump-version": "npm --no-git-tag-version version",
-        "preprepare-release": "cross-env npm run test",
-        "prepare-release": "cross-env npm run changelog && npm run build",
-        "prebuild:sass-core": "cross-env rimraf scss",
-        "build:sass-core": "cross-env copyfiles --up 1 src/au-datatable.scss scss",
-        "build:sass-components": "cross-env copyfiles --up 2 src/**/**/*.scss scss",
-        "build": "concurrently \"npm run build:sass-core\" \"npm run build:amd\" \"npm run build:commonjs\" \"npm run build:es2015\" \"npm run build:native-modules\" \"npm run build:system\"  \"npm run build:sass-components\""
-    },
-    "dependencies": {
-        "aurelia-binding": "^2.0.0",
-        "aurelia-framework": "^1.0.0",
-        "aurelia-templating-resources": "^1.6.0"
-    },
     "devDependencies": {
-        "@types/node": "^7.0.11",
-        "@types/webpack": "^4.0.0",
-        "aurelia-bootstrapper": "^2.1.1",
-        "aurelia-pal-browser": "^1.2.0",
-        "aurelia-pal-nodejs": "^1.0.0-beta.1.0.0",
-        "aurelia-polyfills": "^1.2.1",
-        "aurelia-testing": "^1.0.0-beta.3.0.1",
-        "aurelia-webpack-plugin": "^3.0.0-rc.1",
-        "concurrently": "^3.4.0",
-        "conventional-changelog-cli": "^1.3.5",
-        "copyfiles": "^1.2.0",
-        "cross-env": "^3.2.4",
-        "istanbul-instrumenter-loader": "^3.0.0",
-        "lerna": "^2.5.1",
-        "path": "^0.12.7",
-        "requirejs": "^2.3.3",
-        "requirejs-text": "^2.0.15",
-        "rimraf": "^2.6.1",
-        "ts-loader": "^4.0.1",
-        "ts-node": "^5.0.1",
-        "tsconfig-paths": "^3.1.1",
-        "tslint": "^4.4.2",
-        "typedoc": "^0.9.0",
-        "typescript": "^2.2.1",
-        "webpack": "^4.0.1"
+        "babel-eslint": "^10.1.0",
+        "eslint": "^7.26.0",
+        "aurelia-cli": "^2.0.3",
+        "aurelia-testing": "^1.0.0",
+        "gulp": "^4.0.2",
+        "gulp-eslint": "^6.0.0",
+        "minimatch": "^3.0.4",
+        "promise-polyfill": "^8.2.0",
+        "aurelia-bootstrapper": "^2.3.3",
+        "aurelia-animator-css": "^1.0.4",
+        "typescript": "^4.2.4",
+        "@types/node": "^15.0.3",
+        "@typescript-eslint/eslint-plugin": "^4.23.0",
+        "@typescript-eslint/parser": "^4.23.0",
+        "gulp-sourcemaps": "^3.0.0",
+        "del": "^6.0.0",
+        "requirejs": "^2.3.6",
+        "text": "requirejs/text",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "gulp-postcss": "^9.0.0",
+        "postcss": "^8.2.15",
+        "autoprefixer": "^10.2.5",
+        "cssnano": "^5.0.2",
+        "postcss-url": "^10.1.3",
+        "gulp-dart-sass": "^1.0.2",
+        "node-sass-package-importer": "^5.3.2",
+        "gulp-htmlmin": "^5.0.1",
+        "connect": "^3.7.0",
+        "connect-history-api-fallback": "^1.6.0",
+        "connect-injector": "^0.4.4",
+        "serve-static": "^1.14.1",
+        "socket.io": "^4.1.1",
+        "open": "^8.0.8",
+        "server-destroy": "^1.0.1",
+        "debounce": "^1.2.1",
+        "gulp-plumber": "^1.2.1",
+        "gulp-rename": "^2.0.0",
+        "gulp-watch": "^5.0.1",
+        "gulp-if": "^3.0.0",
+        "jest": "^26.6.3",
+        "jest-cli": "^26.6.3",
+        "jest-transform-stub": "^2.0.0",
+        "aurelia-loader-nodejs": "^1.1.0",
+        "aurelia-pal-nodejs": "^2.0.0",
+        "ts-jest": "^26.5.6",
+        "@types/jest": "^26.0.23"
+    },
+    "browserslist": [
+        "defaults"
+    ],
+    "scripts": {
+        "build": "au build-plugin --env prod",
+        "start": "au run",
+        "watch": "au build-plugin --watch",
+        "prepare": "npm run build",
+        "pretest": "au lint",
+        "preversion": "au test",
+        "test": "au test"
+    },
+    "engines": {
+        "node": ">=10.12.0"
+    },
+    "main": "dist/commonjs/index.js",
+    "module": "dist/native-modules/index.js",
+    "files": [
+        "dist"
+    ],
+    "jest": {
+        "moduleNameMapper": {
+            "^aurelia-binding$": "<rootDir>/node_modules/aurelia-binding",
+            "^.+\\.css$": "<rootDir>/test/mock-css"
+        },
+        "modulePaths": [
+            "<rootDir>/src",
+            "<rootDir>/node_modules"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "js",
+            "json"
+        ],
+        "transform": {
+            "^.+\\.(css|less|sass|scss|styl|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-transform-stub",
+            "^.+\\.ts$": "ts-jest"
+        },
+        "testRegex": "\\.spec\\.(ts|js)$",
+        "setupFiles": [
+            "<rootDir>/test/jest-pretest.ts"
+        ],
+        "testEnvironment": "node",
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "src/**/*.{js,ts}",
+            "!**/*.spec.{js,ts}",
+            "!**/node_modules/**",
+            "!**/test/**"
+        ],
+        "coverageDirectory": "<rootDir>/test/coverage-jest",
+        "coverageReporters": [
+            "json",
+            "lcov",
+            "text",
+            "html"
+        ]
     }
 }

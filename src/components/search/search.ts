@@ -1,25 +1,25 @@
 import { bindable, bindingMode, customElement } from 'aurelia-framework';
-import IAuDatatableRequest from '../../models/request';
-import IAuDatatableResponse from '../../models/response';
+import { AuDatatableRequest } from '../../models/request';
+import { AuDatatableResponse } from '../../models/response';
 
 @customElement('au-datatable-search')
-export default class AuDatatableSearchComponent {
+export class AuDatatableSearchComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
-    }) private request: IAuDatatableRequest;
+    }) public request: AuDatatableRequest;
 
-    @bindable() private placeholder: string;
-    @bindable() private inputClass: string;
-    @bindable() private debounce: string = '500';
-    @bindable() private onSearchChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
+    @bindable() public placeholder: string;
+    @bindable() public inputClass: string;
+    @bindable() public debounce: string = '500';
+    @bindable() public onSearchChange: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
 
-    private async search(): Promise<void> {
+    public async search(): Promise<void> {
         if (typeof this.onSearchChange !== 'function') {
             throw new Error('[au-table-search:search] No onSearchChange() callback has been set');
         }
         this.reset();
-        const response = await this.onSearchChange(this.request) as IAuDatatableResponse;
+        const response = await this.onSearchChange(this.request);
         this.request.data = response.data;
         this.request.totalRecords = response.totalRecords;
         this.reset();

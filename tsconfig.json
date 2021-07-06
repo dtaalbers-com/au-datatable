@@ -1,30 +1,35 @@
 {
-    "compilerOptions": {
-        "module": "amd",
-        "moduleResolution": "node",
-        "target": "es5",
-        "lib": [
-            "es2017",
-            "dom"
-        ],
-        "rootDir": "src",
-        "outDir": "dist/commonjs",
-        "noImplicitAny": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "noImplicitReturns": true,
-        "strictNullChecks": false,
-        "declaration": true,
-        "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true,
-        "noEmitHelpers": false,
-        "skipLibCheck": true,
-        "sourceMap": true
+  "compileOnSave": false,
+  "compilerOptions": {
+    "declaration": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "target": "es5",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "resolveJsonModule": true,
+    "paths": {
+      "resources": [
+        ""
+      ]
     },
-    "exclude": [
-        ".vscode",
-        "dist",
-        "node_modules",
-        "demo"
-    ]
+    "allowJs": false
+  },
+  "include": [
+    "src",
+    "dev-app",
+    "test"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
 }

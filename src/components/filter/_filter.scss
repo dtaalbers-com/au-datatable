@@ -1,5 +1,4 @@
 .au-table-filter {
-
   .au-filter-input {
     width: calc(100% - 35px);
     transition: 1s;
@@ -17,7 +16,7 @@
     padding: 0;
     background-color: #333;
     color: white;
-    opacity: .8;
+    opacity: 0.8;
     border-radius: 0;
   }
 
@@ -51,7 +50,7 @@
 
         .au-clear-icon {
           color: white;
-          content: "\2716";
+          content: '\2716';
           float: right;
           margin-top: 2px;
         }
@@ -63,7 +62,7 @@
 
         &:active {
           background-color: #b9b8b8;
-          color: white
+          color: white;
         }
 
         &:hover {

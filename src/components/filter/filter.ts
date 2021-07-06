@@ -1,20 +1,20 @@
 import { bindable, bindingMode, containerless, customElement } from 'aurelia-framework';
-import IAuDatatableFilter from '../../models/filter';
-import IAuDatatableRequest from '../../models/request';
-import IAuDatatableResponse from '../../models/response';
+import { AuDatatableFilter } from '../../models/filter';
+import { AuDatatableRequest } from '../../models/request';
+import { AuDatatableResponse } from '../../models/response';
 
 @containerless()
 @customElement('au-datatable-filter')
-export default class AuDatatableFilterComponent {
+export class AuDatatableFilterComponent {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
-    }) private request: IAuDatatableRequest;
+    }) public request: AuDatatableRequest;
 
-    @bindable() private onFilter: (request: IAuDatatableRequest) => IAuDatatableResponse;
-    @bindable() private btnClasses: string;
-    @bindable() private filters: IAuDatatableFilter[];
-    @bindable() private labelClearFilter: string = 'clear filter';
+    @bindable() public onFilter: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
+    @bindable() public btnClasses: string;
+    @bindable() public filters: AuDatatableFilter[];
+    @bindable() public labelClearFilter: string = 'clear filter';
 
     private amountOfColumns: number;
     private auTableFilter: any;
@@ -31,20 +31,20 @@ export default class AuDatatableFilterComponent {
         this.request.filters.map((x) => this.filterValues[x.selectedColumn] = x.value);
     }
 
-    private detached(): void {
+    public detached(): void {
         document.getElementsByTagName('html')[0].removeEventListener('click', (e) => this.hideFilterDropdowns(e));
     }
 
-    private shouldGenerateContent(column: number): boolean {
+    public shouldGenerateContent(column: number): boolean {
         const filter = this.filters.find((fltr) => fltr.applyToColumns.some((c) => c === column));
         return filter !== null && filter !== undefined;
     }
 
-    private shouldAddFilter(filter: IAuDatatableFilter, column: number): boolean {
+    public shouldAddFilter(filter: AuDatatableFilter, column: number): boolean {
         return filter.applyToColumns.some((x) => x === column);
     }
 
-    private async selectFilter(event: any, filter: IAuDatatableFilter, column: number): Promise<void> {
+    public async selectFilter(event: any, filter: AuDatatableFilter, column: number): Promise<void> {
         if (typeof this.onFilter !== 'function') {
             throw new Error('[au-table-filter:selectFilter] No onFilter() callback has been set');
         }
@@ -58,7 +58,7 @@ export default class AuDatatableFilterComponent {
                 applyToColumns: []
             });
             this.setActiveLabelFilter(event);
-            const response = await this.onFilter(this.request) as IAuDatatableResponse;
+            const response = await this.onFilter(this.request);
             this.request.totalRecords = response.totalRecords;
             this.request.data = response.data;
             this.reset();
@@ -67,22 +67,22 @@ export default class AuDatatableFilterComponent {
         }
     }
 
-    private isSelectedFilter(filter: IAuDatatableFilter, column: number): boolean {
+    public isSelectedFilter(filter: AuDatatableFilter, column: number): boolean {
         return this.request.filters
             .some((x) => x.description === filter.description && x.selectedColumn === column);
     }
 
-    private showFilters(event: any): void {
+    public showFilters(event: any): void {
         this.activeFilterBtn = event.target;
         const parent = event.target.closest('div');
         const filter = parent.getElementsByClassName('au-filter-container')[0];
         filter.style.display = filter.style.display === 'block' ? 'none' : 'block';
     }
 
-    private async inputChanged(column: number): Promise<void> {
+    public async inputChanged(column: number): Promise<void> {
         if (!this.filterValues[column]) {
             this.removeFiltersForColumn(column);
-            const response = await this.onFilter(this.request) as IAuDatatableResponse;
+            const response = await this.onFilter(this.request);
             this.request.totalRecords = response.totalRecords;
             this.request.data = response.data;
             this.reset();
@@ -90,7 +90,7 @@ export default class AuDatatableFilterComponent {
             if (this.request.filters.some((x) => x.selectedColumn === column)) {
                 const filter = this.request.filters.find((x) => x.selectedColumn === column);
                 filter.value = this.filterValues[column];
-                const response = await this.onFilter(this.request) as IAuDatatableResponse;
+                const response = await this.onFilter(this.request);
                 this.request.totalRecords = response.totalRecords;
                 this.request.data = response.data;
                 this.reset();
@@ -98,13 +98,13 @@ export default class AuDatatableFilterComponent {
         }
     }
 
-    private async clearFilter(event: any, column: number): Promise<void> {
+    public async clearFilter(event: any, column: number): Promise<void> {
         const parent = event.target.closest('td');
         const input = parent.getElementsByClassName('au-filter-input')[0];
         this.removeFiltersForColumn(column);
         input.value = '';
         this.filterValues[column] = undefined;
-        const response = await this.onFilter(this.request) as IAuDatatableResponse;
+        const response = await this.onFilter(this.request);
         this.request.totalRecords = response.totalRecords;
         this.request.data = response.data;
         this.reset();

@@ -1,18 +1,18 @@
 import { bindable, customElement } from 'aurelia-framework';
-import IAuDatatableRequest from '../../models/request';
-import IAuDatatableResponse from '../../models/response';
+import { AuDatatableRequest } from '../../models/request';
+import { AuDatatableResponse } from '../../models/response';
 
 @customElement('au-datatable-pagesize')
-export default class AuDatatablePagesizeComponent {
+export class AuDatatablePagesizeComponent {
 
-    @bindable() private pageSizes: number[];
-    @bindable() private classes: string;
-    @bindable() private onPageSizeChange: (request: IAuDatatableRequest) => IAuDatatableResponse;
-    @bindable() private request: IAuDatatableRequest;
+    @bindable() public pageSizes: number[];
+    @bindable() public classes: string;
+    @bindable() public onPageSizeChange: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
+    @bindable() public request: AuDatatableRequest;
 
     private selectedPageSize: number;
 
-    private bind(): void {
+    public bind(): void {
         if (!this.pageSizes || this.pageSizes.length === 0) {
             throw new Error('[au-table-pagesize:bind] No page sizes has been bound.');
         }
@@ -21,17 +21,17 @@ export default class AuDatatablePagesizeComponent {
         }
     }
 
-    private setSelected = (option: number): boolean => {
+    public setSelected = (option: number): boolean => {
         return option === this.request.pageSize;
     }
 
-    private async pageSizeChange(): Promise<void> {
+    public async pageSizeChange(): Promise<void> {
         if (typeof this.onPageSizeChange !== 'function') {
             throw new Error('[au-table-pagesize:pageSizeChange] No onPageSizeChange() callback has been set');
         }
         this.request.pageSize = this.selectedPageSize;
         this.reset();
-        const response = await this.onPageSizeChange(this.request) as IAuDatatableResponse;
+        const response = await this.onPageSizeChange(this.request);
         this.request.totalRecords = response.totalRecords;
         this.request.data = response.data;
     }

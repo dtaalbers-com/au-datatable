@@ -1,18 +1,18 @@
 import { bindable, bindingMode, customAttribute, inject } from 'aurelia-framework';
-import IAuDatatableRequest from '../models/request';
-import IAuDatatableResponse from '../models/response';
+import { AuDatatableRequest } from '../models/request';
+import { AuDatatableResponse } from '../models/response';
 
 @customAttribute('au-datatable-sort')
 @inject(Element)
-export default class AuDatatableSortAttribute {
+export class AuDatatableSortAttribute {
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
-    }) private request: IAuDatatableRequest;
+    }) public request: AuDatatableRequest;
 
-    @bindable() private onSort: (request: IAuDatatableRequest) => IAuDatatableResponse;
-    @bindable() private activeColor: string = '#f44336';
-    @bindable() private inactiveColor: string = '#000';
+    @bindable() public onSort: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
+    @bindable() public activeColor: string = '#f44336';
+    @bindable() public inactiveColor: string = '#000';
 
     private headers: HTMLTableHeaderCellElement[];
     private template: string = `
@@ -27,9 +27,9 @@ export default class AuDatatableSortAttribute {
     ) { }
 
     private attached(): void {
-        if (this.element.nodeName !== 'THEAD') {
+        if (this.element.nodeName !== 'THEAD')
             throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
-        }
+
         this.headers = Array.from(this.element.getElementsByTagName('th'));
         this.headers
             // Filter out columns without a data name property
@@ -53,6 +53,7 @@ export default class AuDatatableSortAttribute {
         if (typeof this.onSort !== 'function') {
             throw new Error('[au-table-sort:sort] No onSort() callback has been set');
         }
+
         const name = this.getName(event.target);
         if (this.request.sortBy === name) {
             switch (this.request.sortDirection) {
@@ -70,8 +71,9 @@ export default class AuDatatableSortAttribute {
             this.request.sortBy = name;
             this.request.sortDirection = 'asc';
         }
+
         this.setActive(event.target, this.request.sortDirection);
-        const response = await this.onSort(this.request) as IAuDatatableResponse;
+        const response = await this.onSort(this.request);
         this.request.data = response.data;
         this.request.totalRecords = response.totalRecords;
     }

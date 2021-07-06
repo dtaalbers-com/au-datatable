@@ -1,25 +1,24 @@
 import { bindable, bindingMode, customAttribute } from 'aurelia-framework';
-import IAuDatatableRequest from '../models/request';
-import IAuDatatableResponse from '../models/response';
+import { AuDatatableRequest } from '../models/request';
+import { AuDatatableResponse } from '../models/response';
 
 @customAttribute('au-datatable')
-export default class AuDatatableAttribute {
+export class AuDatatableAttribute {
 
     @bindable({
         changeHandler: 'init'
     })
-    private onInit: (request: IAuDatatableRequest) => IAuDatatableResponse;
+    public onInit: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
 
     @bindable({
         defaultBindingMode: bindingMode.twoWay,
         changeHandler: 'init'
     })
-    private request: IAuDatatableRequest;
+    public request: AuDatatableRequest;
 
-    public async refresh(request?: IAuDatatableRequest): Promise<void> {
-        if (request) {
-            this.request = request;
-        } else {
+    public async refresh(request?: AuDatatableRequest): Promise<void> {
+        if (request) this.request = request;
+        else {
             this.request.data = [];
             this.request.currentPage = 1;
             this.request.skip = 0;
@@ -33,12 +32,9 @@ export default class AuDatatableAttribute {
     }
 
     private async init(): Promise<void> {
-        if (!this.request || !this.onInit) {
-            return;
-        }
-        if (!this.request.pageSize) {
-            this.request.pageSize = 10;
-        }
+        if (!this.request || !this.onInit) return;
+        if (!this.request.pageSize) this.request.pageSize = 10;
+
         this.request.skip = 0;
         const response = await this.onInit(this.request);
         this.request.data = response.data;

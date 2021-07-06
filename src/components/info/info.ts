@@ -1,15 +1,15 @@
 import { bindable, BindingEngine, customElement, Disposable, inject } from 'aurelia-framework';
-import IAuDatatableRequest from '../../models/request';
+import { AuDatatableRequest } from '../../models/request';
 
 @customElement('au-datatable-info')
 @inject(BindingEngine)
-export default class AuDatatableInfoComponent {
+export class AuDatatableInfoComponent {
 
-    @bindable() private message: string;
-    @bindable() private labelFiltered: string;
-    @bindable() private request: IAuDatatableRequest;
+    @bindable() public message: string;
+    @bindable() public labelFiltered: string;
+    @bindable() public request: AuDatatableRequest;
 
-    private info: string;
+    public info: string;
     private startRecord: number;
     private endRecord: number;
     private currentPageCopy: any;
@@ -19,7 +19,7 @@ export default class AuDatatableInfoComponent {
         private bindingEngine: BindingEngine
     ) { }
 
-    private attached(): void {
+    public attached(): void {
         if (!this.message) {
             this.message = 'START_RECORD to END_RECORD of total TOTAL_RECORDS records';
         }
@@ -34,11 +34,11 @@ export default class AuDatatableInfoComponent {
             .subscribe(() => this.reset()));
     }
 
-    private detached(): void {
+    public detached(): void {
         this.subscriptions.forEach((x) => x.dispose());
     }
 
-    private updateRecordInfo(): void {
+    public updateRecordInfo(): void {
         if (!this.startRecord && !this.endRecord) {
             this.startRecord = (this.request.pageSize * this.request.currentPage) - (this.request.pageSize - 1);
             this.endRecord = this.request.pageSize;
