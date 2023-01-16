@@ -1,14 +1,14 @@
-import { bindable, bindingMode, customAttribute, inject } from 'aurelia-framework';
+import { bindable, BindingMode, customAttribute, inject } from 'aurelia';
 import { AuDatatableRequest } from '../models/request';
 import { AuDatatableResponse } from '../models/response';
 
 @customAttribute('au-datatable-sort')
 @inject(Element)
 export class AuDatatableSortAttribute {
-
     @bindable({
-        defaultBindingMode: bindingMode.twoWay,
-    }) public request: AuDatatableRequest;
+        mode: BindingMode.twoWay
+    })
+    public request: AuDatatableRequest;
 
     @bindable() public onSort: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
     @bindable() public activeColor: string = '#f44336';
@@ -22,13 +22,10 @@ export class AuDatatableSortAttribute {
         </span>
     `;
 
-    constructor(
-        private element: Element
-    ) { }
+    constructor(private element: Element) {}
 
     private attached(): void {
-        if (this.element.nodeName !== 'THEAD')
-            throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
+        if (this.element.nodeName !== 'THEAD') throw new Error('[au-table-sort:attached] au-table-sort needs to be bound to a THEAD node');
 
         this.headers = Array.from(this.element.getElementsByTagName('th'));
         this.headers
@@ -96,8 +93,7 @@ export class AuDatatableSortAttribute {
             if (sorts.length === 0) {
                 return;
             }
-            Array.from(sorts[0].getElementsByTagName('span'))
-                .forEach((span) => span.style.color = this.inactiveColor);
+            Array.from(sorts[0].getElementsByTagName('span')).forEach((span) => (span.style.color = this.inactiveColor));
         });
     }
 

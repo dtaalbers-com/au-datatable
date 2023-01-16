@@ -1,4 +1,4 @@
-import { bindable, bindingMode, containerless, customElement } from 'aurelia-framework';
+import { bindable, BindingMode, containerless, customElement } from 'aurelia';
 import { AuDatatableFilter } from '../../models/filter';
 import { AuDatatableRequest } from '../../models/request';
 import { AuDatatableResponse } from '../../models/response';
@@ -6,10 +6,10 @@ import { AuDatatableResponse } from '../../models/response';
 @containerless()
 @customElement('au-datatable-filter')
 export class AuDatatableFilterComponent {
-
     @bindable({
-        defaultBindingMode: bindingMode.twoWay,
-    }) public request: AuDatatableRequest;
+        mode: BindingMode.twoWay
+    })
+    public request: AuDatatableRequest;
 
     @bindable() public onFilter: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
     @bindable() public btnClasses: string;
@@ -28,7 +28,7 @@ export class AuDatatableFilterComponent {
         }
         this.getColumnsCount();
         document.getElementsByTagName('html')[0].addEventListener('click', (e) => this.hideFilterDropdowns(e));
-        this.request.filters.map((x) => this.filterValues[x.selectedColumn] = x.value);
+        this.request.filters.map((x) => (this.filterValues[x.selectedColumn] = x.value));
     }
 
     public detached(): void {
@@ -68,8 +68,7 @@ export class AuDatatableFilterComponent {
     }
 
     public isSelectedFilter(filter: AuDatatableFilter, column: number): boolean {
-        return this.request.filters
-            .some((x) => x.description === filter.description && x.selectedColumn === column);
+        return this.request.filters.some((x) => x.description === filter.description && x.selectedColumn === column);
     }
 
     public showFilters(event: any): void {
@@ -122,20 +121,20 @@ export class AuDatatableFilterComponent {
             return;
         }
         const ignoreElements = ['au-filter', 'au-filter-cell', 'au-filter-input', 'au-clear', 'au-clear-icon'];
-        if (Array.from(event.target.classList).some(x => ignoreElements.some(y => y === x))) {
+        if (Array.from(event.target.classList).some((x) => ignoreElements.some((y) => y === x))) {
             return;
         }
         if (!this.filterElements) {
             this.filterElements = this.auTableFilter.getElementsByClassName('au-filter-container');
         }
-        Array.from(this.filterElements).forEach((x) => x.style.display = 'none');
+        Array.from(this.filterElements).forEach((x) => (x.style.display = 'none'));
     }
 
     private showInputWarning(event: any): void {
         const parent = event.target.closest('td');
         const input = parent.getElementsByClassName('au-filter-input')[0];
         input.style.border = '1px red solid';
-        setTimeout(() => input.style.border = '1px #ddd solid', 500);
+        setTimeout(() => (input.style.border = '1px #ddd solid'), 500);
     }
 
     private setActiveLabelFilter(event: any): void {
@@ -144,15 +143,14 @@ export class AuDatatableFilterComponent {
 
     private removeFiltersForColumn(column: number): void {
         this.removeActiveLabelsForColumn(column);
-        this.request.filters = this.request.filters
-            .filter((x) => x.selectedColumn !== column);
+        this.request.filters = this.request.filters.filter((x) => x.selectedColumn !== column);
     }
 
     private removeActiveLabelsForColumn(column: number): void {
         const filters = this.auTableFilter.getElementsByClassName('au-filter');
         Array.from(filters).forEach((element: HTMLElement) => {
             if (element.getAttribute('data-column') === column.toString()) {
-                element.classList.remove('active')
+                element.classList.remove('active');
             }
         });
     }

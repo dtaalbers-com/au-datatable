@@ -1,10 +1,9 @@
-import { bindable, BindingEngine, customElement, Disposable, inject } from 'aurelia-framework';
+import { bindable, customElement, inject } from 'aurelia';
 import { AuDatatableRequest } from '../../models/request';
 
 @customElement('au-datatable-info')
 @inject(BindingEngine)
 export class AuDatatableInfoComponent {
-
     @bindable() public message: string;
     @bindable() public labelFiltered: string;
     @bindable() public request: AuDatatableRequest;
@@ -15,9 +14,7 @@ export class AuDatatableInfoComponent {
     private currentPageCopy: any;
     private subscriptions: Disposable[] = [];
 
-    constructor(
-        private bindingEngine: BindingEngine
-    ) { }
+    constructor(private bindingEngine: BindingEngine) {}
 
     public attached(): void {
         if (!this.message) {
@@ -26,12 +23,8 @@ export class AuDatatableInfoComponent {
         if (!this.labelFiltered) {
             this.labelFiltered = 'filtered';
         }
-        this.subscriptions.push(this.bindingEngine
-            .propertyObserver(this.request, 'data')
-            .subscribe(() => this.updateRecordInfo()));
-        this.subscriptions.push(this.bindingEngine
-            .propertyObserver(this.request, 'pageSize')
-            .subscribe(() => this.reset()));
+        this.subscriptions.push(this.bindingEngine.propertyObserver(this.request, 'data').subscribe(() => this.updateRecordInfo()));
+        this.subscriptions.push(this.bindingEngine.propertyObserver(this.request, 'pageSize').subscribe(() => this.reset()));
     }
 
     public detached(): void {
@@ -40,7 +33,7 @@ export class AuDatatableInfoComponent {
 
     public updateRecordInfo(): void {
         if (!this.startRecord && !this.endRecord) {
-            this.startRecord = (this.request.pageSize * this.request.currentPage) - (this.request.pageSize - 1);
+            this.startRecord = this.request.pageSize * this.request.currentPage - (this.request.pageSize - 1);
             this.endRecord = this.request.pageSize;
         } else {
             if (this.currentPageCopy + 1 === this.request.currentPage) {
@@ -56,27 +49,29 @@ export class AuDatatableInfoComponent {
     }
 
     private translateInfo(): void {
-        if (this.request.totalRecords === undefined
-            || this.request.pageSize === undefined
-            || this.startRecord === undefined
-            || this.endRecord === undefined) {
+        if (
+            this.request.totalRecords === undefined ||
+            this.request.pageSize === undefined ||
+            this.startRecord === undefined ||
+            this.endRecord === undefined
+        ) {
             return;
         }
         this.info = this.message
-            .replace('START_RECORD', this.request.data.length === 0
-                ? '0'
-                : this.startRecord.toString())
-            .replace('END_RECORD', this.request.data.length < this.request.pageSize
-                ? this.request.totalRecords.toString()
-                : (this.request.data.length * this.request.currentPage).toString())
+            .replace('START_RECORD', this.request.data.length === 0 ? '0' : this.startRecord.toString())
+            .replace(
+                'END_RECORD',
+                this.request.data.length < this.request.pageSize
+                    ? this.request.totalRecords.toString()
+                    : (this.request.data.length * this.request.currentPage).toString()
+            )
             .replace('TOTAL_RECORDS', this.request.totalRecords.toString());
     }
 
     private nextPage(): void {
         this.startRecord += this.request.pageSize;
-        this.endRecord = (this.endRecord + this.request.pageSize) > this.request.totalRecords
-            ? this.request.totalRecords
-            : this.endRecord + this.request.pageSize;
+        this.endRecord =
+            this.endRecord + this.request.pageSize > this.request.totalRecords ? this.request.totalRecords : this.endRecord + this.request.pageSize;
     }
 
     private previousPage(): void {
@@ -86,7 +81,7 @@ export class AuDatatableInfoComponent {
 
     private pageChanged(): void {
         const page = this.request.currentPage - 1;
-        this.startRecord = (page * this.request.pageSize) + 1;
+        this.startRecord = page * this.request.pageSize + 1;
         const next = (page + 1) * this.request.pageSize;
         this.endRecord = next > this.request.totalRecords ? this.request.totalRecords : next;
     }

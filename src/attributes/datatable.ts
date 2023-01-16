@@ -1,18 +1,17 @@
-import { bindable, bindingMode, customAttribute } from 'aurelia-framework';
+import { bindable, BindingMode, customAttribute } from 'aurelia';
 import { AuDatatableRequest } from '../models/request';
 import { AuDatatableResponse } from '../models/response';
 
 @customAttribute('au-datatable')
 export class AuDatatableAttribute {
-
     @bindable({
-        changeHandler: 'init'
+        callback: 'init'
     })
     public onInit: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
 
     @bindable({
-        defaultBindingMode: bindingMode.twoWay,
-        changeHandler: 'init'
+        mode: BindingMode.twoWay,
+        callback: 'init'
     })
     public request: AuDatatableRequest;
 

@@ -31,7 +31,6 @@ Thumbs.db
 node_modules
 
 # Compiled files
-/scripts
-/dev-app/environment.ts
 /dist
-/test/coverage-jest
+/.nyc_output
+/coverage

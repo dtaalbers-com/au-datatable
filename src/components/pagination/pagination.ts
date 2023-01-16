@@ -1,15 +1,15 @@
-import { bindable, BindingEngine, bindingMode, customElement, Disposable, inject } from 'aurelia-framework';
+import { bindable, BindingMode, customElement } from 'aurelia';
 import { AuDatatableRequest, IAuDatatableRequest } from '../../models/request';
 import { AuDatatableResponse } from '../../models/response';
 
 @customElement('au-datatable-pagination')
 @inject(BindingEngine)
 export class AuDatatablePaginationComponent {
-
     @bindable({
-        defaultBindingMode: bindingMode.twoWay,
-        changeHandler: 'dataChange'
-    }) public request: AuDatatableRequest;
+        mode: BindingMode.twoWay,
+        callback: 'dataChange'
+    })
+    public request: AuDatatableRequest;
 
     @bindable() public amountOfPages: number = 2;
     @bindable() public onNextPage: (request: IAuDatatableRequest) => Promise<AuDatatableResponse>;
@@ -23,19 +23,13 @@ export class AuDatatablePaginationComponent {
     private subscriptions: Disposable[] = [];
 
     constructor(
-        private bindingEngine: BindingEngine
-    ) { }
+        private bindingEngine: BindingEngine //
+    ) {}
 
     public attached(): void {
-        this.subscriptions.push(this.bindingEngine
-            .propertyObserver(this.request, 'currentPage')
-            .subscribe(() => this.dataChange()));
-        this.subscriptions.push(this.bindingEngine
-            .propertyObserver(this.request, 'totalRecords')
-            .subscribe(() => this.dataChange()));
-        this.subscriptions.push(this.bindingEngine
-            .propertyObserver(this.request, 'pageSize')
-            .subscribe(() => this.dataChange()));
+        this.subscriptions.push(this.bindingEngine.propertyObserver(this.request, 'currentPage').subscribe(() => this.dataChange()));
+        this.subscriptions.push(this.bindingEngine.propertyObserver(this.request, 'totalRecords').subscribe(() => this.dataChange()));
+        this.subscriptions.push(this.bindingEngine.propertyObserver(this.request, 'pageSize').subscribe(() => this.dataChange()));
     }
 
     public async nextPage(): Promise<void> {
@@ -90,12 +84,12 @@ export class AuDatatablePaginationComponent {
     }
 
     public calculatePreviousPageNumber(index: number): number {
-        const result = (this.request.currentPage + index) - this.amountOfPages;
+        const result = this.request.currentPage + index - this.amountOfPages;
         return result === 0 ? 1 : result;
     }
 
     public detached(): void {
-        this.subscriptions.forEach(x => x.dispose());
+        this.subscriptions.forEach((x) => x.dispose());
     }
 
     private dataChange(): void {
@@ -104,12 +98,13 @@ export class AuDatatablePaginationComponent {
         }
         this.refreshing = true;
         this.totalPages = Math.ceil(parseInt(this.request.totalRecords.toString(), 10) / this.request.pageSize);
-        this.previousPages = this.request.currentPage - this.amountOfPages <= 0
-            ? this.request.currentPage - 1
-            : this.amountOfPages;
-        this.followingPages = this.request.currentPage + this.amountOfPages > this.totalPages
-            ? this.request.currentPage === this.totalPages ? 0 : this.totalPages - this.request.currentPage
-            : this.amountOfPages;
+        this.previousPages = this.request.currentPage - this.amountOfPages <= 0 ? this.request.currentPage - 1 : this.amountOfPages;
+        this.followingPages =
+            this.request.currentPage + this.amountOfPages > this.totalPages
+                ? this.request.currentPage === this.totalPages
+                    ? 0
+                    : this.totalPages - this.request.currentPage
+                : this.amountOfPages;
         this.refreshing = false;
     }
 }

@@ -1,10 +1,9 @@
-import { bindable, customElement } from 'aurelia-framework';
+import { bindable, customElement } from 'aurelia';
 import { AuDatatableRequest } from '../../models/request';
 import { AuDatatableResponse } from '../../models/response';
 
 @customElement('au-datatable-pagesize')
 export class AuDatatablePagesizeComponent {
-
     @bindable() public pageSizes: number[];
     @bindable() public classes: string;
     @bindable() public onPageSizeChange: (request: AuDatatableRequest) => Promise<AuDatatableResponse>;
@@ -23,7 +22,7 @@ export class AuDatatablePagesizeComponent {
 
     public setSelected = (option: number): boolean => {
         return option === this.request.pageSize;
-    }
+    };
 
     public async pageSizeChange(): Promise<void> {
         if (typeof this.onPageSizeChange !== 'function') {

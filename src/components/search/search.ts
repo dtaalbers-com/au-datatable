@@ -1,13 +1,11 @@
-import { bindable, bindingMode, customElement } from 'aurelia-framework';
+import { bindable, BindingMode, customElement } from 'aurelia';
 import { AuDatatableRequest } from '../../models/request';
 import { AuDatatableResponse } from '../../models/response';
 
 @customElement('au-datatable-search')
 export class AuDatatableSearchComponent {
-
-    @bindable({
-        defaultBindingMode: bindingMode.twoWay,
-    }) public request: AuDatatableRequest;
+    @bindable({ mode: BindingMode.twoWay })
+    public request: AuDatatableRequest;
 
     @bindable() public placeholder: string;
     @bindable() public inputClass: string;
