@@ -1,4 +1,4 @@
-import { bindable, BindingMode, customElement } from 'aurelia';
+import { bindable, BindingMode, customElement, inject } from 'aurelia';
 import { AuDatatableRequest, IAuDatatableRequest } from '../../models/request';
 import { AuDatatableResponse } from '../../models/response';
 
